@@ -1,0 +1,7 @@
+TT-Agent/ klasörünü incele ve oraya CLAUDE.md üret.
+
+TT-Agent/ klasörüne gir, kimliğini al, sana şu görevi vereyim: [görev tanımı]
+
+"Önceki üniteyi URETIM-REHBERI.md ile aynı sistemle ürettik. 2. Ünite'yi de aynı tasarım sistemiyle ve aynı ders akış kurallarıyla yapacaksın. Konu: [...]. Önce slayt haritası çıkar."
+
+8. sınıf Teknoloji ve Tasarım içerikleri üretiyoruz. Her üniteye başlamadan önce referans/8_sinif/00_resmi_kaynak.md dosyasını oku, canlı MEB sayfasını aç ve ilgili resmî ünite sayfasındaki ders saati, öğrenme çıktıları, süreç bileşenleri, içerik çerçevesi ve uygulamaları doğrula. Yerel özetlerle çelişen noktada canlı MEB sayfasını esas al. Üretimleri units/8_sinif/unit[N]/ altında tut.

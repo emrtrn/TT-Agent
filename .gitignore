@@ -1,0 +1,23 @@
+# Yerel agent ayarlari ve makineye ozgu dosyalar
+.claude/settings.local.json
+
+# Python gecici dosyalari
+__pycache__/
+*.py[cod]
+
+# Sanal ortamlar ve yerel ortam degiskenleri
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Isletim sistemi ve editor artıkları
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
+
+# Gecici/ofis kilit dosyalari
+~$*
+
