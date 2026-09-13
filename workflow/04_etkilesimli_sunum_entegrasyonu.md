@@ -6,10 +6,10 @@ Bu belge, sunum içeriğinin `Öğren → Pekiştir → Uygula → Materyaller` 
 
 Sunum iki aşamada hazırlanır:
 
-1. **Sunum taslağı:** Canlı MEB doğrulaması, öğretmen hazırlığı ve ders planından hemen sonra başlatılır. Slayt sırası, öğretmen yönergeleri, ölçme anları ve ihtiyaç duyulan kaynak türleri belirlenir.
-2. **Entegrasyonlu nihai sürüm:** Ön değerlendirme, kısa videolar, Pekiştir etkinlikleri, Uygula deneyimleri ve öğretmen materyalleri üretildikçe kesin kaynak kimlikleri eklenir. Bağlantı ve sunuma dönüş davranışları doğrulanmadan sunum tamamlanmış sayılmaz.
+1. **Sunum omurgası:** Canlı MEB doğrulaması, öğretmen hazırlığı ve ders planından hemen sonra hazırlanır. Ders/slayt sırası, öğretmen yönergeleri, ölçme anları ve ihtiyaç duyulan kaynak türleri belirlenir. Bu aşama, üretilecek dokümanları yönlendiren planlama kaydıdır; tam slayt metni veya HTML değildir.
+2. **Entegrasyonlu nihai sürüm:** Ön değerlendirme, çalışma kâğıtları, kavram kartları, kısa videolar, Pekiştir etkinlikleri, Uygula deneyimleri, değerlendirme araçları ve öğretmen materyalleri tamamlandıktan sonra kesin kaynak kimlikleri eklenir. Ardından tam sunum Markdown'ı ve HTML üretilir. Bağlantı ve sunuma dönüş davranışları doğrulanmadan sunum tamamlanmış sayılmaz.
 
-Sunum taslağı için bütün materyallerin bitmesi beklenmez. Buna karşılık yalnızca slayt metninin yazılmış olması da sunumun tamamlandığı anlamına gelmez.
+Omurga için bütün materyallerin bitmesi beklenmez. Buna karşılık, kaynakları belirlenmeden hazırlanmış slayt metni veya HTML sunum nihai çıktı sayılmaz.
 
 ## Öğrenme aşamalarının sunumdaki karşılığı
 
@@ -55,16 +55,17 @@ Kaynak kimliği henüz oluşturulmadıysa hayalî kimlik yazılmaz; `TASLAK — 
 
 1. Canlı MEB program ve ilgili ünite sayfasını doğrula.
 2. Öğretmen hazırlığı ile ayrıntılı ders planını hazırla.
-3. Üniteye özel sunum entegrasyon haritasının ilk sürümünü oluştur.
-4. Sunum Markdown taslağını yaz.
-5. Ön değerlendirme, kavram kartları, kısa videolar, Pekiştir/Uygula içerikleri ve materyalleri üret.
-6. Entegrasyon haritasına kesin kaynak kimliklerini işle.
-7. Sunum Markdown’ını nihai hâle getir ve etkileşimli HTML sunumu üret.
+3. Üniteye özel sunum omurgasını ve entegrasyon haritasının ilk sürümünü oluştur; yalnızca kaynak türlerini ve kullanım anlarını kaydet.
+4. Ön değerlendirme, çalışma kâğıtları, kavram kartları, kısa videolar, Pekiştir/Uygula içerikleri, değerlendirme araçları ve öğretmen materyallerini üret.
+5. Her kaynak için gerçek katalog kimliğini, açılma biçimini ve dönüş davranışını entegrasyon haritasına işle.
+6. Sunum Markdown'ını; gerçek materyal adları, nihai slayt metni ve konuşmacı notlarıyla hazırla.
+7. Etkileşimli HTML sunumu üret.
 8. Kaynak kataloğu, açılış, kapanış, sunuma dönüş ve akıllı tahta davranışlarını doğrula.
 
 ## Tamamlanma ölçütleri
 
 - [ ] Her slayt bir ders saati ve öğrenme çıktısıyla ilişkilendirildi.
+- [ ] Tüm bağlı dokümanlar ve etkinlikler üretilmeden tam sunum Markdown'ı veya HTML başlatılmadı.
 - [ ] Öğrenme aşaması gerektiren slaytlarda açıkça belirtildi.
 - [ ] Gerekli basılı/indirilebilir materyaller kullanım anlarına bağlandı.
 - [ ] Sunum içi kaynak kimlikleri katalogdaki gerçek kayıtlarla eşleşiyor.
@@ -73,4 +74,3 @@ Kaynak kimliği henüz oluşturulmadıysa hayalî kimlik yazılmaz; `TASLAK — 
 - [ ] Slayt değişiminde açık içerik menüsü kapanıyor.
 - [ ] Masaüstü, mobil ve akıllı tahta için gerekli kontroller ayrı raporlandı.
 - [ ] Otomatik doğrulama ile kullanıcı görsel kabulü ayrı kaydedildi.
-

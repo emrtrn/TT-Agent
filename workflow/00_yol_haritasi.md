@@ -2,7 +2,7 @@
 
 > Bir ünitenin tüm materyallerini üretirken **bu sıralamayı takip et**. Her adımın çıktısı bir sonraki adımın referansıdır.
 
-> **Etkileşimli sunum kuralı:** Sunum taslağı ders planından hemen sonra başlatılır; bağlı kaynaklar üretildikçe geliştirilir ve entegrasyon testlerinden sonra nihai kabul edilir. Ayrıntılar: `workflow/04_etkilesimli_sunum_entegrasyonu.md`.
+> **Etkileşimli sunum kuralı:** Ders planından sonra yalnızca sunum omurgası ve kaynak ihtiyacı haritası hazırlanır. Tüm bağlı dokümanlar/etkinlikler ile gerçek katalog kimlikleri tamamlanmadan tam slayt metni ve HTML sunumu üretilmez. Ayrıntılar: `workflow/04_etkilesimli_sunum_entegrasyonu.md`.
 
 ---
 
@@ -75,11 +75,12 @@ Kullanıcıya markdown'ı sun, "Ders planı uygun mu?" diye sor. Onay alınca Ad
 - `Unite[N]_Sunum_Icerigi.md`
 - `Unite[N]_Sunum_Entegrasyon_Haritasi.md`
 
-### 3a. Sunum Entegrasyon Haritası ve İlk Sunum Taslağı
+### 3a. Sunum Entegrasyon Haritası ve Omurga
 1. `workflow/04_etkilesimli_sunum_entegrasyonu.md` kurallarını uygula
 2. Ders planındaki her ölçme, video, Pekiştir, Uygula ve Materyal geçişini entegrasyon haritasına yaz
-3. `sablonlar/04_sunum_icerigi.md` ile ilk sunum taslağını hazırla
+3. Her ders için slayt başlığı, öğrenme aşaması, öğretmen eylemi ve **gereken kaynak türünü** içeren kısa omurgayı hazırla
 4. Henüz üretilmemiş kaynaklar için hayalî kimlik verme; `TASLAK` kullan
+5. Bu aşamada tam slayt metni, speaker note, bağlantı veya HTML üretme; bunlar tüm kaynaklar tamamlandıktan sonra yapılır
 
 ### 3b. Kavram Kartları ve Bağlı Kaynaklar
 1. `sablonlar/03_kavram_kartlari.md` şablonunu izle
@@ -90,7 +91,9 @@ Kullanıcıya markdown'ı sun, "Ders planı uygun mu?" diye sor. Onay alınca Ad
 4. **6 farklı sınıf etkinliği** ekle (eşleştirme, kart oyunu, vb.)
 
 ### 3c. Sunumun Entegrasyonlu Nihai Sürümü
-1. Sunum taslağını ve entegrasyon haritasını birlikte güncelle
+> Bu alt adım, Adım 4–7'deki tüm öğrenci/öğretmen materyalleri, Pekiştir/Uygula etkinlikleri ve değerlendirme araçları tamamlandıktan sonra yürütülür.
+
+1. Sunum omurgasını ve entegrasyon haritasını, gerçek materyal adları ve katalog kimlikleriyle birlikte güncelle
 2. **Ders saati başına 8-10 slayt**, toplam ~30-40 slayt
 3. Her slayt için:
    - Başlık
@@ -101,7 +104,7 @@ Kullanıcıya markdown'ı sun, "Ders planı uygun mu?" diye sor. Onay alınca Ad
    - Gerekli materyal ve gerçek kaynak kimliği
    - Açılma biçimi ve sunuma dönüş davranışı
 4. Bölüm geçişleri için "ara slayt" ekle
-5. Etkileşimli HTML sunumu ve portal kaynak kataloğuyla eşleşmeyi doğrula
+5. Etkileşimli HTML sunumu, portal kaynak kataloğu ve kaynak dönüşleriyle eşleşmeyi doğrula
 
 ### Önemli
 Sunum içeriği **PDF'e çevrilmez**. Markdown, etkileşimli HTML sunumun içerik ve entegrasyon kaynağıdır. Kaynak bağlantıları ve `Sunuma dön` akışı doğrulanmadan sunum tamamlanmış sayılmaz.
@@ -110,17 +113,18 @@ Sunum içeriği **PDF'e çevrilmez**. Markdown, etkileşimli HTML sunumun içeri
 
 ## 📋 ADIM 4 — Öğrenci Çalışma Kâğıtları
 
-**Çıktı:** `Unite[N]_Calisma_Kagitlari.md`
+**Çıktılar:** `Unite[N]_Bireysel_Calisma_Kagitlari.md` ve `Unite[N]_Grup_Calisma_Kagitlari.md`; üniteye özgü araçlar gerektiğinde ayrı Markdown dosyaları
 
 ### Yapılacaklar
 1. `sablonlar/05_calisma_kagitlari.md` şablonunu izle
-2. Her ders saatinin etkinliği için ayrı çalışma kâğıdı:
+2. Bireysel ve grup kullanımına yönelik çalışma kâğıtlarını ayrı Markdown dosyalarında üret. Her ders saatinin etkinliği için ayrı dağıtılabilir çalışma kâğıdı hazırla:
    - Adı-Soyadı / Sınıf / No / Tarih alanları üstte
    - Yönerge kutusu (açık turuncu arka plan)
    - Süre bilgisi belirtilmiş
    - Ana içerik (tablo, soru, çizim alanı, vb.)
    - Yansıtma bölümü (öz değerlendirme)
    - Kontrol listesi (öğrencinin işini kontrol etmesi için)
+3. 5N1K kavram tablosu, kavram kartı seti, araştırma formu gibi özgün bir araç farklı kullanım zamanı veya dağıtım biçimi gerektiriyorsa çalışma kâğıdı paketi içinde gizleme; ayrı adlandırılmış Markdown belgesi olarak planla.
 
 ### Özel Çalışma Kâğıtları İçin Notlar
 - **Zihin haritası kâğıdı:** ASCII sanat YAPMA → PDF üretiminde özel `MindMapCanvas` kullanılacak

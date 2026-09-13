@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>İnovasyon Atölyesi — 8. Sınıf Teknoloji ve Tasarım</title>
+  <style>
+    :root{
+      --bg:#f7f4ef; --surface:#ffffff; --surface-2:#fcfaf7; --text:#1f2933; --muted:#667085;
+      --accent:#e86f2a; --accent-dark:#c95116; --accent-soft:#fff0e7; --border:#e7e0d8;
+      --success:#1f7a55; --success-soft:#eaf7f1; --warning:#98600a; --warning-soft:#fff6df;
+      --danger:#a83b32; --danger-soft:#fff0ee; --shadow:0 14px 34px rgba(67,45,25,.08);
+      --radius:20px; --radius-sm:14px; --tap:48px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.55}
+    button,input,textarea,select{font:inherit}
+    button{cursor:pointer}
+    a{color:var(--accent-dark)}
+    .app{min-height:100vh}
+    .topbar{position:sticky;top:0;z-index:30;background:rgba(247,244,239,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+    .topbar-inner{max-width:1200px;margin:auto;padding:16px 24px;display:flex;gap:16px;align-items:center;justify-content:space-between}
+    .brand{display:flex;gap:12px;align-items:center;min-width:0}
+    .brandmark{width:44px;height:44px;border-radius:14px;background:var(--accent);color:white;display:grid;place-items:center;font-weight:800;font-size:22px;box-shadow:0 8px 18px rgba(232,111,42,.25)}
+    .brand h1{font-size:18px;line-height:1.2;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:13px}
+    .utility{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+    .btn{min-height:var(--tap);border-radius:14px;border:1px solid var(--border);background:white;color:var(--text);padding:0 16px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.18s ease}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(67,45,25,.08)}.btn:focus-visible{outline:3px solid rgba(232,111,42,.28);outline-offset:2px}
+    .btn.primary{background:var(--accent);border-color:var(--accent);color:white}.btn.primary:hover{background:var(--accent-dark)}
+    .btn.ghost{background:transparent}.btn.danger{color:var(--danger)}.btn.small{min-height:40px;padding:0 12px;font-size:14px;border-radius:12px}
+    .container{max-width:1200px;margin:auto;padding:26px 24px 120px}
+    .hero{display:grid;grid-template-columns:1.4fr .8fr;gap:18px;margin-bottom:22px}
+    .hero-card,.status-card,.panel,.summary-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .hero-card{padding:28px}.hero-eyebrow{color:var(--accent-dark);font-weight:800;font-size:13px;letter-spacing:.04em;text-transform:uppercase}.hero h2{font-size:36px;line-height:1.12;margin:8px 0 12px}.hero p{margin:0;color:var(--muted);font-size:17px;max-width:760px}
+    .status-card{padding:20px;display:flex;flex-direction:column;justify-content:space-between}.status-title{font-weight:800}.save-row{display:flex;gap:10px;align-items:flex-start;margin-top:14px}.save-row input{margin-top:5px;width:18px;height:18px;accent-color:var(--accent)}.fine{color:var(--muted);font-size:13px;margin:6px 0 0}
+    .stepper-wrap{overflow:auto;padding-bottom:4px;margin-bottom:22px}.stepper{display:grid;grid-template-columns:repeat(6,minmax(145px,1fr));gap:10px;min-width:940px}
+    .step{border:1px solid var(--border);background:var(--surface);border-radius:16px;padding:12px 14px;display:flex;gap:10px;align-items:center;text-align:left;min-height:68px}.step[aria-current="step"]{border-color:var(--accent);background:var(--accent-soft)}.step.complete{border-color:#cde7da;background:var(--success-soft)}
+    .step-num{width:34px;height:34px;flex:0 0 34px;border-radius:50%;display:grid;place-items:center;background:#f1ede8;font-weight:800}.step[aria-current="step"] .step-num{background:var(--accent);color:white}.step.complete .step-num{background:var(--success);color:white}.step-label{font-weight:800;font-size:14px;line-height:1.25}.step small{display:block;color:var(--muted);font-weight:500;margin-top:3px}
+    .panel{padding:28px}.stage-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:24px}.stage-kicker{font-size:13px;font-weight:800;color:var(--accent-dark);text-transform:uppercase;letter-spacing:.04em}.stage-head h3{font-size:30px;line-height:1.15;margin:6px 0 8px}.stage-head p{margin:0;color:var(--muted);font-size:17px;max-width:760px}
+    .section{padding:22px 0;border-top:1px solid var(--border)}.section:first-of-type{border-top:0;padding-top:0}.section h4{font-size:21px;margin:0 0 8px}.section-intro{color:var(--muted);margin:0 0 18px}
+    .field{display:grid;gap:8px;margin-bottom:16px}.field label,.label{font-weight:800}.hint{color:var(--muted);font-size:14px}.counter{color:var(--muted);font-size:12px;text-align:right;margin-top:-4px}
+    input[type="text"],textarea,select{width:100%;border:1px solid #d7d0c7;background:white;border-radius:14px;padding:13px 14px;color:var(--text);min-height:48px;outline:none}textarea{min-height:104px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(232,111,42,.14)}
+    .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.cards{display:grid;gap:14px}
+    .card{border:1px solid var(--border);background:var(--surface-2);border-radius:18px;padding:18px}.card h5{margin:0 0 12px;font-size:17px}.card-head{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .chips{display:flex;flex-wrap:wrap;gap:9px}.chip{position:relative}.chip input{position:absolute;opacity:0;pointer-events:none}.chip span{min-height:44px;border:1px solid var(--border);border-radius:999px;background:white;padding:9px 13px;display:inline-flex;align-items:center;font-weight:700}.chip input:checked+span{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-dark);box-shadow:0 0 0 2px rgba(232,111,42,.08)}.chip input:focus-visible+span{outline:3px solid rgba(232,111,42,.25)}
+    .notice{border-radius:14px;padding:13px 15px;margin:12px 0;font-size:14px;display:flex;gap:10px;align-items:flex-start}.notice.info{background:#eef5ff;color:#294d72}.notice.warn{background:var(--warning-soft);color:#734707}.notice.error{background:var(--danger-soft);color:#7c2d27}.notice.success{background:var(--success-soft);color:#155b3f}.notice[hidden]{display:none}
+    .examples{display:grid;gap:8px;margin-top:12px}.example{border-left:3px solid #f0b58f;background:#fff8f4;padding:10px 12px;border-radius:0 10px 10px 0;color:#5c4a3e;font-size:14px}
+    .idea-card.selected{border-color:var(--accent);background:var(--accent-soft)}
+    .score-grid{display:grid;grid-template-columns:1.4fr repeat(4,.72fr) .65fr;gap:8px;align-items:center}.score-head{font-size:12px;color:var(--muted);font-weight:800;text-align:center}.score-row{display:contents}.score-name{font-weight:800}.score-select{padding:8px;min-height:42px}.score-total{text-align:center;font-weight:900;color:var(--accent-dark)}
+    details.help{border:1px solid var(--border);border-radius:14px;background:#fff;padding:0 14px;margin:14px 0}details.help summary{cursor:pointer;min-height:48px;display:flex;align-items:center;font-weight:800;color:var(--accent-dark)}details.help ul{margin-top:0}
+    .canvas-wrap{border:1px solid var(--border);border-radius:18px;background:white;overflow:hidden}.toolbar{display:flex;gap:8px;flex-wrap:wrap;padding:10px;border-bottom:1px solid var(--border);background:#fbf8f4}.tool-btn{min-height:42px;border:1px solid var(--border);background:white;border-radius:11px;padding:0 12px;font-weight:700}.tool-btn.active{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-dark)}
+    .canvas-stage{position:relative;background:white}.canvas-stage canvas{display:block;width:100%;height:480px;touch-action:none;background:linear-gradient(#fff,#fff) padding-box}.canvas-overlay{position:absolute;inset:12px auto auto 12px;background:rgba(255,255,255,.9);border:1px solid var(--border);border-radius:10px;padding:7px 9px;font-size:12px;color:var(--muted);pointer-events:none}
+    .upload-preview{max-width:100%;max-height:360px;border-radius:14px;border:1px solid var(--border);display:none;margin-top:12px}
+    .work-step{display:grid;grid-template-columns:42px 1fr auto;gap:10px;align-items:start;margin-bottom:10px}.work-step .num{width:42px;height:48px;border-radius:12px;background:#f4efe9;display:grid;place-items:center;font-weight:900}.move{display:flex;gap:5px}.move button{width:42px;height:42px;border:1px solid var(--border);background:white;border-radius:10px;font-weight:900}
+    .protection-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.radio-card{position:relative}.radio-card input{position:absolute;opacity:0}.radio-card span{display:block;border:1px solid var(--border);border-radius:15px;padding:15px;background:white;min-height:80px}.radio-card input:checked+span{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px rgba(232,111,42,.08)}.radio-card input:focus-visible+span{outline:3px solid rgba(232,111,42,.25)}.radio-card strong{display:block;margin-bottom:4px}
+    .research-card{border:1px solid #ead4c4;background:#fff7f2;border-radius:18px;padding:18px;margin-top:14px}.research-card h5{margin:0 0 8px;font-size:18px}.source-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}.source{display:block;border:1px solid var(--border);border-radius:13px;padding:12px;text-decoration:none;background:white;color:var(--text);font-weight:800}.source small{display:block;color:var(--muted);font-weight:500;margin-top:4px}
+    .assessment-row{display:grid;grid-template-columns:1.6fr repeat(3,.48fr);gap:8px;align-items:center;border-bottom:1px solid var(--border);padding:12px 0}.assessment-row:last-child{border-bottom:0}.assessment-row .statement{font-weight:700}.assessment-choice label{display:flex;gap:6px;align-items:center;justify-content:center;font-size:13px}.assessment-choice input{accent-color:var(--accent)}
+    .nav{position:fixed;bottom:0;left:0;right:0;z-index:35;background:rgba(255,255,255,.96);border-top:1px solid var(--border);backdrop-filter:blur(12px)}.nav-inner{max-width:1200px;margin:auto;padding:13px 24px;display:flex;gap:12px;align-items:center;justify-content:space-between}.nav-meta{font-size:13px;color:var(--muted)}.nav-actions{display:flex;gap:10px}
+    .summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.summary-card{padding:18px;box-shadow:none}.summary-card.wide{grid-column:1/-1}.summary-card h5{margin:0 0 8px;color:var(--accent-dark);font-size:14px;text-transform:uppercase;letter-spacing:.03em}.summary-card p{margin:0;white-space:pre-wrap}.summary-list{margin:0;padding-left:20px}.summary-canvas{width:100%;max-height:440px;object-fit:contain;border:1px solid var(--border);border-radius:14px;background:white}.empty{color:var(--muted);font-style:italic}
+    .footer-note{color:var(--muted);font-size:13px;margin-top:18px}
+    .fullscreen-sketch{position:fixed!important;z-index:100!important;inset:0!important;background:white!important;border-radius:0!important}.fullscreen-sketch .canvas-stage canvas{height:calc(100vh - 70px)}
+    @media (max-width:900px){.hero{grid-template-columns:1fr}.grid-3,.source-grid{grid-template-columns:repeat(2,1fr)}.score-grid{grid-template-columns:1fr 1fr}.score-head{display:none}.score-row{display:grid;grid-template-columns:1fr 1fr;grid-column:1/-1;border-top:1px solid var(--border);padding-top:10px}.score-row>*::before{display:block;color:var(--muted);font-size:11px;font-weight:800}.score-name{grid-column:1/-1}.protection-options{grid-template-columns:1fr}.summary{grid-template-columns:1fr}.summary-card.wide{grid-column:auto}}
+    @media (max-width:680px){.topbar-inner{padding:12px 14px}.brand p{display:none}.utility .btn .desktop-only{display:none}.container{padding:18px 14px 120px}.panel,.hero-card{padding:20px}.hero h2{font-size:29px}.stage-head h3{font-size:26px}.grid-2,.grid-3,.source-grid{grid-template-columns:1fr}.canvas-stage canvas{height:380px}.assessment-row{grid-template-columns:1fr;gap:8px}.assessment-choice label{justify-content:flex-start}.nav-inner{padding:10px 14px}.nav-meta{display:none}.nav-actions{width:100%}.nav-actions .btn{flex:1}.work-step{grid-template-columns:36px 1fr}.move{grid-column:2}.topbar .utility .btn.small:not(.keep-mobile){display:none}}
+    @media print{
+      body{background:white}.topbar,.stepper-wrap,.hero,.nav,.no-print,.toolbar,.footer-note{display:none!important}.container{max-width:none;padding:0}.panel{border:0;box-shadow:none;padding:0}.stage-head{display:none}.summary{display:block}.summary-card{break-inside:avoid;border:0;border-bottom:1px solid #ddd;border-radius:0;padding:14px 0}.summary-card.wide{break-before:auto}.summary-card h5{color:#333}.print-title{display:block!important;margin-bottom:18px}.summary-canvas{max-height:360px}.section{border:0;padding:0}.page-break{break-before:page}
+    }
+    .print-title{display:none}
+    @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brandmark" aria-hidden="true">İ</div>
+        <div><h1>İnovasyon Atölyesi</h1><p>8. Sınıf · İnovatif Düşüncenin Geliştirilmesi</p></div>
+      </div>
+      <div class="utility">
+        <button class="btn small keep-mobile" id="printBtn" type="button">⎙ <span class="desktop-only">Yazdır / PDF</span></button>
+        <button class="btn small danger" id="resetBtn" type="button">↺ <span class="desktop-only">Yeni çalışma</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" aria-label="Araç tanıtımı">
+      <div class="hero-card">
+        <div class="hero-eyebrow">Uygula · TT.8.1.2</div>
+        <h2>Bir sorundan inovatif ürün taslağına ilerle.</h2>
+        <p>Kendi günlük yaşam problemini tanımla, mevcut çözümleri incele, alternatif fikirler üret, yenilikçi özelliğini eskizle ve fikrini korumak için hangi resmî kaynakları araştıracağını planla.</p>
+      </div>
+      <div class="status-card">
+        <div>
+          <div class="status-title">Çalışman bu tarayıcıda kalır</div>
+          <p class="fine">Hesap veya öğrenci adı gerekmez. Varsayılan olarak yalnızca bu oturumda saklanır.</p>
+        </div>
+        <label class="save-row"><input id="persistToggle" type="checkbox"><span><strong>Bu cihazda taslağı koru</strong><span class="fine" style="display:block">Seçersen localStorage kullanılır.</span></span></label>
+      </div>
+    </section>
+
+    <div class="stepper-wrap" aria-label="Aşamalar">
+      <div class="stepper" id="stepper"></div>
+    </div>
+
+    <section class="panel" id="stagePanel" aria-live="polite"></section>
+  </main>
+
+  <nav class="nav" aria-label="Atölye gezinme">
+    <div class="nav-inner">
+      <div class="nav-meta" id="navMeta">Aşama 1 / 6</div>
+      <div class="nav-actions">
+        <button class="btn" id="prevBtn" type="button">← Geri</button>
+        <button class="btn primary" id="nextBtn" type="button">Devam →</button>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const SESSION_KEY = 'maarif_innovation_workshop_v1';
+  const LOCAL_KEY = 'maarif_innovation_workshop_v1_persist';
+  const stages = [
+    ['Problem','Problemi Anla'],['İncele','Mevcut Çözümler'],['Fikir','Fikir Üret ve Seç'],
+    ['Taslak','Taslağını Oluştur'],['Koru','Koruma Araştırması'],['Değerlendir','Değerlendir ve Çıktını Al']
+  ];
+  const defaults = () => ({
+    currentStage:0, persist:false,
+    problem:'', user:'', need:'',
+    existingSolutions:[{name:'',strength:'',limitation:''}],
+    improvementFocus:[], improvementNote:'',
+    ideas:[
+      {id:'i1',name:'',description:'',scores:{fit:1,feasible:1,original:1,sustainable:1}},
+      {id:'i2',name:'',description:'',scores:{fit:1,feasible:1,original:1,sustainable:1}},
+      {id:'i3',name:'',description:'',scores:{fit:1,feasible:1,original:1,sustainable:1}}
+    ],
+    selectedIdeaId:'', selectionReason:'', innovationFeature:'', expectedBenefit:[], sustainabilityNote:'',
+    workSteps:['','',''], protectionFocus:'', protectionNote:'',
+    selfAssessment:{problem:'',ideas:'',sketch:'',protection:''}, strongest:'', nextChange:'',
+    sketchDataUrl:'', sketchLabelAdded:false, sketchTextAlternative:'', photoDataUrl:'',
+    sketchActions:[]
+  });
+
+  let state = loadState();
+  const panel = document.getElementById('stagePanel');
+  const stepper = document.getElementById('stepper');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const navMeta = document.getElementById('navMeta');
+  const persistToggle = document.getElementById('persistToggle');
+  persistToggle.checked = !!state.persist;
+
+  function loadState(){
+    try{
+      const local = localStorage.getItem(LOCAL_KEY);
+      const raw = local || sessionStorage.getItem(SESSION_KEY);
+      if(!raw) return defaults();
+      return Object.assign(defaults(), JSON.parse(raw));
+    }catch(e){ return defaults(); }
+  }
+  function saveState(){
+    try{
+      state.persist ? localStorage.setItem(LOCAL_KEY, JSON.stringify(state)) : localStorage.removeItem(LOCAL_KEY);
+      sessionStorage.setItem(SESSION_KEY, JSON.stringify(state));
+    }catch(e){ console.warn('Yerel kayıt yapılamadı', e); }
+  }
+  function esc(v=''){return String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+  function val(id){const el=document.getElementById(id);return el?el.value:''}
+  function setNotice(message,type='warn'){const n=document.getElementById('stageNotice');if(!n)return;n.className='notice '+type;n.textContent=message;n.hidden=!message;if(message)n.scrollIntoView({behavior:'smooth',block:'nearest'})}
+  function selectedIdea(){return state.ideas.find(i=>i.id===state.selectedIdeaId)}
+  function totalScore(idea){return Object.values(idea.scores).reduce((a,b)=>a+Number(b||0),0)}
+
+  function isStageComplete(i){
+    if(i===0) return state.problem.trim().length>=20 && !!state.user.trim() && !!state.need.trim();
+    if(i===1) return state.existingSolutions.some(s=>s.name.trim()&&s.limitation.trim()) && state.improvementFocus.length>0;
+    if(i===2) return state.ideas.filter(x=>x.name.trim()&&x.description.trim()).length>=3 && !!state.selectedIdeaId && state.selectionReason.trim().length>=10;
+    if(i===3) return state.innovationFeature.trim().length>=12 && state.expectedBenefit.length>0 && state.workSteps.filter(x=>x.trim()).length>=3 && (!!state.sketchDataUrl || !!state.photoDataUrl || !!state.sketchTextAlternative.trim());
+    if(i===4) return !!state.protectionFocus && state.protectionNote.trim().length>=8;
+    if(i===5) return Object.values(state.selfAssessment).every(Boolean);
+    return false;
+  }
+
+  function renderStepper(){
+    stepper.innerHTML = stages.map((s,i)=>{
+      const complete = isStageComplete(i);
+      return `<button class="step ${complete?'complete':''}" data-stage="${i}" ${i===state.currentStage?'aria-current="step"':''} type="button">
+        <span class="step-num">${complete?'✓':i+1}</span><span class="step-label">${esc(s[0])}<small>${esc(s[1])}</small></span></button>`;
+    }).join('');
+    stepper.querySelectorAll('.step').forEach(b=>b.addEventListener('click',()=>goTo(Number(b.dataset.stage), true)));
+  }
+
+  function header(kicker,title,body){return `<div class="stage-head"><div><div class="stage-kicker">${esc(kicker)}</div><h3>${esc(title)}</h3><p>${esc(body)}</p></div></div><div class="notice warn" id="stageNotice" hidden></div>`}
+
+  function render(){
+    renderStepper();
+    navMeta.textContent = `Aşama ${state.currentStage+1} / 6 · ${stages[state.currentStage][1]}`;
+    prevBtn.disabled = state.currentStage===0;
+    nextBtn.textContent = state.currentStage===5 ? 'Çıktıyı Gör →' : 'Devam →';
+    if(state.currentStage===0) renderProblem();
+    if(state.currentStage===1) renderSolutions();
+    if(state.currentStage===2) renderIdeas();
+    if(state.currentStage===3) renderDraft();
+    if(state.currentStage===4) renderProtection();
+    if(state.currentStage===5) renderAssessment();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function renderProblem(){
+    panel.innerHTML = header('Aşama 1 · Adım 1–2','Problemi Anla','Çözüme atlamadan önce günlük yaşamda geliştirmek istediğin durumu ve bu durumdan etkilenen kullanıcıyı açıkça tanımla.') + `
+      <div class="section">
+        <h4>Günlük yaşamda neyi geliştirmek istiyorsun?</h4>
+        <p class="section-intro">Seni, çevrendeki insanları veya günlük işleri zorlaştıran bir durumu düşün. Çözmek istediğin problemi tek cümleyle yaz.</p>
+        <div class="field"><label for="problem">Problem cümlesi</label><textarea id="problem" maxlength="180" placeholder="Örn. Okul çantasında küçük eşyaları bulmak zaman alıyor.">${esc(state.problem)}</textarea><div class="counter"><span id="problemCount">${state.problem.length}</span> / 180</div></div>
+        <details class="help"><summary>Örnekleri gör</summary><div class="examples"><div class="example">Kitap okurken uzun süre aynı pozisyonda kalmak rahatsız edici oluyor.</div><div class="example">Okul çantasında küçük eşyaları bulmak zaman alıyor.</div><div class="example">Bitkilerin ne zaman sulanması gerektiğini takip etmek zor oluyor.</div></div></details>
+      </div>
+      <div class="section">
+        <h4>Kullanıcı ve ihtiyacı belirle</h4>
+        <p class="section-intro">Bu kişi ne yapmaya çalışıyor ve onu ne zorluyor?</p>
+        <div class="grid-2"><div class="field"><label for="user">Bu sorunu kim yaşıyor?</label><input id="user" type="text" value="${esc(state.user)}" placeholder="Örn. Her gün okula giden öğrenciler"></div><div class="field"><label for="need">Kullanıcının asıl ihtiyacı ne?</label><textarea id="need" placeholder="Örn. Küçük eşyaları hızlı bulabilmek ve çantayı düzenli tutmak.">${esc(state.need)}</textarea></div></div>
+        <div class="notice info">💡 Henüz ürün adı bulmak zorunda değilsin. Önce durumu ve ihtiyacı açıklaştır.</div>
+      </div>`;
+    document.getElementById('problem').addEventListener('input',e=>{state.problem=e.target.value;document.getElementById('problemCount').textContent=e.target.value.length;saveState()});
+    bindText('user','user'); bindText('need','need');
+  }
+
+  function bindText(id,key){const el=document.getElementById(id);if(el)el.addEventListener('input',e=>{state[key]=e.target.value;saveState()})}
+
+  function renderSolutions(){
+    const solutionCards = state.existingSolutions.map((s,i)=>`<div class="card"><div class="card-head"><h5>Mevcut çözüm ${i+1}</h5>${i>0?`<button type="button" class="btn small danger remove-sol" data-i="${i}">Kaldır</button>`:''}</div>
+      <div class="field"><label>Çözüm / ürün adı</label><input class="sol" data-i="${i}" data-k="name" value="${esc(s.name)}" type="text"></div>
+      <div class="grid-2"><div class="field"><label>İyi yaptığı şey</label><textarea class="sol" data-i="${i}" data-k="strength">${esc(s.strength)}</textarea></div><div class="field"><label>Sınırlılığı / eksik yönü</label><textarea class="sol" data-i="${i}" data-k="limitation">${esc(s.limitation)}</textarea></div></div></div>`).join('');
+    const focuses=['kullanım kolaylığı','güvenlik','zaman tasarrufu','enerji/kaynak tasarrufu','erişilebilirlik','taşınabilirlik','dayanıklılık','çevresel etki','başka'];
+    panel.innerHTML = header('Aşama 2 · Adım 3–4','Mevcut Çözümleri İncele','Var olan çözümlerin güçlü ve sınırlı yönlerini düşün. Ardından geliştirmek istediğin noktayı seç.') + `
+      <div class="section"><div class="card-head"><div><h4>Mevcut çözümleri düşün</h4><p class="section-intro">En az 1, en fazla 3 çözüm ekleyebilirsin.</p></div><button id="addSolution" class="btn small" type="button" ${state.existingSolutions.length>=3?'disabled':''}>+ Çözüm ekle</button></div><div class="cards">${solutionCards}</div></div>
+      <div class="section"><h4>Geliştirme fırsatını belirle</h4><p class="section-intro">Mevcut çözümlerde hangi eksikliği gidermek veya hangi özelliği geliştirmek istiyorsun? En fazla iki odak seç.</p>
+      <div class="chips">${focuses.map(f=>`<label class="chip"><input type="checkbox" class="focus" value="${esc(f)}" ${state.improvementFocus.includes(f)?'checked':''}><span>${esc(f)}</span></label>`).join('')}</div>
+      <div class="field" style="margin-top:16px"><label for="improvementNote">Geliştirme odağını açıkla</label><textarea id="improvementNote" placeholder="Bu özelliği neden geliştirmek istiyorum?">${esc(state.improvementNote)}</textarea></div></div>`;
+    panel.querySelectorAll('.sol').forEach(el=>el.addEventListener('input',e=>{const i=Number(e.target.dataset.i),k=e.target.dataset.k;state.existingSolutions[i][k]=e.target.value;saveState()}));
+    panel.querySelectorAll('.remove-sol').forEach(b=>b.addEventListener('click',()=>{state.existingSolutions.splice(Number(b.dataset.i),1);saveState();renderSolutions()}));
+    document.getElementById('addSolution').addEventListener('click',()=>{if(state.existingSolutions.length<3){state.existingSolutions.push({name:'',strength:'',limitation:''});saveState();renderSolutions()}});
+    panel.querySelectorAll('.focus').forEach(c=>c.addEventListener('change',e=>{
+      if(e.target.checked && state.improvementFocus.length>=2){e.target.checked=false;setNotice('En fazla iki geliştirme odağı seçebilirsin.','warn');return}
+      state.improvementFocus = [...panel.querySelectorAll('.focus:checked')].map(x=>x.value);saveState();
+    })); bindText('improvementNote','improvementNote');
+  }
+
+  function renderIdeas(){
+    const ideaCards=state.ideas.map((idea,i)=>`<div class="card idea-card ${state.selectedIdeaId===idea.id?'selected':''}"><div class="card-head"><h5>Fikir ${i+1}</h5>${state.selectedIdeaId===idea.id?'<span style="font-weight:800;color:var(--accent-dark)">Seçildi ✓</span>':''}</div>
+      <div class="field"><label>Fikir adı</label><input class="idea" data-id="${idea.id}" data-k="name" type="text" value="${esc(idea.name)}" placeholder="Kısa bir ad"></div>
+      <div class="field"><label>Tek cümlelik açıklama</label><textarea class="idea" data-id="${idea.id}" data-k="description" placeholder="Bu fikir sorunu nasıl çözüyor?">${esc(idea.description)}</textarea></div></div>`).join('');
+    const scoreRows=state.ideas.map((idea,i)=>`<div class="score-row"><div class="score-name">${esc(idea.name || `Fikir ${i+1}`)}</div>${['fit','feasible','original','sustainable'].map(k=>`<select class="score-select score" data-id="${idea.id}" data-k="${k}" aria-label="${k} puanı"><option ${idea.scores[k]==1?'selected':''}>1</option><option ${idea.scores[k]==2?'selected':''}>2</option><option ${idea.scores[k]==3?'selected':''}>3</option></select>`).join('')}<div class="score-total" id="total-${idea.id}">${totalScore(idea)}</div><button type="button" class="btn small choose" data-id="${idea.id}">${state.selectedIdeaId===idea.id?'Seçildi':'Bu fikri seç'}</button></div>`).join('');
+    panel.innerHTML=header('Aşama 3 · Adım 5–6','Fikir Üret ve Seç','İlk fikre hemen bağlanma. En az üç alternatif üret, ölçütlerle karşılaştır ve kararını kendin ver.')+`
+      <div class="section"><h4>En az 3 fikir üret</h4><p class="section-intro">Her fikir için kısa bir ad ve tek cümlelik açıklama yaz.</p><div class="grid-3">${ideaCards}</div>
+      <details class="help"><summary>Fikir bulmakta zorlanıyorum</summary><ul><li>Daha küçük/büyük olsa ne değişirdi?</li><li>Daha az parça ile çalışabilir mi?</li><li>Başka bir kullanıcıya göre uyarlanabilir mi?</li><li>Enerjiyi veya malzemeyi daha verimli kullanabilir mi?</li><li>İki mevcut ürünün yararlı özellikleri birleştirilebilir mi?</li></ul><p class="fine">Bu sorular yalnızca düşünmeni destekler; araç senin yerine bitmiş ürün fikri üretmez.</p></details></div>
+      <div class="section"><h4>Fikirlerini karşılaştır</h4><p class="section-intro">1 = düşük, 2 = orta, 3 = güçlü. Toplam yalnızca düşünmene yardım eder; kararı sen verirsin.</p>
+      <div class="score-grid"><div></div><div class="score-head">İhtiyaca uygunluk</div><div class="score-head">Uygulanabilirlik</div><div class="score-head">Özgün katkı</div><div class="score-head">Kaynak / sürdürülebilirlik</div><div class="score-head">Toplam</div><div class="score-head">Karar</div>${scoreRows}</div>
+      <div class="field" style="margin-top:18px"><label for="selectionReason">Bu fikri seçtim çünkü...</label><textarea id="selectionReason" placeholder="Seçimini hangi ölçütlere göre yaptığını açıkla.">${esc(state.selectionReason)}</textarea></div></div>`;
+    panel.querySelectorAll('.idea').forEach(el=>el.addEventListener('input',e=>{const idea=state.ideas.find(x=>x.id===e.target.dataset.id);idea[e.target.dataset.k]=e.target.value;saveState()}));
+    panel.querySelectorAll('.score').forEach(el=>el.addEventListener('change',e=>{const idea=state.ideas.find(x=>x.id===e.target.dataset.id);idea.scores[e.target.dataset.k]=Number(e.target.value);document.getElementById('total-'+idea.id).textContent=totalScore(idea);saveState()}));
+    panel.querySelectorAll('.choose').forEach(b=>b.addEventListener('click',()=>{state.selectedIdeaId=b.dataset.id;saveState();renderIdeas()})); bindText('selectionReason','selectionReason');
+  }
+
+  let canvasCtx=null, canvas=null, drawing=false, startPoint=null, tool='pen', undoStack=[], redoStack=[];
+  function renderDraft(){
+    const benefits=['daha kolay kullanım','daha güvenli kullanım','daha az zaman','daha az enerji/malzeme','daha erişilebilir','daha taşınabilir','başka'];
+    panel.innerHTML=header('Aşama 4 · Adım 7–9','Taslağını Oluştur','Seçtiğin fikrin yenilikçi katkısını açıkla, eskiz üzerinde görünür hâle getir ve ürünün nasıl çalıştığını adımlandır.')+`
+      <div class="section"><h4>İnovatif özelliği açıkla</h4><div class="field"><label for="innovationFeature">Bu üründe yeni veya geliştirilmiş olan nedir?</label><textarea id="innovationFeature" placeholder="Sadece ürünün adını değil, kullanıcı için neyin değiştiğini yaz.">${esc(state.innovationFeature)}</textarea></div>
+      <div class="label">Bu değişiklik hangi faydayı sağlıyor?</div><div class="chips" style="margin-top:8px">${benefits.map(f=>`<label class="chip"><input type="checkbox" class="benefit" value="${esc(f)}" ${state.expectedBenefit.includes(f)?'checked':''}><span>${esc(f)}</span></label>`).join('')}</div>
+      <div class="field" style="margin-top:16px"><label for="sustainabilityNote">Sürdürülebilirlik / çevre notu</label><textarea id="sustainabilityNote" placeholder="Malzeme, enerji, kullanım ömrü veya atık açısından kısa bir not yazabilirsin.">${esc(state.sustainabilityNote)}</textarea></div></div>
+      <div class="section"><div class="card-head"><div><h4>Eskiz oluştur</h4><p class="section-intro">Yenilikçi özelliğini bir ok veya etiketle görünür kıl. Ayrıntılı CAD çizimi yapman gerekmiyor.</p></div><button type="button" class="btn small no-print" id="fullscreenSketch">⛶ Genişlet</button></div>
+      <div class="notice info">📱 Eskiz çizimi daha geniş ekranda daha rahat yapılabilir. İstersen fiziksel çizim fotoğrafı veya metinsel açıklama kullanabilirsin.</div>
+      <div class="canvas-wrap" id="canvasWrap"><div class="toolbar no-print"><button class="tool-btn active" data-tool="pen">✎ Kalem</button><button class="tool-btn" data-tool="line">╱ Çizgi</button><button class="tool-btn" data-tool="arrow">→ Ok</button><button class="tool-btn" data-tool="rect">▭ Dikdörtgen</button><button class="tool-btn" data-tool="circle">○ Daire</button><button class="tool-btn" data-tool="label">T Etiket</button><button class="tool-btn" data-tool="eraser">⌫ Silgi</button><button class="tool-btn" id="undo" type="button">↶</button><button class="tool-btn" id="redo" type="button">↷</button><button class="tool-btn" id="clearCanvas" type="button">Temizle</button></div><div class="canvas-stage"><canvas id="sketchCanvas" aria-label="Eskiz çizim alanı"></canvas><div class="canvas-overlay">Yenilikçi özelliği ok + etiket ile işaretlemeyi unutma.</div></div></div>
+      <div class="grid-2" style="margin-top:16px"><div class="field"><label for="sketchTextAlternative">Eskizin metinsel açıklaması (erişilebilir alternatif)</label><textarea id="sketchTextAlternative" placeholder="Çizimin ana bölümlerini ve inovatif özelliğin nerede olduğunu tarif et.">${esc(state.sketchTextAlternative)}</textarea></div><div class="field"><label for="photoUpload">Kâğıda çizdiysen fotoğraf ekle</label><input id="photoUpload" type="file" accept="image/*"><span class="hint">Fotoğraf tarayıcıda işlenir; sunucuya gönderilmez.</span>${state.photoDataUrl?`<img id="photoPreview" class="upload-preview" style="display:block" src="${state.photoDataUrl}" alt="Yüklenen fiziksel eskiz fotoğrafı">`:'<img id="photoPreview" class="upload-preview" alt="Yüklenen fiziksel eskiz fotoğrafı">'}</div></div></div>
+      <div class="section"><h4>Nasıl çalıştığını açıkla</h4><p class="section-intro">3–5 adımlık kısa bir çalışma akışı oluştur.</p><div id="workSteps">${workStepsMarkup()}</div><button type="button" id="addWorkStep" class="btn small" ${state.workSteps.length>=5?'disabled':''}>+ Adım ekle</button></div>`;
+    bindText('innovationFeature','innovationFeature');bindText('sustainabilityNote','sustainabilityNote');bindText('sketchTextAlternative','sketchTextAlternative');
+    panel.querySelectorAll('.benefit').forEach(c=>c.addEventListener('change',()=>{state.expectedBenefit=[...panel.querySelectorAll('.benefit:checked')].map(x=>x.value);saveState()}));
+    setupCanvas(); bindWorkSteps();
+    document.getElementById('addWorkStep').addEventListener('click',()=>{if(state.workSteps.length<5){state.workSteps.push('');saveState();renderDraft()}});
+    document.getElementById('photoUpload').addEventListener('change',handlePhoto);
+    document.getElementById('fullscreenSketch').addEventListener('click',()=>{document.getElementById('canvasWrap').classList.toggle('fullscreen-sketch');setTimeout(resizeCanvas,80)});
+  }
+
+  function workStepsMarkup(){return state.workSteps.map((s,i)=>`<div class="work-step"><div class="num">${i+1}</div><textarea class="work-input" data-i="${i}" placeholder="${i===0?'Kullanıcı ...':i===1?'Ürün ...':i===2?'Mekanizma / sistem ...':'Sonuç olarak ...'}">${esc(s)}</textarea><div class="move no-print"><button type="button" class="up" data-i="${i}" aria-label="Adımı yukarı taşı">↑</button><button type="button" class="down" data-i="${i}" aria-label="Adımı aşağı taşı">↓</button>${state.workSteps.length>3?`<button type="button" class="remove-step" data-i="${i}" aria-label="Adımı kaldır">×</button>`:''}</div></div>`).join('')}
+  function bindWorkSteps(){
+    panel.querySelectorAll('.work-input').forEach(e=>e.addEventListener('input',x=>{state.workSteps[Number(x.target.dataset.i)]=x.target.value;saveState()}));
+    panel.querySelectorAll('.up').forEach(b=>b.addEventListener('click',()=>moveStep(Number(b.dataset.i),-1)));
+    panel.querySelectorAll('.down').forEach(b=>b.addEventListener('click',()=>moveStep(Number(b.dataset.i),1)));
+    panel.querySelectorAll('.remove-step').forEach(b=>b.addEventListener('click',()=>{state.workSteps.splice(Number(b.dataset.i),1);saveState();renderDraft()}));
+  }
+  function moveStep(i,d){const n=i+d;if(n<0||n>=state.workSteps.length)return;[state.workSteps[i],state.workSteps[n]]=[state.workSteps[n],state.workSteps[i]];saveState();renderDraft()}
+
+  function setupCanvas(){
+    canvas=document.getElementById('sketchCanvas');canvasCtx=canvas.getContext('2d');undoStack=[];redoStack=[];resizeCanvas();
+    if(state.sketchDataUrl){const img=new Image();img.onload=()=>{const r=canvas.getBoundingClientRect();canvasCtx.drawImage(img,0,0,r.width,r.height)};img.src=state.sketchDataUrl}
+    window.addEventListener('resize',resizeCanvas,{once:true});
+    panel.querySelectorAll('[data-tool]').forEach(b=>b.addEventListener('click',()=>{tool=b.dataset.tool;panel.querySelectorAll('[data-tool]').forEach(x=>x.classList.toggle('active',x===b))}));
+    canvas.addEventListener('pointerdown',startDraw);canvas.addEventListener('pointermove',drawMove);canvas.addEventListener('pointerup',endDraw);canvas.addEventListener('pointerleave',endDraw);
+    document.getElementById('undo').addEventListener('click',undoCanvas);document.getElementById('redo').addEventListener('click',redoCanvas);document.getElementById('clearCanvas').addEventListener('click',()=>{pushUndo();canvasCtx.clearRect(0,0,canvas.width,canvas.height);saveCanvas()});
+  }
+  function resizeCanvas(){if(!canvas)return;const old=canvas.toDataURL();const rect=canvas.getBoundingClientRect();const ratio=Math.max(1,Math.min(2,window.devicePixelRatio||1));canvas.width=Math.round(rect.width*ratio);canvas.height=Math.round(rect.height*ratio);canvasCtx=canvas.getContext('2d');canvasCtx.setTransform(ratio,0,0,ratio,0,0);if(state.sketchDataUrl||old){const img=new Image();img.onload=()=>canvasCtx.drawImage(img,0,0,rect.width,rect.height);img.src=state.sketchDataUrl||old}}
+  function point(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
+  function pushUndo(){try{undoStack.push(canvas.toDataURL());if(undoStack.length>20)undoStack.shift();redoStack=[]}catch(e){}}
+  function startDraw(e){e.preventDefault();pushUndo();drawing=true;startPoint=point(e);canvas.setPointerCapture?.(e.pointerId);canvasCtx.lineCap='round';canvasCtx.lineJoin='round';canvasCtx.strokeStyle=tool==='eraser'?'#ffffff':'#25313c';canvasCtx.fillStyle='#25313c';canvasCtx.lineWidth=tool==='eraser'?18:3;if(tool==='pen'||tool==='eraser'){canvasCtx.beginPath();canvasCtx.moveTo(startPoint.x,startPoint.y)} if(tool==='label'){const t=prompt('Kısa etiketini yaz:');if(t){canvasCtx.font='700 17px system-ui';canvasCtx.fillText(t,startPoint.x,startPoint.y);state.sketchLabelAdded=true;saveCanvas()}drawing=false}}
+  function drawMove(e){if(!drawing||!['pen','eraser'].includes(tool))return;const p=point(e);canvasCtx.lineTo(p.x,p.y);canvasCtx.stroke()}
+  function endDraw(e){if(!drawing)return;drawing=false;const end=point(e);canvasCtx.strokeStyle='#25313c';canvasCtx.lineWidth=3;if(tool==='line'){line(startPoint,end)}if(tool==='arrow'){arrow(startPoint,end)}if(tool==='rect'){canvasCtx.strokeRect(startPoint.x,startPoint.y,end.x-startPoint.x,end.y-startPoint.y)}if(tool==='circle'){const rx=(end.x-startPoint.x)/2,ry=(end.y-startPoint.y)/2,cx=startPoint.x+rx,cy=startPoint.y+ry;canvasCtx.beginPath();canvasCtx.ellipse(cx,cy,Math.abs(rx),Math.abs(ry),0,0,Math.PI*2);canvasCtx.stroke()}saveCanvas()}
+  function line(a,b){canvasCtx.beginPath();canvasCtx.moveTo(a.x,a.y);canvasCtx.lineTo(b.x,b.y);canvasCtx.stroke()}
+  function arrow(a,b){line(a,b);const ang=Math.atan2(b.y-a.y,b.x-a.x),len=14;canvasCtx.beginPath();canvasCtx.moveTo(b.x,b.y);canvasCtx.lineTo(b.x-len*Math.cos(ang-Math.PI/6),b.y-len*Math.sin(ang-Math.PI/6));canvasCtx.moveTo(b.x,b.y);canvasCtx.lineTo(b.x-len*Math.cos(ang+Math.PI/6),b.y-len*Math.sin(ang+Math.PI/6));canvasCtx.stroke()}
+  function saveCanvas(){try{state.sketchDataUrl=canvas.toDataURL('image/png');saveState()}catch(e){}}
+  function undoCanvas(){if(!undoStack.length)return;redoStack.push(canvas.toDataURL());restoreCanvas(undoStack.pop())}
+  function redoCanvas(){if(!redoStack.length)return;undoStack.push(canvas.toDataURL());restoreCanvas(redoStack.pop())}
+  function restoreCanvas(src){const img=new Image();img.onload=()=>{const r=canvas.getBoundingClientRect();canvasCtx.clearRect(0,0,canvas.width,canvas.height);canvasCtx.drawImage(img,0,0,r.width,r.height);saveCanvas()};img.src=src}
+  function handlePhoto(e){const f=e.target.files?.[0];if(!f)return;const reader=new FileReader();reader.onload=()=>{state.photoDataUrl=reader.result;saveState();const p=document.getElementById('photoPreview');p.src=reader.result;p.style.display='block'};reader.readAsDataURL(f)}
+
+  function renderProtection(){
+    const opts=[['technical','Teknik çözüm / çalışma mekanizması','Patent / faydalı model bilgisini araştır.'],['appearance','Ürünün görünümü','Tasarım koruması bilgisini araştır.'],['brand','Ürün / marka adı veya logo','Marka bilgisini araştır.'],['copyright','Özgün çizim / metin / görsel içerik','Telif hakkı bilgisini araştır.'],['unsure','Emin değilim','Temel kavramları resmî kaynaklarda karşılaştır.']];
+    const directions={technical:['Patent / faydalı model bilgisi','Teknik çözümün korunmasına ilişkin temel kavramları ve güncel koşulları TÜRKPATENT gibi resmî kaynaklardan incele.'],appearance:['Tasarım koruması bilgisi','Ürünün görünümünün korunmasına ilişkin temel kavramları resmî kaynaklardan araştır.'],brand:['Marka bilgisi','Ad, işaret veya logo için marka korumasına ilişkin temel kavramları resmî kaynaklardan araştır.'],copyright:['Telif hakkı bilgisi','Özgün çizim, metin veya görsel içerik için telif hakkı kapsamını resmî kaynaklardan araştır.'],unsure:['Temel kavramları karşılaştır','Patent/faydalı model, tasarım, marka ve telif kavramlarının farklarını resmî kaynaklarda karşılaştır.']};
+    const d=state.protectionFocus?directions[state.protectionFocus]:null;
+    panel.innerHTML=header('Aşama 5 · Adım 10','Fikrini Koruma Araştırmasını Planla','Bu bölüm hukuki sonuç üretmez. Amacın, hangi koruma alanı hakkında güncel ve resmî bilgi toplaman gerektiğini belirlemektir.')+`
+      <div class="section"><h4>Ürününde özellikle neyi korumak istiyorsun?</h4><div class="protection-options">${opts.map(o=>`<label class="radio-card"><input type="radio" name="protection" value="${o[0]}" ${state.protectionFocus===o[0]?'checked':''}><span><strong>${esc(o[1])}</strong><small>${esc(o[2])}</small></span></label>`).join('')}</div>
+      <div id="researchDirection">${d?researchDirection(d):''}</div>
+      <div class="notice warn">⚖️ Bu öneri hukuki uygunluk kararı değildir. Koruma koşulları ve başvuru süreçleri güncel resmî kaynaklardan araştırılmalıdır.</div>
+      <div class="source-grid"><a class="source" href="https://www.turkpatent.gov.tr/" target="_blank" rel="noopener">TÜRKPATENT<small>Türkiye · sınai mülkiyet</small></a><a class="source" href="https://www.wipo.int/" target="_blank" rel="noopener">WIPO<small>Dünya Fikrî Mülkiyet Örgütü</small></a><a class="source" href="https://www.euipo.europa.eu/" target="_blank" rel="noopener">EUIPO<small>AB Fikrî Mülkiyet Ofisi</small></a><a class="source" href="https://telifhaklari.ktb.gov.tr/" target="_blank" rel="noopener">Telif Hakları GM<small>Kültür ve Turizm Bakanlığı</small></a></div>
+      <div class="field" style="margin-top:18px"><label for="protectionNote">Araştırma notum</label><textarea id="protectionNote" placeholder="Hangi bilgiyi, hangi resmî kaynaktan kontrol edeceğini yaz.">${esc(state.protectionNote)}</textarea></div></div>`;
+    panel.querySelectorAll('input[name="protection"]').forEach(r=>r.addEventListener('change',e=>{state.protectionFocus=e.target.value;saveState();document.getElementById('researchDirection').innerHTML=researchDirection(directions[state.protectionFocus])}));bindText('protectionNote','protectionNote');
+  }
+  function researchDirection(d){return `<div class="research-card"><h5>${esc(d[0])}</h5><div>${esc(d[1])}</div></div>`}
+
+  function renderAssessment(){
+    const items=[['problem','Problemimi çözümden bağımsız ve açık biçimde tanımladım.'],['ideas','Birden fazla fikir ürettim ve seçimimi gerekçelendirdim.'],['sketch','Eskizimde inovatif özelliği açıkça gösterdim.'],['protection','Fikrimi korumak için hangi bilgiyi nereden araştıracağımı biliyorum.']];
+    const labels=[['notyet','Henüz değil'],['partial','Kısmen'],['yes','Evet']];
+    panel.innerHTML=header('Aşama 6 · Adım 11','Değerlendir ve Çıktını Al','Sürecini kısa bir öz değerlendirmeyle gözden geçir. Ardından dijital tasarım dosyanı ekranda görüntüleyebilir, yazdırabilir veya PDF olarak kaydedebilirsin.')+`
+      <div class="section"><h4>Kısa öz değerlendirme</h4><div><div class="assessment-row" style="font-size:12px;color:var(--muted);font-weight:800"><div></div>${labels.map(l=>`<div>${l[1]}</div>`).join('')}</div>${items.map(it=>`<div class="assessment-row"><div class="statement">${esc(it[1])}</div>${labels.map(l=>`<div class="assessment-choice"><label><input type="radio" name="ass-${it[0]}" value="${l[0]}" ${state.selfAssessment[it[0]]===l[0]?'checked':''}><span>${l[1]}</span></label></div>`).join('')}</div>`).join('')}</div></div>
+      <div class="section"><div class="grid-2"><div class="field"><label for="strongest">Tasarımımın en güçlü yanı nedir?</label><textarea id="strongest">${esc(state.strongest)}</textarea></div><div class="field"><label for="nextChange">Bir sonraki geliştirmede neyi değiştirmek isterim?</label><textarea id="nextChange">${esc(state.nextChange)}</textarea></div></div></div>
+      <div class="section"><button type="button" class="btn primary" id="showSummary">İnovatif Ürün Taslağımı Göster →</button></div>`;
+    panel.querySelectorAll('input[type="radio"]').forEach(r=>r.addEventListener('change',e=>{const k=e.target.name.replace('ass-','');state.selfAssessment[k]=e.target.value;saveState()}));bindText('strongest','strongest');bindText('nextChange','nextChange');document.getElementById('showSummary').addEventListener('click',showSummary);
+  }
+
+  function showSummary(){
+    collectVisible();
+    const idea=selectedIdea(); const directionMap={technical:'Patent / faydalı model bilgisi',appearance:'Tasarım koruması bilgisi',brand:'Marka bilgisi',copyright:'Telif hakkı bilgisi',unsure:'Resmî kaynaklarda temel kavramları karşılaştır'};
+    const assMap={notyet:'Henüz değil',partial:'Kısmen',yes:'Evet','':'—'};
+    const solutions=state.existingSolutions.filter(s=>s.name||s.strength||s.limitation);
+    const sketchSrc=state.photoDataUrl||state.sketchDataUrl;
+    panel.innerHTML=`<div class="print-title"><h1>İnovatif Ürün Taslak Kartı</h1><p>8. Sınıf Teknoloji ve Tasarım · TT.8.1.2</p></div>`+header('Sonuç','İnovatif Ürün Taslağın Hazır','Çalışmanı gözden geçir. İstersen düzenlemeye dönebilir veya tarayıcının yazdırma özelliğiyle PDF olarak kaydedebilirsin.')+`
+      <div class="section"><div class="summary">
+        <div class="summary-card"><h5>1 · Problem</h5><p>${orEmpty(state.problem)}</p></div>
+        <div class="summary-card"><h5>2 · Kullanıcı / ihtiyaç</h5><p><strong>${orEmpty(state.user)}</strong>\n${orEmpty(state.need)}</p></div>
+        <div class="summary-card wide"><h5>3 · Mevcut çözümler ve geliştirme fırsatı</h5>${solutions.length?`<ul class="summary-list">${solutions.map(s=>`<li><strong>${orEmpty(s.name)}</strong> — Güçlü: ${orEmpty(s.strength)} · Sınırlılık: ${orEmpty(s.limitation)}</li>`).join('')}</ul>`:'<p class="empty">Henüz eklenmedi.</p>'}<p style="margin-top:10px"><strong>Odak:</strong> ${state.improvementFocus.length?esc(state.improvementFocus.join(', ')):'—'}<br>${orEmpty(state.improvementNote)}</p></div>
+        <div class="summary-card"><h5>4 · Seçilen fikir</h5><p><strong>${idea?orEmpty(idea.name):'—'}</strong>\n${idea?orEmpty(idea.description):''}\n\n<strong>Seçim gerekçesi:</strong> ${orEmpty(state.selectionReason)}</p></div>
+        <div class="summary-card"><h5>5 · İnovatif özellik</h5><p>${orEmpty(state.innovationFeature)}\n\n<strong>Beklenen fayda:</strong> ${state.expectedBenefit.length?esc(state.expectedBenefit.join(', ')):'—'}\n<strong>Çevre notu:</strong> ${orEmpty(state.sustainabilityNote)}</p></div>
+        <div class="summary-card wide page-break"><h5>6 · Eskiz</h5>${sketchSrc?`<img class="summary-canvas" src="${sketchSrc}" alt="İnovatif ürün eskizi">`:'<p class="empty">Eskiz görseli eklenmedi.</p>'}<p style="margin-top:10px"><strong>Metinsel açıklama:</strong> ${orEmpty(state.sketchTextAlternative)}</p></div>
+        <div class="summary-card"><h5>7 · Çalışma adımları</h5><ol class="summary-list">${state.workSteps.filter(Boolean).map(s=>`<li>${esc(s)}</li>`).join('')||'<li class="empty">Henüz eklenmedi.</li>'}</ol></div>
+        <div class="summary-card"><h5>8 · Koruma araştırması yönü</h5><p><strong>${directionMap[state.protectionFocus]||'—'}</strong>\n${orEmpty(state.protectionNote)}\n\nBu yönlendirme hukuki uygunluk kararı değildir.</p></div>
+        <div class="summary-card wide"><h5>9 · Öz değerlendirme</h5><ul class="summary-list"><li>Problem tanımı: ${assMap[state.selfAssessment.problem]}</li><li>Alternatif fikir + gerekçe: ${assMap[state.selfAssessment.ideas]}</li><li>Eskizde inovatif özellik: ${assMap[state.selfAssessment.sketch]}</li><li>Koruma araştırma yönü: ${assMap[state.selfAssessment.protection]}</li></ul><p style="margin-top:12px"><strong>En güçlü yanı:</strong> ${orEmpty(state.strongest)}<br><strong>Sonraki geliştirme:</strong> ${orEmpty(state.nextChange)}</p></div>
+      </div>
+      <div class="no-print" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px"><button id="backEdit" class="btn" type="button">← Düzenlemeye dön</button><button id="summaryPrint" class="btn primary" type="button">⎙ Yazdır / PDF olarak kaydet</button><button id="summaryReset" class="btn danger" type="button">↺ Yeni çalışma başlat</button></div>
+      <p class="footer-note">Çalışma sunucuya gönderilmez. Tarayıcı yazdırma penceresinde “PDF olarak kaydet” seçeneğini kullanabilirsin.</p></div>`;
+    nextBtn.style.display='none';prevBtn.style.display='none';navMeta.textContent='Sonuç';renderStepper();
+    document.getElementById('backEdit').addEventListener('click',()=>{nextBtn.style.display='';prevBtn.style.display='';renderAssessment()});
+    document.getElementById('summaryPrint').addEventListener('click',()=>window.print());document.getElementById('summaryReset').addEventListener('click',resetAll);
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function orEmpty(v){return v?esc(v):'<span class="empty">Henüz eklenmedi.</span>'}
+
+  function collectVisible(){
+    // Most inputs save live. This function preserves any final focused field before navigation.
+    const active=document.activeElement;if(active&&['INPUT','TEXTAREA','SELECT'].includes(active.tagName))active.dispatchEvent(new Event('input',{bubbles:true}));saveState();
+  }
+  function validateStage(index){
+    collectVisible();
+    if(index===0){if(state.problem.trim().length<20)return 'Problemi biraz daha açık yaz. “Ne oluyor, kim zorlanıyor?” sorularını cevaplamayı dene.';if(!state.user.trim()||!state.need.trim())return 'Kullanıcıyı ve asıl ihtiyacı da belirt.'}
+    if(index===1){const valid=state.existingSolutions.filter(s=>s.name.trim()&&s.limitation.trim());if(!valid.length)return 'En az bir mevcut çözümü ve onun sınırlılığını yaz.';if(!state.improvementFocus.length)return 'En az bir geliştirme odağı seç.'}
+    if(index===2){const complete=state.ideas.filter(i=>i.name.trim()&&i.description.trim());if(complete.length<3)return 'İlk fikrin iyi bir başlangıç olabilir. Karar vermeden önce üç farklı fikri de tamamla.';if(!state.selectedIdeaId)return 'Karar vermeden önce bir fikir seç.';if(state.selectionReason.trim().length<10)return 'Seçimini hangi ölçütlere göre yaptığını biraz daha açık gerekçelendir.'}
+    if(index===3){if(state.innovationFeature.trim().length<12)return 'Ürünün adını değil, kullanıcı için neyin değiştiğini açıklamayı dene.';if(!state.expectedBenefit.length)return 'İnovatif değişikliğin sağladığı en az bir faydayı seç.';if(state.workSteps.filter(x=>x.trim()).length<3)return 'Ürünün nasıl çalıştığını en az 3 adımda açıkla.';if(!state.sketchDataUrl&&!state.photoDataUrl&&!state.sketchTextAlternative.trim())return 'Eskiz, fiziksel çizim fotoğrafı veya metinsel açıklama seçeneklerinden en az birini kullan.';if(state.sketchDataUrl&&!state.sketchLabelAdded&&!state.sketchTextAlternative.trim())return 'Yenilikçi özelliğin eskizin neresinde? Bir ok/etiket ekle veya metinsel açıklamada açıkça belirt.'}
+    if(index===4){if(!state.protectionFocus)return 'Önce ürününde özellikle neyi korumak istediğini seç.';if(state.protectionNote.trim().length<8)return 'Hangi bilgiyi nereden araştıracağını kısa bir notla belirt.'}
+    return '';
+  }
+  function goTo(target, fromStepper=false){
+    if(target<0||target>5)return;
+    if(target>state.currentStage && !fromStepper){const err=validateStage(state.currentStage);if(err){setNotice(err,'warn');return}}
+    state.currentStage=target;saveState();nextBtn.style.display='';prevBtn.style.display='';render();
+  }
+  prevBtn.addEventListener('click',()=>goTo(state.currentStage-1));
+  nextBtn.addEventListener('click',()=>{if(state.currentStage===5){showSummary();return}goTo(state.currentStage+1)});
+  persistToggle.addEventListener('change',e=>{state.persist=e.target.checked;saveState()});
+  document.getElementById('printBtn').addEventListener('click',()=>{if(state.currentStage!==5){state.currentStage=5;saveState();renderAssessment();setNotice('Yazdırılabilir sonuç için öz değerlendirmeyi tamamlayıp “İnovatif Ürün Taslağımı Göster” düğmesini kullan.','info')}else showSummary()});
+  document.getElementById('resetBtn').addEventListener('click',resetAll);
+  function resetAll(){if(!confirm('Bu çalışma silinsin ve yeni bir taslak başlatılsın mı?'))return;sessionStorage.removeItem(SESSION_KEY);localStorage.removeItem(LOCAL_KEY);state=defaults();persistToggle.checked=false;nextBtn.style.display='';prevBtn.style.display='';render()}
+
+  render();
+})();
+</script>
+</body>
+</html>

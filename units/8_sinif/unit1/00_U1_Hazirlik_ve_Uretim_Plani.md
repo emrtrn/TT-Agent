@@ -56,7 +56,7 @@ Resmî ön değerlendirme önerisi; inovasyon, AR-GE ve fikrî ve sınai mülkiy
 7. Öğretmen yansıtma ve ünite kapanışı
 8. Markdown onaylarından sonra ayrı PDF/DOCX üretimi ve görsel kalite kontrolü
 
-Fiilî 7. sınıf Ünite 1 kaynak setinde bu ana akışa ek olarak ayrı bir öğretmen hazırlık belgesi de bulunuyordu. Ders planı, ön değerlendirme, çalışma kâğıtları, değerlendirme, destekleme, zenginleştirme, kavram kartları ve öğretmen hazırlık dosyaları ayrı Markdown belgeleri olarak tutulmuştu.
+Fiilî 7. sınıf Ünite 1 kaynak seti, öğretmen hazırlık materyali, ders planı, ön değerlendirme, bireysel çalışma kâğıtları, grup çalışma kâğıtları, öz değerlendirme ve ünite sonu değerlendirmesini ayrı belge türleri olarak ele alır. Kullanıcı kararıyla destekleme ve zenginleştirme bu çekirdek sete standart olarak eklenir. Kavram kartları ile 5N1K kavram tablosu gibi üniteye özgü araçlar da kullanım amacı ve dağıtım biçimleri nedeniyle ayrıca planlanır.
 
 7. sınıfın yayımlanan sunumu ayrıca sunumun yalnızca slayt metni olmadığını gösterdi: ön değerlendirme ve çalışma kâğıtlarının kullanım anlarını bildiriyor; kısa videoları, Pekiştir etkinliklerini ve quizleri ilgili slaytlara bağlıyor. Bu nedenle 8. sınıfta sunum içeriği tek seferde ve diğer kaynaklardan bağımsız üretilmeyecektir.
 
@@ -64,9 +64,9 @@ Fiilî 7. sınıf Ünite 1 kaynak setinde bu ana akışa ek olarak ayrı bir ö�
 
 1. Öğretmen hazırlığı ve ders planı içerik omurgasını kurar.
 2. Üniteye özel sunum entegrasyon haritası hazırlanır.
-3. Sunum Markdown taslağı erken başlatılır.
-4. Ön değerlendirme, kavram kartları, Pekiştir/Uygula içerikleri ve materyaller sunumla birlikte geliştirilir.
-5. Kesin kaynak kimlikleri eklendikten ve dönüş davranışları doğrulandıktan sonra sunum nihai kabul edilir.
+3. Yalnızca sunum omurgası ve kaynak ihtiyacı haritası erken başlatılır; tam slayt metni ve HTML üretilmez.
+4. Ön değerlendirme, kavram kartları, üniteye özgü araçlar, bireysel/grup çalışma kâğıtları, Pekiştir/Uygula içerikleri, değerlendirme ve diğer materyaller tamamlanır.
+5. Kesin kaynak kimlikleri eklendikten sonra tam sunum Markdown'ı ve HTML üretilir; dönüş davranışları doğrulanınca sunum nihai kabul edilir.
 
 Ortak kurallar için `workflow/04_etkilesimli_sunum_entegrasyonu.md`, Ünite 1 eşleştirmeleri için `U1_Sunum_Entegrasyon_Haritasi.md` kullanılır.
 
@@ -75,18 +75,21 @@ Ortak kurallar için `workflow/04_etkilesimli_sunum_entegrasyonu.md`, Ünite 1 e
 | Sıra | Dosya | Durum |
 |---:|---|---|
 | 0 | `00_U1_Hazirlik_ve_Uretim_Plani.md` | Tamamlandı |
-| 1 | `U1_Sunum_Entegrasyon_Haritasi.md` | Başlangıç taslağı hazır |
-| 2 | `U1_MD_Ogretmen_Hazirlik.md` | Bekliyor |
-| 3 | `U1_MD_01_Ders_Plani.md` | Bekliyor |
-| 4 | `U1_MD_Sunum_Icerigi.md` — ilk taslak | Ders planı sonrasını bekliyor |
-| 5 | `U1_MD_02_On_Degerlendirme.md` | Bekliyor |
-| 6 | `U1_MD_Kavram_Kartlari.md` | Bekliyor |
-| 7 | `U1_MD_03_Calisma_Kagitlari.md` | Bekliyor |
-| 8 | `U1_MD_04_Degerlendirme.md` | Bekliyor |
-| 9 | `U1_MD_05_Destekleme.md` | Bekliyor |
-| 10 | `U1_MD_06_Zenginlestirme.md` | Bekliyor |
-| 11 | `U1_MD_07_Ogretmen_Yansitma_ve_Kapanis.md` | Bekliyor |
-| 12 | `U1_MD_Sunum_Icerigi.md` — entegrasyonlu nihai sürüm | Bağlı kaynakları bekliyor |
+| 1 | `U1_Sunum_Entegrasyon_Haritasi.md` | Ders ve slayt düzeyinde ilk taslak tamamlandı — 13.09.2026 |
+| 2 | `U1_MD_Ogretmen_Hazirlik.md` — Öğretmen Hazırlık Materyali | Tamamlandı — 13.09.2026 |
+| 3 | `U1_MD_01_Ders_Plani.md` | Tamamlandı — 13.09.2026; kullanıcı onayı bekleniyor |
+| 4 | `U1_MD_Sunum_Icerigi.md` — omurga taslağı | Tamamlandı — 13.09.2026; tam içerik, kaynaklar tamamlandıktan sonra güncellenecek |
+| 4a | `U1_MD_HTML_Sunum_Uretim_Brifi.md` | Nihai HTML kapısı tanımlandı — 13.09.2026; ilk iki dersi kapsayan 16 slaytlık örnek yalnızca görsel prototiptir |
+| 5 | `U1_MD_02_On_Degerlendirme.md` | Tamamlandı — 13.09.2026; öğrenci araçları ve ayrı öğretmen cevap/yorum rehberi hazır |
+| 6 | `U1_MD_Kavram_Kartlari.md` | Tamamlandı — 13.09.2026; 14 kart ve 6 kullanım etkinliği hazır |
+| 7 | `U1_MD_03A_Bireysel_Calisma_Kagitlari.md` | Tamamlandı — 13.09.2026; ders akışına uygun 5 ana bireysel çalışma kâğıdı hazır |
+| 8 | `U1_MD_03B_Grup_Calisma_Kagitlari.md` | Tamamlandı — 13.09.2026; ders akışına uygun 3 ana grup kopyası hazır |
+| 9 | `U1_MD_03C_5N1K_Kavram_Tablosu.md` | Tamamlandı — 13.09.2026; 15 kavramlık başvuru tablosu ve üç kavramlık mini-form hazır |
+| 10 | `U1_MD_04_Degerlendirme.md` | Tamamlandı — 13.09.2026; 10 araçlık öğretmen paketi, mevcut kanıtları yeniden kullanan düşük yükle uygulama akışı ve ayrı öğrenci/cevap anahtarı sınav bölümü hazır |
+| 11 | `U1_MD_05_Destekleme.md` | Tamamlandı — 13.09.2026; mevcut kanıtlarla birlikte kullanılacak dört kısa ve tekrar kullanılabilir destek aracı hazır |
+| 12 | `U1_MD_06_Zenginlestirme.md` | Tamamlandı — 13.09.2026; öğrencinin en fazla birini seçtiği dört kısa derinleştirme seçeneği hazır |
+| 13 | `U1_MD_07_Ogretmen_Yansitma_ve_Kapanis.md` | Üretilmeyecek — kullanıcı kararıyla kapsam dışı |
+| 14 | `U1_MD_Sunum_Icerigi.md` — entegrasyonlu nihai sürüm | Bağlı kaynakları bekliyor |
 
 ## 7. Önerilen ders omurgası
 
@@ -117,11 +120,9 @@ Bu dağılım resmî bir saat eşlemesi değil, ders planı hazırlanırken değ
 
 ## 9. Sıradaki iş
 
-İlk üretim dilimi `U1_MD_Ogretmen_Hazirlik.md`, ardından `U1_MD_01_Ders_Plani.md` olacaktır. Ders planı onaylandığında:
+Öğretmen hazırlık rehberi, ders planı ve ders/slayt düzeyindeki entegrasyon omurgası tamamlandı. İlk iki dersi kapsayan 16 slaytlık görsel HTML örneği `C:\Users\emret\Documents\maarif-design-hub\public\materyaller\8-01\sunum\index.html` olarak üretildi ve 1920 × 1080 görünümde kontrol edildi; bu çıktı yalnızca tasarım ve sahne prototipidir, nihai bağlantılı sunum değildir.
 
-1. `U1_Sunum_Entegrasyon_Haritasi.md` ders/slayt düzeyinde ayrıntılandırılır.
-2. `U1_MD_Sunum_Icerigi.md` ilk taslağı hazırlanır.
-3. Ön değerlendirme ve Pekiştir/Uygula kaynakları bu taslakla birlikte üretilir.
+Sıradaki tek iş: Pekiştir/Uygula içeriklerinin sayısını, türünü ve ders/slayt yerleşimini netleştirmek. Öğretmen yansıtma ve kapanış belgesi kullanıcı kararıyla bu Ünite 1 kapsamından çıkarıldı. Destekleme paketi, ihtiyaç anında seçilen dört kısa araçla; zenginleştirme paketi de öğrencinin en fazla birini seçtiği dört derinleştirme seçeneğiyle tamamlandı. Tüm bağlı dokümanlar ve etkinlikler tamamlanmadan 3–8. derslerin HTML'i veya nihai 64 slaytlık sunum üretilmeyecek. Bağlı kaynaklar tamamlanınca `TASLAK` kimlikleri gerçek katalog kimlikleriyle güncellenecek.
 
 ## 10. Oturum devri
 
@@ -130,17 +131,17 @@ Bu bölüm her çalışma oturumunun sonunda güncellenir. Başka bir oturum iş
 | Alan | Güncel durum |
 |---|---|
 | Son güncelleme | 13.09.2026 |
-| Tamamlanan | Resmî kaynak kaydı, Ünite 1 hazırlık planı, etkileşimli sunum ortak iş akışı ve Ünite 1 başlangıç entegrasyon haritası |
-| Aktif iş | Henüz içerik üretimi başlamadı |
-| Sıradaki tek iş | `U1_MD_Ogretmen_Hazirlik.md` dosyasını hazırlamak |
-| Sonraki iş | `U1_MD_01_Ders_Plani.md` dosyasını hazırlamak ve onaya sunmak |
-| Açık karar | Kesin slayt sayısı ve kaynak yerleşimleri ders planından sonra belirlenecek |
-| Engeller | Yok |
+| Tamamlanan | Resmî kaynak kaydı, Ünite 1 hazırlık planı, etkileşimli sunum ortak iş akışı, ders ve slayt düzeyindeki Ünite 1 entegrasyon omurgası, `U1_MD_Ogretmen_Hazirlik.md`, `U1_MD_01_Ders_Plani.md`, `U1_MD_02_On_Degerlendirme.md`, `U1_MD_Kavram_Kartlari.md`, `U1_MD_03A_Bireysel_Calisma_Kagitlari.md`, `U1_MD_03B_Grup_Calisma_Kagitlari.md`, `U1_MD_03C_5N1K_Kavram_Tablosu.md`, `U1_MD_04_Degerlendirme.md`, `U1_MD_05_Destekleme.md`, `U1_MD_06_Zenginlestirme.md`, `U1_MD_HTML_Sunum_Uretim_Brifi.md` içindeki nihai HTML kapısı ve ilk iki dersin 16 slaytlık görsel HTML prototipi |
+| Aktif iş | Tüm bağlı materyalleri üretme; tam sunum ve HTML bu işin ardından başlayacak |
+| Sıradaki tek iş | Pekiştir/Uygula içeriklerinin sayısını, türünü ve ders/slayt yerleşimini netleştirmek |
+| Sonraki iş | Onaylanan Pekiştir/Uygula etkinliklerini üretmek; ardından gerçek kaynak kimliklerini işlemek |
+| Açık karar | Portal içi açılış, kapanış ve sunuma dönüş davranışları; TASLAK kaynakların gerçek katalog kimlikleri |
+| Engeller | Gerçek kaynak katalog kimlikleri ve portal davranışları henüz doğrulanmadı; bu nedenle nihai HTML üretim kapısı kapalı. |
 
 ### Oturum kapatma kontrolü
 
-- [ ] Dosya planındaki durumlar güncellendi.
-- [ ] Son tamamlanan ve sıradaki tek iş yazıldı.
-- [ ] Yeni kararlar `U1_Sunum_Entegrasyon_Haritasi.md` karar günlüğüne işlendi.
-- [ ] Kullanılan canlı MEB sayfasının doğrulama tarihi güncellendi.
-- [ ] Tamamlanan değişiklikler Git durumunda kontrol edildi ve uygun bir commit ile kaydedildi.
+- [x] Dosya planındaki durumlar güncellendi.
+- [x] Son tamamlanan ve sıradaki tek iş yazıldı.
+- [x] Yeni kararlar `U1_Sunum_Entegrasyon_Haritasi.md` karar günlüğüne işlendi.
+- [x] Kullanılan canlı MEB sayfasının doğrulama tarihi güncellendi.
+- [x] Tamamlanan değişiklikler Git durumunda kontrol edildi; bu oturumda commit oluşturulmadı.

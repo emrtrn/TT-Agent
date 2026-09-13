@@ -11,7 +11,7 @@
 | Sınıf | 7 veya 8 (her üretimde seçilir) |
 | Ders adı | Teknoloji ve Tasarım |
 | Bir ders saati | **40 dakika** (45 değil!) |
-| Haftalık ders | 2 ders saati (peş peşe) |
+| Haftalık ders | 2 ders saati, arada 10 dakika ara ile peş peşe |
 | Ders saati × hafta hesabı | 4 saat → 2 hafta, 6 saat → 3 hafta, 8 saat → 4 hafta, 10 saat → 5 hafta |
 | Sınıf yapısı | İkiye bölünür (mevcut 25'i geçtiğinde) |
 | Sınıf mevcudu (form/tablo için) | **20 öğrenci** |
@@ -122,6 +122,12 @@ Bir markdown dosyası birden fazla PDF'e bölünebilir. Kurallar:
 - Çoklu rubrikler (4-5 rubrik bir PDF'te) — ama her birinin başında ayrı bölüm
 - Zenginleştirme etkinlikleri (2-3 etkinlik tek PDF'te grup halinde)
 
+### Referans Doküman Standardı
+
+- Öğretmen hazırlık materyali, ders planı, ön değerlendirme, bireysel çalışma kâğıtları, grup çalışma kâğıtları, öz değerlendirme, ünite sonu değerlendirme, destekleme ve zenginleştirme ayrı doküman türleri olarak ele alınır.
+- Kavram kartları ile 5N1K kavram tablosu gibi üniteye özgü araçlar, hedef kitlesi, kullanım zamanı veya fiziksel dağıtım biçimi farklıysa ayrı Markdown belgesi olur.
+- Aynı hedef kitleye aynı ders anında dağıtılan birden fazla kısa görev, ilgili bireysel ya da grup çalışma kâğıdı paketinde sayfa/bölüm olarak tutulabilir.
+
 ## 🎯 İçerik Üretim Tercihleri
 
 ### Yazım Tarzı
@@ -181,6 +187,7 @@ Bir markdown dosyası birden fazla PDF'e bölünebilir. Kurallar:
 | Ünite 1 | Hafif gri yazı çizgileri | İlk seçildi | Çıktıda silik istenmesi |
 | Ünite 1 | Kapak 4+ sayfada | İlk eklendi | Kâğıt tasarrufu |
 | Ünite 1 | Haftada 2 ders peş peşe | İlk eklendi | Atölye + sınıf rotasyonu |
+| Ünite 1 | İki ders arasında 10 dk ara | Eklendi | Aynı haftadaki iki ders bir bloktur; ara ödev verilmez, sonraki haftanın ödevi ikinci ders sonunda verilir |
 
 ---
 

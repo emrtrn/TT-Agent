@@ -1,0 +1,1790 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>2. Ünite — Temel Tasarım · 7. Sınıf Teknoloji ve Tasarım</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="sistem/UNITE-PALET.css">
+<link rel="stylesheet" href="sistem/TASARIM-SISTEMI.css">
+<script src="deck-stage.js"></script>
+<style>
+  /* —— Üniteye özgü mikro-stiller (sistem dışı, yalnızca bu sunum) —— */
+  .pg-tot::before { content: " / 52"; color: var(--muted); font-weight: 400; }
+  .ders-tag {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em;
+    text-transform: uppercase; padding: 6px 14px 5px;
+    border-radius: 999px; display: inline-block;
+  }
+  .ders-tag.d1 { background: var(--ders-1); color: var(--paper); }
+  .ders-tag.d2 { background: var(--ders-2); color: var(--ink); }
+  .ders-tag.d3 { background: var(--ders-3); color: var(--paper); }
+  .ders-tag.d4 { background: var(--ders-4); color: var(--paper); }
+  .ders-tag.d5 { background: var(--ders-5); color: var(--paper); }
+  .ders-tag.d6 { background: var(--ders-6); color: var(--paper); }
+
+  /* küçük büyük-numara */
+  .bn { font-family: var(--serif); font-size: 80px; color: var(--accent); line-height: 1; }
+  .bn.teal { color: var(--teal); }
+  .bn.ink  { color: var(--ink); }
+
+  /* iki sütun ders bilgi şeridi */
+  .meta-strip {
+    display: flex; gap: 26px; flex-wrap: wrap;
+    font-family: var(--mono); font-size: 13px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .meta-strip b { color: var(--ink); font-weight: 500; }
+
+  /* odev kutusu */
+  .homework-box { padding: 44px 46px; }
+  .homework-box .h-icon {
+    width: 36px; height: 36px; background: var(--accent);
+    color: var(--ink); display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-weight: 700; font-size: 18px;
+    border-radius: 50%;
+  }
+
+  /* renk şeridi (kapakta) */
+  .color-band { display: flex; height: 6px; }
+  .color-band > div { flex: 1; }
+
+  /* ortalı ana soru */
+  .center-q { text-align: center; }
+
+  /* küçük yardımcı */
+  .pill {
+    display: inline-block; padding: 5px 12px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; border: 1px solid currentColor;
+    border-radius: 999px;
+  }
+
+  /* —— Kavram Kartı görseli (paper-cut illüstrasyonlar) —— */
+  /* Tutarlı kare çerçeve, ince ink kenarı, hafif gölge — sayfadaki krem zeminde "kart" gibi otursun. */
+  .kc {
+    width: 100%; aspect-ratio: 1 / 1;
+    background: var(--ink);              /* görsel yüklenene kadar koyu placeholder */
+    border: 1px solid var(--ink);
+    overflow: hidden; position: relative;
+    box-shadow: 0 2px 0 var(--ink);      /* hafif "katman" hissi */
+  }
+  .kc img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  /* Kavram kartı içindeki görsel band (slayt 11 ve 18 — 4'lü kart düzeni için) */
+  .card .kc-strip {
+    width: calc(100% + 60px); height: 180px;
+    margin: -28px -30px 18px;             /* kartın iç padding'ini taşırarak full-bleed üst band */
+    border-bottom: 1px solid var(--ink);
+    background: var(--ink); overflow: hidden;
+  }
+  .card .kc-strip img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  /* Accent kart için band ayarı */
+  .card.accent .kc-strip { border-bottom-color: var(--ink); }
+
+  /* .plch içine yerleştirilen gerçek görseller — padding'i taşıp çerçeveyi tam doldur */
+  .plch > img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+</style>
+<script type="application/json" id="speaker-notes">
+[
+"Ünite girişi. 'Geçen ünitede tasarım kavramını öğrendik. Bu ünitede tasarımın içine giriyoruz — bir afişin neden dikkat çektiğini, bir sandalyenin neden rahat geldiğini anlayacağız.' 30 saniye, sonra slayt 2.",
+"Üniteyi 4 öğrenme çıktısı üzerinden tanıt. Tek tek okumana gerek yok; 'Bu üç hafta boyunca dört şey yapacağız' deyip büyük resmi ver. 1 dakika.",
+"Yol haritasını 6 durakla göster. 'Her hafta iki ders ardışık. Ödevler sadece haftalar arasında — aynı gündeki iki ders arasında ödev yok.' 1.5 dakika.",
+"KAPI SORUSU. Tahtada 3 hafta boyunca asılı kalacak. 'Bir afiş neden göz alıcı? Bir sandalye neden rahat? Üç hafta sonra bu sorunun cevabını birlikte vereceğiz.' Cevap bekleme; merak uyandır. 1 dakika.",
+"DERS 1 başlangıcı. Karşılama tonu. 'Bir dilin alfabesi olmadan cümle kurulamaz. Tasarımın da alfabesi var — 9 elemandan oluşuyor.' Hızlı geç, 30 saniye.",
+"Köprü kurma. 3 dakikalık etkinlik. 'Sınıfta veya pencereden gördüğünüz 5 farklı renk veya doku örneği listeleyin. Sonra söyleyin: bunları doğa mı yarattı, insan mı?' 4-5 öğrenciden cevap al.",
+"1. ünite ile bağlantı. 1 dakika. 'Geçen ünitede tasarımın TANIMINI öğrenmiştik. Şimdi MALZEMESİNİ öğreniyoruz.' Köprü cümlesini söyle, geç.",
+"9 elemanın listesi. Tek tek okuma — 'İlk beşi DERİNLEMESİNE göreceğiz, son dördünü TANIYACAĞIZ' de. 1 dakika. Vurgu: 'eleman' kelimesi.",
+"Nokta ve çizgi. Doğadan + tasarımdan örneklerle. 'Çizgi nedir? Harekete geçen noktadır. Kalemi kâğıda basın — nokta. Kaydırın — çizgi.' Kalem çıkar, hareketi göster. 4-5 dakika.",
+"Renk, doku, şekil. Üç sütun, hızlı tur. 'Trafik işaretleri neden geometrik? Hızla tanınsın diye. Organik şekiller neden hoş geliyor? Doğaya aşinayız.' 5-6 dakika.",
+"Ton, valör, mekân, biçim. FedEx logosundaki gizli ok — gösterip 'Gördükten sonra bir daha görmezsiniz' de. 5-6 dakika. Bu son dördü kavram bilinirliği seviyesinde.",
+"Eleman avı etkinliği. 5 dakika. CK1 dağıt. 'Önünüzdeki nesneyi inceleyin. En az 3 eleman bulun. Her biri için: bu üründe ___ görüyorum, çünkü ___.' Dolaş.",
+"MOLA SLAYTI. 1. ders sonu. ÖDEV YOK. 'Güzel bir başlangıç yaptık. 10 dakika sonra ilkelere geçiyoruz.' 30 saniye, sonra teneffüs.",
+"HIZLI HATIRLATMA. 2. ders başı, teneffüs sonrası. 'Az önce ne konuştuk?' diye sor — 'geçen ders' DEME. 3 dakikada Q1-Q5 üzerinden hızlı sözlü tur.",
+"Köprü cümlesi. 'Elemanlar tasarımın HARFLERİ. Peki bu harfler nasıl bir araya geliyor? Bunu belirleyen kurallar var: TASARIM İLKELERİ.' 1 dakika.",
+"8 ilkenin listesi. Hızlı tanıtım. 'Şimdi her birini görsel örnekle göreceğiz. Sezgi kazandırmak hedefimiz, ezberlemek değil.' 1 dakika.",
+"Denge ve ritim. 'Var/yok' karşılaştırması. Süleymaniye Camii — denge. Halı bordürü — ritim. 4 dakika.",
+"Vurgu, hareket, birlik, zıtlık. Dört kart, hızlı tur. 'Siyah metin + beyaz zemin = okunabilir. Açık sarı + beyaz = okunamaz. Bu zıtlık.' 5 dakika.",
+"Çeşitlilik ve oran-orantı. 'Sadece birlik = monoton. Sadece çeşitlilik = kaos. İkisi birlikte = denge.' 4 dakika.",
+"ANA SORU — accent zemin. Türk sanatları girişi. 'Yüzyıllar önce yapıldı. Tasarımcının adı bilinmiyor. Ama hâlâ estetik geliyor — neden?' Cevap bekleme, merak uyandır. 1 dakika.",
+"Görsel tur — Halı, çini, hat, ebru. Her görselden sonra sınıfa 'Hangi ilkeyi görüyorsunuz?' sor. 2-3 öğrenci cevap verir, ilkeyi ADLANDIR. 12-13 dakika toplam.",
+"Karşılaştırma etkinliği + 1. HAFTA ÖDEVİ. 5 dk CK2: bir afiş + bir geleneksel eser karşılaştır. Sonra ödevi açıkla — fotoğraf + sanat eseri görseli. Bir sonraki haftaya getirilecek.",
+"DERS 3 başlangıcı. Yeni hafta. 'Geçen hafta elemanları ve ilkeleri öğrendik. Bu hafta bu bilgiyi KULLANACAĞIZ.' 30 saniye.",
+"GEÇEN HAFTA + ÖDEV PAYLAŞIMI. 7-8 dakika. 'Şimdi geçen haftadan ne hatırlıyoruz?' kısa sözlü tur, sonra 2-3 öğrenci fotoğraflarını paylaşır. Sanat eseri görselleri sıraya çıkar.",
+"Sınır nerede? Picasso vs Velázquez. 'Bir eseri DEĞİŞTİRMEK ile MAHVETMEK arasındaki fark nedir?' Tartışma, 5 dk. Cevap kotalama yok.",
+"İçerik inceleme. 8 dk CK3. 'Eserinizi 5 soruyla tanıyın.' Dolaş, sus.",
+"3 KURAL. 'Bağlamdan kopmama, ekle/çıkar, neden sorusunu yanıtla. Bu kurallar kısıtlama değil — özgürlük. Çerçeve verilince yaratıcılık patlar.' 2 dakika.",
+"DÖNÜŞTÜRME ETKİNLİĞİ. 17 dk üretim + 5 dk akran geri dönüt. Post-it dağıt. 'Sıra arkadaşı: NEYİ değiştirmiş, BAĞLAMDAN kopmuş mu?' Dolaş.",
+"MİKRO YAZMA + GEÇİŞ. 3 dakika. Cümleyi tamamlayıp 1 gönüllü okur. Sonra mola.",
+"MOLA SLAYTI. 3. ders sonu. ÖDEV YOK. 30 saniye, sonra teneffüs.",
+"DERS 4 başlangıcı. 'Bir eseri yeniden yorumladık. Peki SIFIRDAN bir fikir üretmek için nasıl düşünürüz? Analoji tam olarak bu.' 30 saniye.",
+"HIZLI KÖPRÜ. 1 dakika. Teneffüs sonrası — 'az önce' tonu. 'Yorumlama bir esere dayanır. Analoji ise iki ayrı dünyadan köprü kurar.'",
+"ISINDIRMA. 5 dakika. İki görsel — ağaç dalları + spiral merdiven. Her biri için sınıftan EN AZ 5 analoji topla. 'Aynı nesne için bu kadar farklı cevap çıkmasının sebebi ne?' diye sor.",
+"ANALOJİ NEDİR? Organ bağışı afişi. 'Araç kapısı insan organı değil — ama ikisi de bir vücuttan alınıp başkasına takılan PARÇA. Bu köprü: ANALOJİ.' 5 dakika.",
+"DÖRTLÜ YANSITMA ETKİNLİĞİ. 5 dk konu seçimi + 20 dk CK4 doldurma. 'Sözel, görsel, soyut, nesnel — 4 ayrı yansıma.' Dolaş, ipucu ver.",
+"PAYLAŞIM + 2. HAFTA ÖDEVİ. 2 gönüllü paylaşır, sınıf güçlü/zorlama analoji değerlendirmesi yapar. Sonra ödev: malzeme + ön fikir. Bir sonraki haftaya hazırlanılacak.",
+"DERS 5 başlangıcı. 'İki haftada GÖZLEMEYİ ve YORUMLAMAYI öğrendik. Bu hafta ELLERİMİZ konuşacak.' 30 saniye.",
+"GEÇEN HAFTA + MALZEME KONTROLÜ. 4 dakika. Öğrenciler getirdiklerini sıraya çıkarır. İSG kuralları 6. dersin başında verilecek — bunu hatırlat.",
+"İlk kalem darbesi. Nike Swoosh + Guggenheim peçete hikayesi. 'Büyük fikirler sade başlar.' 2 dakika.",
+"PROBLEM SEÇİMİ. 7 dakika. 'Ben ___ için ___ tasarlayacağım.' Cümleyi yazsınlar. 2D/3D serbest. Analoji çalışmasından beslenebilir.",
+"PLANLAMA TABLOSU. 9 dakika. CK5. Hangi eleman, hangi ilke, hangi malzeme. Dolaş.",
+"TASLAK ÇALIŞMASI. 16 dakika. A3 kâğıt, en az 3 farklı taslak. 'Hızlı çiz, silmekten korkma. En beğendiğini ⭐ ile işaretle.'",
+"AKRAN GERİ DÖNÜT + MOLA. 4 dakika geri dönüt, sonra teneffüs. ÖDEV YOK — son hafta, atölye yarın.",
+"DERS 6 başlangıcı. SİYAH/ALTIN tonu. 'Bunu ben yaptım' alt başlığı. Atölye günü. 30 saniye.",
+"İSG HATIRLATMASI. 5 dakika. Silikon tabancası, maket bıçağı, makas — tek tek kuralları söyle. Sıralar koruyucu kâğıtla örtülüyor. Malzemeler hazır.",
+"ÜRETİM. 22 dakika. Bu derste rolün değişir: yönlendirici değil, YARDIMCI. Tıkanan öğrenciye 'taslağına bak, oradan başla' de. Dolaş.",
+"SON RÖTUŞ + TANITIM KARTI. 5 dakika. Tasarımcı adı, problem, kullandığı eleman/ilkeler.",
+"HIZLI GALERİ. 5 dakika. 2D işler duvara, 3D işler sıraya. Galeri yürüyüşü. Her öğrenci 2 ürün inceler, post-it bırakır.",
+"ÖZ DEĞERLENDİRME. 3 dakika. CK6. 'Formu toplamayın — bu öğrencinin kendisine ait.' Sınıfta tamamlanmazsa eve götürülür.",
+"FİNAL ÖZET. 'Nereden nereye geldik?' Kapı sorusunu tekrar oku. 6 kazanımı say. 'Tasarladık, yaptık, sergiledik.' 2 dakika.",
+"SONRAKİ ÜNİTE köprüsü. 3. Ünite Tasarım Odaklı Süreç. 'Güzel bir tasarım yeterli midir?' yeni soru. 1 dakika, sınıftan veda."
+]
+</script>
+</head>
+<body>
+
+<deck-stage width="1920" height="1080">
+
+<!-- ========== 01 · KAPAK ========== -->
+<section data-screen-label="01 Kapak">
+  <div class="rail top">
+    <div class="seg"><span>Teknoloji &amp; Tasarım</span><span class="dot"></span><span>7. Sınıf</span></div>
+    <div class="seg"><span>2. Ünite</span></div>
+  </div>
+  <div class="color-band" style="position: absolute; top: 0; left: 0; right: 0;">
+    <div style="background: var(--ders-1);"></div>
+    <div style="background: var(--ders-2);"></div>
+    <div style="background: var(--ders-3);"></div>
+    <div style="background: var(--ders-4);"></div>
+    <div style="background: var(--ders-5);"></div>
+    <div style="background: var(--ders-6);"></div>
+  </div>
+  <div class="pad" style="grid-template-rows: 1fr auto; align-content: end; padding-bottom: 160px;">
+    <div></div>
+    <div>
+      <div class="kicker" style="margin-bottom: 40px;">▸ 2. Ünite · 6 Ders Saati · 3 Hafta</div>
+      <h1 class="display">Temel<br><em>Tasarım.</em></h1>
+      <p class="lede" style="margin-top: 50px; max-width: 1100px; color: var(--muted); font-size: 32px;">Bir afişin neden dikkat çektiğini, bir sandalyenin neden rahat geldiğini, bir binanın neden estetik hissettirdiğini anlayacağız — ve kendi tasarımımızı yapacağız.</p>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">9 eleman · 8 ilke · 1 atölye</div>
+    <div class="seg pg">01<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 02 · HEDEFLER ========== -->
+<section data-screen-label="02 Hedefler">
+  <div class="rail top">
+    <div class="seg"><span>Giriş</span></div>
+    <div class="seg"><span>Öğrenme Çıktıları · TT.7.2</span></div>
+  </div>
+  <div class="pad" style="grid-template-rows: auto 1fr; padding-top: 150px;">
+    <div>
+      <div class="kicker" style="margin-bottom: 18px;">Bu Üç Haftada</div>
+      <h2 class="hero">Dört şey <em>yapacağız.</em></h2>
+    </div>
+    <div style="margin-top: 70px;">
+      <ol class="num">
+        <li><span class="n">01</span><span class="t"><b>Algılayacağız</b> — bir ürün veya eser üzerinde tasarım eleman ve ilkelerini gözlemleyip karşılaştıracağız.</span></li>
+        <li><span class="n">02</span><span class="t"><b>Yeniden yorumlayacağız</b> — bir eseri bağlamdan kopmadan, kendi ifademizle dönüştüreceğiz.</span></li>
+        <li><span class="n">03</span><span class="t"><b>Analoji kuracağız</b> — iki farklı dünya arasında köprü kurarak özgün fikir üreteceğiz.</span></li>
+        <li><span class="n">04</span><span class="t"><b>Üreteceğiz</b> — taslaktan ürüne, kendi özgün tasarımımızı tasarlayıp sergileyeceğiz.</span></li>
+      </ol>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">TT.7.2.1 → TT.7.2.4</div>
+    <div class="seg pg">02<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 03 · YOL HARİTASI (6 durak) ========== -->
+<section data-screen-label="03 Yol Haritasi">
+  <div class="rail top">
+    <div class="seg"><span>Giriş</span></div>
+    <div class="seg"><span>3 Hafta / 6 Ders</span></div>
+  </div>
+  <div class="pad" style="grid-template-rows: auto 1fr; padding-top: 140px;">
+    <div>
+      <div class="kicker" style="margin-bottom: 18px;">Yol Haritası</div>
+      <h2 class="hero">3 haftada, 6 derste bizi <em>neler bekliyor?</em></h2>
+    </div>
+    <div class="road" style="margin: 130px 30px 0;">
+      <div class="stop active" style="left: 8%;"><div class="week">Ders 01 · H.1</div><div class="pin"></div><div class="lab">Elemanlar</div></div>
+      <div class="stop" style="left: 24%;"><div class="week">Ders 02 · H.1</div><div class="pin"></div><div class="lab">İlkeler<br>+ Türk Sanatları</div></div>
+      <div class="stop" style="left: 41%;"><div class="week">Ders 03 · H.2</div><div class="pin"></div><div class="lab">Yeniden<br>Yorumlama</div></div>
+      <div class="stop" style="left: 58%;"><div class="week">Ders 04 · H.2</div><div class="pin"></div><div class="lab">Analoji</div></div>
+      <div class="stop" style="left: 75%;"><div class="week">Ders 05 · H.3</div><div class="pin"></div><div class="lab">Taslak</div></div>
+      <div class="stop" style="left: 92%;"><div class="week">Ders 06 · H.3</div><div class="pin"></div><div class="lab">Atölye<br>+ Galeri</div></div>
+    </div>
+    <div class="meta-strip" style="margin-top: 110px; justify-content: space-between;">
+      <span>Hafta ödevleri yalnızca <b>haftalar arasında</b></span>
+      <span>Aynı oturumdaki iki ders arasında ödev <b>yok</b></span>
+      <span>Son hafta atölye + sergi</span>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Ders 1 → 6 · 3 Hafta</div>
+    <div class="seg pg">03<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 04 · KAPI SORUSU (accent-bg) ========== -->
+<section data-screen-label="04 Kapi Sorusu" class="accent-bg">
+  <div class="rail top">
+    <div class="seg"><span>Giriş · Kapı Sorusu</span></div>
+    <div class="seg"><span>3 hafta tahtada asılı kalır</span></div>
+  </div>
+  <div class="pad center-q" style="align-content: center;">
+    <div>
+      <div class="kicker" style="margin-bottom: 30px;">▸ Üç Haftada Cevaplayacağız</div>
+      <h1 class="display" style="font-size: 150px;">Bizi çeken<br><em>gizli kurallar</em><br>var mı?</h1>
+      <p class="lede" style="margin-top: 60px; color: var(--ink); font-size: 32px; max-width: 1100px; margin-left: auto; margin-right: auto;">Bir afiş neden göz alıcı, bir sandalye neden rahat, bir bina neden estetik hissettirir?</p>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Bu ünitenin pusulası</div>
+    <div class="seg pg">04<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 05 · DERS 1 BAŞLIK (dark) ========== -->
+<section data-screen-label="05 Ders 01 Baslik" class="dark">
+  <div class="rail top">
+    <div class="seg"><span>1. Hafta · Ders 1/6</span></div>
+    <div class="seg"><span>TT.7.2.1.a</span></div>
+  </div>
+  <div class="pad" style="align-content: center;">
+    <div>
+      <span class="ders-tag d1">Ders 01</span>
+      <h1 class="display" style="margin-top: 36px; font-size: 170px;">Tasarımın<br><em>alfabesi.</em></h1>
+      <p class="lede" style="margin-top: 50px; color: rgba(244,239,230,0.78); font-size: 32px; max-width: 1100px;">Bir dilin alfabesi olmadan cümle kurulamaz. Tasarımın da alfabesi var — 9 elemandan oluşuyor.</p>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Elemanlar · 40 dk</div>
+    <div class="seg pg">05<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 06 · KÖPRÜ (Doğada Renk Avı) ========== -->
+<section data-screen-label="06 Kopru Doga">
+  <div class="rail top">
+    <div class="seg"><span>Ders 1 · Köprü</span></div>
+    <div class="seg"><span>Sözlü · 3 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 140px 120px; align-content: center;">
+    <div class="two asym" style="gap: 100px; align-items: center;">
+      <div>
+        <div class="kicker">Doğada Renk Avı</div>
+        <h2 class="hero" style="margin-top: 18px;">Doğada <em>ne</em> görüyorsun?</h2>
+        <p class="body dim" style="margin-top: 32px; font-size: 24px; max-width: 560px;">Sınıfta veya pencereden gördüğün <b>5 farklı renk veya doku</b> örneği listele.</p>
+        <p class="body" style="margin-top: 24px; font-size: 24px; max-width: 560px;">Sonra: Bunları <em style="font-style: italic; color: var(--accent);">doğa mı yarattı, insan mı?</em></p>
+      </div>
+      <div class="card" style="padding: 36px 40px;">
+        <div class="eyebrow" style="margin-bottom: 20px;">/ Hızlı Liste</div>
+        <ol class="num" style="gap: 0;">
+          <li><span class="n">01</span><span class="t" style="color: var(--muted);">_______________________</span></li>
+          <li><span class="n">02</span><span class="t" style="color: var(--muted);">_______________________</span></li>
+          <li><span class="n">03</span><span class="t" style="color: var(--muted);">_______________________</span></li>
+          <li><span class="n">04</span><span class="t" style="color: var(--muted);">_______________________</span></li>
+          <li><span class="n">05</span><span class="t" style="color: var(--muted);">_______________________</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">3 dk · 4-5 cevap, hızlı geç</div>
+    <div class="seg pg">06<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 07 · 1. ÜNİTEDEN BAĞLANTI ========== -->
+<section data-screen-label="07 1Unite Baglanti">
+  <div class="rail top">
+    <div class="seg"><span>Ders 1 · Bağlantı</span></div>
+    <div class="seg"><span>1 dk · Köprü</span></div>
+  </div>
+  <div class="pad" style="align-content: center;">
+    <div class="two" style="gap: 100px; align-items: center;">
+      <div>
+        <div class="kicker">Geçen Üniteden</div>
+        <h3 class="mid" style="margin-top: 22px;">Tanım<br>biliyorduk.</h3>
+        <p class="body dim" style="margin-top: 32px; font-size: 22px; max-width: 480px;">1. ünitede tasarımın <b>ne olduğunu</b> öğrendik. Grafik, mimari, endüstriyel...</p>
+      </div>
+      <div>
+        <div class="kicker" style="color: var(--teal);">Bu Ünite</div>
+        <h3 class="mid" style="margin-top: 22px;">Şimdi<br><em style="color: var(--accent);">malzemesini</em><br>öğreniyoruz.</h3>
+        <p class="body dim" style="margin-top: 32px; font-size: 22px; max-width: 480px;">9 eleman, 8 ilke. Tasarımın atomları ve gramerleri.</p>
+      </div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Tanım → Malzeme</div>
+    <div class="seg pg">07<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 08 · 9 ELEMAN GENEL BAKIŞ ========== -->
+<section data-screen-label="08 9 Eleman">
+  <div class="rail top">
+    <div class="seg"><span>Ders 1 · Sunum</span></div>
+    <div class="seg"><span>1 dk · Liste</span></div>
+  </div>
+  <div class="pad" style="grid-template-rows: auto 1fr; padding: 130px 100px;">
+    <div>
+      <div class="kicker">9 Eleman</div>
+      <h2 class="hero" style="margin-top: 18px;">Tasarımın <em>9 atomu.</em></h2>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 60px;">
+      <div class="card" style="padding: 24px 26px;"><div class="bn">01</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Nokta</h4><p class="body" style="font-size: 20px; margin-top: 8px;">En küçük görsel birim.</p></div>
+      <div class="card" style="padding: 24px 26px;"><div class="bn">02</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Çizgi</h4><p class="body" style="font-size: 20px; margin-top: 8px;">Harekete geçen nokta.</p></div>
+      <div class="card" style="padding: 24px 26px;"><div class="bn">03</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Renk</h4><p class="body" style="font-size: 20px; margin-top: 8px;">Işığın dili.</p></div>
+      <div class="card" style="padding: 24px 26px;"><div class="bn">04</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Doku</h4><p class="body" style="font-size: 20px; margin-top: 8px;">Dokunuşun görüntüsü.</p></div>
+      <div class="card" style="padding: 24px 26px;"><div class="bn">05</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Şekil</h4><p class="body" style="font-size: 20px; margin-top: 8px;">İki boyutlu yüzey.</p></div>
+      <div class="card" style="padding: 24px 26px; background: var(--paper-2);"><div class="bn teal">06</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Ton</h4><p class="body" style="font-size: 20px; margin-top: 8px;">Açık-koyu derecesi.</p></div>
+      <div class="card" style="padding: 24px 26px; background: var(--paper-2);"><div class="bn teal">07</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Valör</h4><p class="body" style="font-size: 20px; margin-top: 8px;">Siyah-beyaz skalası.</p></div>
+      <div class="card" style="padding: 24px 26px; background: var(--paper-2);"><div class="bn teal">08</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Mekân</h4><p class="body" style="font-size: 20px; margin-top: 8px;">Pozitif + negatif alan.</p></div>
+      <div class="card" style="padding: 24px 26px; background: var(--paper-2);"><div class="bn teal">09</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Biçim/Form</h4><p class="body" style="font-size: 20px; margin-top: 8px;">Üç boyutlu hacim.</p></div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">İlk 5 derinlemesine · son 4 tanıma</div>
+    <div class="seg pg">08<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 09 · NOKTA + ÇİZGİ ========== -->
+<section data-screen-label="09 Nokta Cizgi">
+  <div class="rail top">
+    <div class="seg"><span>Ders 1 · Eleman 1-2</span></div>
+    <div class="seg"><span>4 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 120px; align-content: center;">
+    <div class="two" style="gap: 100px; align-items: start;">
+      <div>
+        <div style="display: flex; gap: 32px; align-items: center;">
+          <div style="flex: 1; min-width: 0;">
+            <span class="stamp">Eleman 01</span>
+            <h2 class="hero" style="margin-top: 18px; font-size: 76px;">Nokta.</h2>
+          </div>
+          <div class="kc" style="flex: 0 0 220px; height: 220px;"><img src="assets/kavramlar/01-nokta.png" alt="Nokta"></div>
+        </div>
+        <p class="lede" style="margin-top: 26px; font-size: 28px;">En küçük görsel birim.</p>
+        <div style="margin-top: 28px;">
+          <div class="eyebrow" style="margin-bottom: 10px;">/ Doğada</div>
+          <p class="body" style="margin-bottom: 20px;">Yıldızlı gökyüzü, çilli ten, kum tanesi.</p>
+          <div class="eyebrow" style="margin-bottom: 10px;">/ Tasarımda</div>
+          <p class="body">Piksel, madde işareti, polka dot.</p>
+        </div>
+      </div>
+      <div>
+        <div style="display: flex; gap: 32px; align-items: center;">
+          <div style="flex: 1; min-width: 0;">
+            <span class="stamp">Eleman 02</span>
+            <h2 class="hero" style="margin-top: 18px; font-size: 76px;">Çizgi.</h2>
+          </div>
+          <div class="kc" style="flex: 0 0 220px; height: 220px;"><img src="assets/kavramlar/02-cizgi.png" alt="Çizgi"></div>
+        </div>
+        <p class="lede" style="margin-top: 26px; font-size: 28px;">Harekete geçen nokta. Yatay, dikey, eğik, kıvrımlı.</p>
+        <div style="margin-top: 28px;">
+          <div class="eyebrow" style="margin-bottom: 10px;">/ Doğada</div>
+          <p class="body" style="margin-bottom: 20px;">Ufuk çizgisi, nehrin seyri, ağaç dalı.</p>
+          <div class="eyebrow" style="margin-bottom: 10px;">/ Tasarımda</div>
+          <p class="body">Logo çizgileri, mimari plan, yazı.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Kalemi kâğıda bas — nokta. Kaydır — çizgi.</div>
+    <div class="seg pg">09<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 10 · RENK · DOKU · ŞEKİL (üç sütun) ========== -->
+<section data-screen-label="10 Renk Doku Sekil">
+  <div class="rail top">
+    <div class="seg"><span>Ders 1 · Eleman 3-4-5</span></div>
+    <div class="seg"><span>6 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 100px; grid-template-rows: auto 1fr;">
+    <div>
+      <div class="kicker">Üç Eleman Daha</div>
+      <h2 class="hero" style="margin-top: 18px;">Renk, doku, <em>şekil.</em></h2>
+    </div>
+    <div class="three" style="margin-top: 70px;">
+      <div>
+        <span class="stamp accent">03 · Renk</span>
+        <p class="lede" style="margin-top: 26px; font-size: 28px;">Işığın yansıması.</p>
+        <p class="body" style="margin-top: 18px;">Sıcak ↔ Soğuk. Marka renkleri, trafik ışığı, mevsim.</p>
+        <div class="kc" style="margin-top: 28px; aspect-ratio: 4 / 3;"><img src="assets/kavramlar/03-renk.png" alt="Renk çemberi"></div>
+      </div>
+      <div>
+        <span class="stamp accent">04 · Doku</span>
+        <p class="lede" style="margin-top: 26px; font-size: 28px;">Yüzeyin hissi.</p>
+        <p class="body" style="margin-top: 18px;">Pürüzlü/düz, sert/yumuşak. Taş, kumaş, halı lifleri.</p>
+        <div class="kc" style="margin-top: 28px; aspect-ratio: 4 / 3;"><img src="assets/kavramlar/04-doku.png" alt="Doku örneği"></div>
+      </div>
+      <div>
+        <span class="stamp accent">05 · Şekil</span>
+        <p class="lede" style="margin-top: 26px; font-size: 28px;">İki boyutlu yüzey.</p>
+        <p class="body" style="margin-top: 18px;">Geometrik (kare, daire) ↔ Organik (yaprak, bulut).</p>
+        <div class="kc" style="margin-top: 28px; aspect-ratio: 4 / 3;"><img src="assets/kavramlar/05-sekil.png" alt="Geometrik ve organik şekiller"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Trafik işareti hızla tanınsın diye geometrik</div>
+    <div class="seg pg">10<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 11 · TON · VALÖR · MEKÂN · BİÇİM (dört kart) ========== -->
+<section data-screen-label="11 Ton Valor Mekan Bicim">
+  <div class="rail top">
+    <div class="seg"><span>Ders 1 · Eleman 6-7-8-9</span></div>
+    <div class="seg"><span>5 dk · hızlı tanıtım</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 100px; grid-template-rows: auto 1fr;">
+    <div>
+      <div class="kicker">Hızlı Tanıtım</div>
+      <h2 class="hero" style="margin-top: 18px;">Son <em>dört eleman.</em></h2>
+    </div>
+    <div class="four" style="margin-top: 60px; gap: 22px;">
+      <div class="card" style="padding: 28px 30px;">
+        <div class="kc-strip"><img src="assets/kavramlar/06-valor.png" alt="Ton — bir rengin gradasyonu"></div>
+        <div class="bn">06</div>
+        <h4 style="margin-top: 16px; opacity: 1; color: var(--ink);">Ton</h4>
+        <p class="body" style="font-size: 20px; margin-top: 10px;">Açık-koyu derecesi. Gölge ve ışık.</p>
+      </div>
+      <div class="card" style="padding: 28px 30px;">
+        <div class="kc-strip"><img src="assets/kavramlar/07-ton.png" alt="Valör — siyahtan beyaza skala"></div>
+        <div class="bn">07</div>
+        <h4 style="margin-top: 16px; opacity: 1; color: var(--ink);">Valör</h4>
+        <p class="body" style="font-size: 20px; margin-top: 10px;">Siyahtan beyaza skala. Kontrast kaynağı.</p>
+      </div>
+      <div class="card accent" style="padding: 28px 30px;">
+        <div class="kc-strip"><img src="assets/kavramlar/08-mekan.png" alt="Mekân — pozitif/negatif alan"></div>
+        <div class="bn ink">08</div>
+        <h4 style="margin-top: 16px; opacity: 1; color: var(--ink);">Mekân</h4>
+        <p class="body" style="font-size: 20px; margin-top: 10px; color: var(--ink);">Pozitif (nesne) + Negatif (boşluk).</p>
+        <p class="body" style="font-size: 18px; margin-top: 14px; color: var(--ink); font-style: italic;">FedEx logosundaki gizli ok: E ile x arasındaki boşluk.</p>
+      </div>
+      <div class="card" style="padding: 28px 30px;">
+        <div class="kc-strip"><img src="assets/kavramlar/09-bicim.png" alt="Biçim — üç boyutlu form"></div>
+        <div class="bn">09</div>
+        <h4 style="margin-top: 16px; opacity: 1; color: var(--ink);">Biçim/Form</h4>
+        <p class="body" style="font-size: 20px; margin-top: 10px;">Şeklin 3 boyutlu hali. Bardak, heykel, bina.</p>
+      </div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Gördükten sonra bir daha görmezsiniz</div>
+    <div class="seg pg">11<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 12 · ELEMAN AVI ETKİNLİĞİ ========== -->
+<section data-screen-label="12 Eleman Avi">
+  <div class="rail top">
+    <div class="seg"><span>Ders 1 · Etkinlik · CK1</span></div>
+    <div class="seg"><span>Bireysel · 5 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 100px; grid-template-columns: 0.9fr 1.1fr; gap: 90px; align-content: center;">
+    <div>
+      <span class="stamp accent">Etkinlik 01</span>
+      <h2 class="hero" style="margin-top: 26px;">Eleman <em>avı.</em></h2>
+      <p class="lede" style="margin-top: 32px; font-size: 30px;">Önündeki nesneyi veya görseli incele. En az <b>3 eleman</b> bul.</p>
+      <div style="margin-top: 36px; display: flex; gap: 16px; flex-wrap: wrap;">
+        <span class="stamp ink">⏱ 5 dk</span>
+        <span class="stamp">Çalışma Kâğıdı CK1</span>
+      </div>
+    </div>
+    <div class="card" style="padding: 36px 40px;">
+      <div class="eyebrow" style="margin-bottom: 22px;">/ Şablon</div>
+      <p class="body" style="font-size: 22px; margin-bottom: 18px; font-style: italic; color: var(--muted);">"Bu üründe ___ görüyorum, çünkü ___."</p>
+      <p class="body" style="font-size: 22px; margin-bottom: 30px; font-style: italic; color: var(--muted);">Bulamazsan: "Yok — çünkü ___."</p>
+      <div style="display: grid; gap: 18px;">
+        <div><div style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; color: var(--accent);">01 · ELEMAN</div><div style="height: 1px; background: var(--rule-soft); margin-top: 22px;"></div><div style="height: 1px; background: var(--rule-soft); margin-top: 14px;"></div></div>
+        <div><div style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; color: var(--accent);">02 · ELEMAN</div><div style="height: 1px; background: var(--rule-soft); margin-top: 22px;"></div><div style="height: 1px; background: var(--rule-soft); margin-top: 14px;"></div></div>
+        <div><div style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; color: var(--accent);">03 · ELEMAN</div><div style="height: 1px; background: var(--rule-soft); margin-top: 22px;"></div><div style="height: 1px; background: var(--rule-soft); margin-top: 14px;"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Anlık tanılama · gözlem formu</div>
+    <div class="seg pg">12<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 13 · MOLA (1. ders sonu — ÖDEV YOK) ========== -->
+<section data-screen-label="13 Mola Ders 1">
+  <div class="rail top">
+    <div class="seg"><span>1. Ders Kapanışı</span></div>
+    <div class="seg"><span>10 dk teneffüs</span></div>
+  </div>
+  <div class="pad" style="grid-template-columns: 1.1fr 0.9fr; gap: 90px; align-content: center;">
+    <div>
+      <div class="kicker">Bugün Öğrendiklerimiz</div>
+      <h2 class="hero" style="margin-top: 18px;">Güzel bir <em>başlangıç.</em></h2>
+      <ol class="num" style="margin-top: 44px; gap: 0;">
+        <li><span class="n">✓</span><span class="t">9 elemanı tanıdık.</span></li>
+        <li><span class="n">✓</span><span class="t">Bir nesneyi "eleman gözüyle" inceledik.</span></li>
+        <li><span class="n">✓</span><span class="t">Doğa-tasarım köprüsünü kurduk.</span></li>
+      </ol>
+    </div>
+    <div class="card inv" style="padding: 56px 48px; align-self: center; text-align: center;">
+      <div class="eyebrow" style="color: var(--accent-2);">▸ Kısa Mola</div>
+      <div style="font-family: var(--serif); font-size: 200px; font-weight: 400; color: var(--paper); line-height: 0.9; margin: 30px 0 18px;">10<span style="font-size: 80px; vertical-align: top; margin-left: 4px; color: var(--accent-2);">dk</span></div>
+      <p class="body" style="font-size: 22px; color: rgba(244,239,230,0.9); margin: 0 0 26px;">Su için, hava alın, kafanızı dağıtın.</p>
+      <div style="height: 1px; background: rgba(244,239,230,0.25); margin-bottom: 26px;"></div>
+      <div class="eyebrow" style="color: var(--accent-2);">/ Sonra</div>
+      <p class="body" style="font-size: 22px; color: var(--paper); margin: 10px 0 0;">2. Ders — <em style="color: var(--accent-2); font-style: italic;">İlkeler &amp; Türk Sanatları.</em></p>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">10 dk sonra 2. ders · ödev yok</div>
+    <div class="seg pg">13<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 14 · HIZLI HATIRLATMA (2. ders başı) ========== -->
+<section data-screen-label="14 Hizli Hatirlatma">
+  <div class="rail top">
+    <div class="seg"><span>2. Ders · 1. Hafta</span></div>
+    <div class="seg"><span>10 dk sonra · 3 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 140px 120px;">
+    <div class="two" style="align-items: start;">
+      <div>
+        <div class="kicker">Hızlı Hatırlatma</div>
+        <h2 class="hero" style="margin-top: 18px;">Az önce <em>ne</em> konuştuk?</h2>
+        <p class="body dim" style="margin-top: 36px; font-size: 22px; max-width: 480px;">Sadece 10 dakika geçti — kısa bir sözlü tur. 5 soru, hızlı geç.</p>
+      </div>
+      <ol class="num">
+        <li><span class="n">Q1</span><span class="t">9 elemandan kaçını sayabilirsin?</span></li>
+        <li><span class="n">Q2</span><span class="t">Çizgi nedir? <span style="color: var(--muted);">(Cevap: harekete geçen nokta.)</span></span></li>
+        <li><span class="n">Q3</span><span class="t">Geometrik şekil ile organik şekil farkı?</span></li>
+        <li><span class="n">Q4</span><span class="t">FedEx logosundaki gizli ne vardı?</span></li>
+        <li><span class="n">Q5</span><span class="t">"Eleman avında" ne tür bir cümle kuruyorduk?</span></li>
+      </ol>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Sözlü · 3 dk · "geçen ders" deme</div>
+    <div class="seg pg">14<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 15 · HARFLERDEN KURALLARA (köprü) ========== -->
+<section data-screen-label="15 Harflerden Kurallara">
+  <div class="rail top">
+    <div class="seg"><span>Ders 2 · Bağlantı</span></div>
+    <div class="seg"><span>1 dk</span></div>
+  </div>
+  <div class="pad" style="align-content: center;">
+    <div style="text-align: center; max-width: 1500px; margin: 0 auto;">
+      <div class="kicker" style="margin-bottom: 30px;">Köprü</div>
+      <h2 class="hero" style="font-size: 110px;">Elemanlar tasarımın <em>harfleri.</em></h2>
+      <h2 class="hero" style="font-size: 110px; margin-top: 30px;">Peki bu harfler nasıl <em>kelimeye</em> dönüşüyor?</h2>
+      <p class="lede" style="margin-top: 60px; font-size: 32px; max-width: 1000px; margin-left: auto; margin-right: auto; color: var(--muted);">Bunu belirleyen kurallar var: <b style="color: var(--ink);">Tasarım İlkeleri.</b> Ve bu kuralları, adını bilmeden yüzyıllarca kullananlar oldu.</p>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Sözlü köprü · ön ısınma</div>
+    <div class="seg pg">15<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 16 · 8 İLKE GENEL BAKIŞ ========== -->
+<section data-screen-label="16 8 Ilke">
+  <div class="rail top">
+    <div class="seg"><span>Ders 2 · Sunum</span></div>
+    <div class="seg"><span>1 dk · liste</span></div>
+  </div>
+  <div class="pad" style="grid-template-rows: auto 1fr; padding: 130px 100px;">
+    <div>
+      <div class="kicker">8 İlke</div>
+      <h2 class="hero" style="margin-top: 18px;">Tasarımın <em>8 grameri.</em></h2>
+    </div>
+    <div class="four" style="margin-top: 60px; gap: 18px; grid-template-rows: 1fr 1fr;">
+      <div class="card" style="padding: 24px 26px;"><div class="bn">01</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Denge</h4><p class="body" style="font-size: 19px; margin-top: 8px;">Görsel ağırlığın eşit dağılımı.</p></div>
+      <div class="card" style="padding: 24px 26px;"><div class="bn">02</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Ritim</h4><p class="body" style="font-size: 19px; margin-top: 8px;">Tekrar eden öğelerin akışı.</p></div>
+      <div class="card" style="padding: 24px 26px;"><div class="bn">03</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Vurgu</h4><p class="body" style="font-size: 19px; margin-top: 8px;">Bakışın ilk durduğu yer.</p></div>
+      <div class="card" style="padding: 24px 26px;"><div class="bn">04</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Hareket</h4><p class="body" style="font-size: 19px; margin-top: 8px;">Gözün yaptığı yolculuk.</p></div>
+      <div class="card" style="padding: 24px 26px;"><div class="bn">05</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Birlik</h4><p class="body" style="font-size: 19px; margin-top: 8px;">Parçaların uyumlu bütünü.</p></div>
+      <div class="card" style="padding: 24px 26px;"><div class="bn">06</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Çeşitlilik</h4><p class="body" style="font-size: 19px; margin-top: 8px;">Farklılığın zenginliği.</p></div>
+      <div class="card" style="padding: 24px 26px;"><div class="bn">07</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Zıtlık</h4><p class="body" style="font-size: 19px; margin-top: 8px;">Karşıtların gücü.</p></div>
+      <div class="card" style="padding: 24px 26px;"><div class="bn">08</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Oran-Orantı</h4><p class="body" style="font-size: 19px; margin-top: 8px;">Boyutların ilişkisi.</p></div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Sezgi hedefi · ezber değil</div>
+    <div class="seg pg">16<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 17 · DENGE & RİTİM ========== -->
+<section data-screen-label="17 Denge Ritim">
+  <div class="rail top">
+    <div class="seg"><span>Ders 2 · İlke 1-2</span></div>
+    <div class="seg"><span>4 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 120px; align-content: center;">
+    <div class="two" style="gap: 100px;">
+      <div>
+        <div style="display: flex; gap: 32px; align-items: center;">
+          <div style="flex: 1; min-width: 0;">
+            <span class="stamp">İlke 01</span>
+            <h2 class="hero" style="margin-top: 18px; font-size: 76px;">Denge.</h2>
+          </div>
+          <div class="kc" style="flex: 0 0 220px; height: 220px;"><img src="assets/kavramlar/10-denge.png" alt="Denge"></div>
+        </div>
+        <p class="lede" style="margin-top: 24px; font-size: 28px;">Simetrik veya asimetrik. Görsel ağırlığın dengesi.</p>
+        <div style="margin-top: 28px;">
+          <div class="eyebrow" style="margin-bottom: 10px; color: var(--ok);">✓ Var</div>
+          <p class="body" style="margin-bottom: 18px;">Köprü cephesi, Süleymaniye Camii.</p>
+          <div class="eyebrow" style="margin-bottom: 10px; color: var(--accent);">✗ Yok</div>
+          <p class="body">Her şey sola yığılmış afiş.</p>
+        </div>
+      </div>
+      <div>
+        <div style="display: flex; gap: 32px; align-items: center;">
+          <div style="flex: 1; min-width: 0;">
+            <span class="stamp">İlke 02</span>
+            <h2 class="hero" style="margin-top: 18px; font-size: 76px;">Ritim.</h2>
+          </div>
+          <div class="kc" style="flex: 0 0 220px; height: 220px;"><img src="assets/kavramlar/11-ritim.png" alt="Ritim"></div>
+        </div>
+        <p class="lede" style="margin-top: 24px; font-size: 28px;">Tekrar eden öğelerin görsel müziği.</p>
+        <div style="margin-top: 28px;">
+          <div class="eyebrow" style="margin-bottom: 10px; color: var(--ok);">✓ Var</div>
+          <p class="body" style="margin-bottom: 18px;">Halı bordürü, sütun sırası.</p>
+          <div class="eyebrow" style="margin-bottom: 10px; color: var(--accent);">✗ Yok</div>
+          <p class="body">Şekillerin rastgele dağıtıldığı sayfa.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Var/yok karşılaştırması · sezgi</div>
+    <div class="seg pg">17<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 18 · VURGU · HAREKET · BİRLİK · ZITLIK ========== -->
+<section data-screen-label="18 Vurgu Hareket Birlik Zitlik">
+  <div class="rail top">
+    <div class="seg"><span>Ders 2 · İlke 3-4-5-7</span></div>
+    <div class="seg"><span>5 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 100px; grid-template-rows: auto 1fr;">
+    <div>
+      <div class="kicker">Dört İlke</div>
+      <h2 class="hero" style="margin-top: 18px;">Vurgu, hareket, <em>birlik, zıtlık.</em></h2>
+    </div>
+    <div class="four" style="margin-top: 60px; gap: 22px;">
+      <div class="card" style="padding: 28px 30px;"><div class="kc-strip"><img src="assets/kavramlar/12-vurgu.png" alt="Vurgu"></div><div class="bn">03</div><h4 style="margin-top: 16px; opacity: 1; color: var(--ink);">Vurgu</h4><p class="body" style="font-size: 20px; margin-top: 10px;">Bakışın ilk durduğu odak. Boyut, renk veya yerleşim farkıyla.</p></div>
+      <div class="card" style="padding: 28px 30px;"><div class="kc-strip"><img src="assets/kavramlar/13-hareket.png" alt="Hareket"></div><div class="bn">04</div><h4 style="margin-top: 16px; opacity: 1; color: var(--ink);">Hareket</h4><p class="body" style="font-size: 20px; margin-top: 10px;">Gözün kompozisyonda aktığı yolculuk. Diagonaller, büyüyen şekiller.</p></div>
+      <div class="card" style="padding: 28px 30px;"><div class="kc-strip"><img src="assets/kavramlar/14-birlik.png" alt="Birlik"></div><div class="bn">05</div><h4 style="margin-top: 16px; opacity: 1; color: var(--ink);">Birlik</h4><p class="body" style="font-size: 20px; margin-top: 10px;">Tüm parçaların uyumlu bütün gibi algılanması. Aynı renk-font ailesi.</p></div>
+      <div class="card accent" style="padding: 28px 30px;"><div class="kc-strip"><img src="assets/kavramlar/16-zitlik.png" alt="Zıtlık"></div><div class="bn ink">07</div><h4 style="margin-top: 16px; opacity: 1; color: var(--ink);">Zıtlık</h4><p class="body" style="font-size: 20px; margin-top: 10px; color: var(--ink);">Siyah + beyaz = okunur. Açık sarı + beyaz = okunmaz.</p></div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Çeşitlilik &amp; oran sıradaki slaytta</div>
+    <div class="seg pg">18<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 19 · ÇEŞİTLİLİK & ORAN-ORANTI ========== -->
+<section data-screen-label="19 Cesitlilik Oran">
+  <div class="rail top">
+    <div class="seg"><span>Ders 2 · İlke 6-8</span></div>
+    <div class="seg"><span>4 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 120px; align-content: center;">
+    <div class="two" style="gap: 100px;">
+      <div>
+        <div style="display: flex; gap: 32px; align-items: center;">
+          <div style="flex: 1; min-width: 0;">
+            <span class="stamp">İlke 06</span>
+            <h2 class="hero" style="margin-top: 18px; font-size: 76px;">Çeşitlilik.</h2>
+          </div>
+          <div class="kc" style="flex: 0 0 220px; height: 220px;"><img src="assets/kavramlar/15-cesitlilik.png" alt="Çeşitlilik"></div>
+        </div>
+        <p class="lede" style="margin-top: 24px; font-size: 28px;">Farklı eleman ve renklerin yarattığı zenginlik.</p>
+        <div class="card" style="background: var(--paper-2); margin-top: 26px; padding: 22px 26px;">
+          <p class="body" style="font-size: 20px; margin: 0;">⚠ Sadece birlik → <b>monoton</b>.<br>Sadece çeşitlilik → <b>kaotik</b>.<br>İkisi birlikte → <b style="color: var(--accent);">denge noktası</b>.</p>
+        </div>
+      </div>
+      <div>
+        <div style="display: flex; gap: 32px; align-items: center;">
+          <div style="flex: 1; min-width: 0;">
+            <span class="stamp">İlke 08</span>
+            <h2 class="hero" style="margin-top: 18px; font-size: 76px;">Oran-Orantı.</h2>
+          </div>
+          <div class="kc" style="flex: 0 0 220px; height: 220px;"><img src="assets/kavramlar/17-oran.png" alt="Oran-Orantı"></div>
+        </div>
+        <p class="lede" style="margin-top: 24px; font-size: 28px;">Nesnelerin boyutsal ilişkisi.</p>
+        <p class="body" style="margin-top: 22px;">İnsan vücudu orantısı, altın oran, afişteki başlık-görsel dengesi.</p>
+      </div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">8 ilke tamamlandı</div>
+    <div class="seg pg">19<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 20 · TÜRK SANATLARI GİRİŞ (accent-bg) ========== -->
+<section data-screen-label="20 Turk Sanatlari Giris" class="accent-bg">
+  <div class="rail top">
+    <div class="seg"><span>Ders 2 · Görsel Tur</span></div>
+    <div class="seg"><span>—</span></div>
+  </div>
+  <div class="pad center-q" style="align-content: center;">
+    <div>
+      <div class="kicker" style="margin-bottom: 30px;">▸ Geleneklerimizin Dili</div>
+      <h1 class="display" style="font-size: 140px;">Bugün niye<br><em>hâlâ güzel</em><br>geliyor?</h1>
+      <p class="lede" style="margin-top: 50px; color: var(--ink); font-size: 30px; max-width: 1100px; margin-left: auto; margin-right: auto;">Yüzyıllar önce yapıldı. Tasarımcının adı bilinmiyor. Ama hâlâ estetik geliyor — çünkü tasarım eleman ve ilkeleri ustalıkla kullanılmış. Kitaptan değil, sezgi ve geleneğin aktarımıyla.</p>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Halı · Çini · Hat-Tezhip · Ebru</div>
+    <div class="seg pg">20<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 21 · GÖRSEL TUR (4 sanat dalı, dark) ========== -->
+<section data-screen-label="21 Gorsel Tur" class="dark">
+  <div class="rail top">
+    <div class="seg"><span>Ders 2 · Geleneksel Türk Sanatları</span></div>
+    <div class="seg"><span>~13 dk · 4 dal</span></div>
+  </div>
+  <div class="pad" style="padding: 120px 100px; grid-template-rows: auto 1fr;">
+    <div>
+      <div class="kicker">Görsel Tur</div>
+      <h2 class="hero" style="margin-top: 16px;">Hangi <em>ilkeyi</em> görüyorsunuz?</h2>
+    </div>
+    <div class="four" style="margin-top: 50px; gap: 22px;">
+      <div>
+        <div class="eyebrow" style="color: var(--accent-2); margin-bottom: 14px;">/ 01 Halı / Kilim</div>
+        <div class="plch inv" style="height: 240px; margin-bottom: 12px;"><img src="assets/gorseller/G04-anadolu-halisi.png" alt="Anadolu Halısı"></div>
+        <p class="body" style="font-size: 19px; color: var(--paper);"><b>Ritim</b> — bordürün tekrarı.<br><b>Denge</b> — merkez motif.<br><span style="color: rgba(244,239,230,0.7);">Konya · Uşak · Hereke · Bergama · Milas</span></p>
+      </div>
+      <div>
+        <div class="eyebrow" style="color: var(--accent-2); margin-bottom: 14px;">/ 02 İznik Çinisi</div>
+        <div class="plch inv" style="height: 240px; margin-bottom: 12px;"><img src="assets/gorseller/G05-iznik-cini.png" alt="İznik çinisi"></div>
+        <p class="body" style="font-size: 19px; color: var(--paper);"><b>Şekil</b> — geometrik + organik.<br><b>Birlik</b> — yüzlerce kare tek pano.<br><span style="color: rgba(244,239,230,0.7);">Topkapı · Rüstem Paşa Camii</span></p>
+      </div>
+      <div>
+        <div class="eyebrow" style="color: var(--accent-2); margin-bottom: 14px;">/ 03 Hat &amp; Tezhip</div>
+        <div class="plch inv" style="height: 240px; margin-bottom: 12px;"><img src="assets/gorseller/G06-tugra-tezhip.png" alt="Tuğra ve tezhip"></div>
+        <p class="body" style="font-size: 19px; color: var(--paper);"><b>Çizgi</b> — kalın/ince, hızlı/yavaş.<br><b>Vurgu</b> — büyük tuğra.<br><span style="color: rgba(244,239,230,0.7);">Sayfanın merkez gücü</span></p>
+      </div>
+      <div>
+        <div class="eyebrow" style="color: var(--accent-2); margin-bottom: 14px;">/ 04 Ebru</div>
+        <div class="plch inv" style="height: 240px; margin-bottom: 12px;"><img src="assets/gorseller/G07-ebru.png" alt="Battal ebru"></div>
+        <p class="body" style="font-size: 19px; color: var(--paper);"><b>Hareket</b> — kıvrımlar göz yüzdürür.<br><b>Çeşitlilik</b> — her ebru eşsiz.<br><span style="color: rgba(244,239,230,0.7);">Su, boya, nefes</span></p>
+      </div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Her görselden sonra sınıfa sor</div>
+    <div class="seg pg">21<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 22 · KARŞILAŞTIRMA + 1. HAFTA ÖDEVİ ========== -->
+<section data-screen-label="22 Hafta1 Odev">
+  <div class="rail top">
+    <div class="seg"><span>2. Ders Kapanışı</span></div>
+    <div class="seg"><span>1. Hafta sonu · ödev</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 120px; align-content: center;">
+    <div class="two" style="gap: 90px;">
+      <div>
+        <span class="stamp">Etkinlik · CK2</span>
+        <h2 class="hero" style="margin-top: 22px;">Karşılaştır <em>5 dk.</em></h2>
+        <p class="body" style="margin-top: 28px;">Bir <b>afiş</b> ile bir <b>geleneksel eser</b> karşılaştır.</p>
+        <p class="body" style="margin-top: 14px; font-style: italic; color: var(--muted);">"İkisinde de ___ ilkesi var, çünkü ___."</p>
+        <div style="margin-top: 28px; height: 1px; background: var(--rule-soft);"></div>
+        <ol class="num" style="margin-top: 28px; gap: 0;">
+          <li><span class="n">✓</span><span class="t">9 elemanı tanıdık.</span></li>
+          <li><span class="n">✓</span><span class="t">8 ilkeyi gördük.</span></li>
+          <li><span class="n">✓</span><span class="t">Türk sanatlarını tasarım gözüyle okuduk.</span></li>
+        </ol>
+      </div>
+      <div class="card inv homework-box" style="align-self: center;">
+        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 22px;">
+          <div class="h-icon">⌂</div>
+          <span class="eyebrow" style="color: var(--accent-2);">▸ 1. Hafta Ödevi · Bir Sonraki Hafta</span>
+        </div>
+        <h3 class="mid" style="font-size: 38px; color: var(--paper); line-height: 1.15;">Eleman gözüyle <em style="color: var(--accent-2); font-style: italic;">bak.</em></h3>
+        <div style="margin-top: 26px; height: 1px; background: rgba(244,239,230,0.25);"></div>
+        <ul style="list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 16px; font-size: 19px; color: rgba(244,239,230,0.92);">
+          <li><b style="color: var(--paper);">1 · Fotoğraf:</b> Evden veya sokaktan bir nesne fotoğrafla. Üzerinde <b>3 eleman + 1 ilke</b> işaretle.</li>
+          <li><b style="color: var(--paper);">2 · Sanat eseri:</b> Bir sanat eseri veya tasarım ürünü görseli bul (geleneksel olabilir). 3. derse getir.</li>
+          <li style="color: var(--accent-2); font-style: italic;">Yeniden yorumlama çalışmasında kullanacağız.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Sonraki hafta: yeniden yorumlama</div>
+    <div class="seg pg">22<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 23 · DERS 3 BAŞLIK (dark) ========== -->
+<section data-screen-label="23 Ders 03 Baslik" class="dark">
+  <div class="rail top">
+    <div class="seg"><span>2. Hafta · Ders 3/6</span></div>
+    <div class="seg"><span>TT.7.2.2</span></div>
+  </div>
+  <div class="pad" style="align-content: center;">
+    <div>
+      <span class="ders-tag d3">Ders 03</span>
+      <h1 class="display" style="margin-top: 36px; font-size: 170px;">Yeniden<br><em>yorumlama.</em></h1>
+      <p class="lede" style="margin-top: 50px; color: rgba(244,239,230,0.78); font-size: 32px; max-width: 1100px;">Geçen hafta gördük. Bu hafta KULLANIYORUZ — bir eseri bağlamdan kopmadan kendi ifademize çeviriyoruz.</p>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Bağlamı koru, ifadeyi değiştir</div>
+    <div class="seg pg">23<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 24 · GEÇEN HAFTA + ÖDEV PAYLAŞIMI ========== -->
+<section data-screen-label="24 Gecen Hafta Odev">
+  <div class="rail top">
+    <div class="seg"><span>Ders 3 · Açılış</span></div>
+    <div class="seg"><span>7-8 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 100px; align-content: center;">
+    <div class="two asym" style="gap: 90px; align-items: start;">
+      <div>
+        <div class="kicker">Geçen Haftanın Gözleri</div>
+        <h2 class="hero" style="margin-top: 18px;">Ne <em>getirdik?</em></h2>
+        <p class="body dim" style="margin-top: 30px; max-width: 540px;">Bir hafta önce iki şey istedik: <b>fotoğraf</b> ve <b>sanat eseri görseli</b>. Şimdi paylaşma zamanı.</p>
+        <p class="body" style="margin-top: 24px; max-width: 540px; font-style: italic; color: var(--accent);">"Bu eserde değiştirmek istediğin bir şey var mı?"</p>
+        <p class="body dim" style="margin-top: 16px; font-size: 20px; max-width: 540px;">Bu sorunun cevabı, bugünkü çalışmanın kapısını açıyor.</p>
+      </div>
+      <div style="display: grid; gap: 22px;">
+        <div class="card" style="padding: 28px 32px;">
+          <div class="eyebrow" style="margin-bottom: 14px; color: var(--accent);">/ 01 · Fotoğraf Paylaşımı · 3 dk</div>
+          <p class="body" style="font-size: 21px;">2-3 öğrenci fotoğrafını gösterir.<br>"Hangi 3 elemanı işaretledim? Hangi ilkeyi buldum?"</p>
+        </div>
+        <div class="card" style="padding: 28px 32px;">
+          <div class="eyebrow" style="margin-bottom: 14px; color: var(--accent);">/ 02 · Sanat Eseri Görseli · 3 dk</div>
+          <p class="body" style="font-size: 21px;">Herkes getirdiğini önüne çıkarır. Eseri olmayan için yedek görseller hazırda.</p>
+        </div>
+        <div class="card teal" style="padding: 28px 32px;">
+          <div class="eyebrow" style="margin-bottom: 14px; color: var(--paper); opacity: 0.85;">/ 03 · Köprü Sorusu · 1 dk</div>
+          <p class="body" style="font-size: 21px; color: var(--paper);">Sınıfa açık soru: bugünkü çalışmaya hazırlık.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Ödev paylaşımı + köprü</div>
+    <div class="seg pg">24<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 25 · SINIR NEREDE? Picasso vs Velázquez ========== -->
+<section data-screen-label="25 Sinir Nerede">
+  <div class="rail top">
+    <div class="seg"><span>Ders 3 · Tartışma</span></div>
+    <div class="seg"><span>5 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 100px; grid-template-rows: auto 1fr;">
+    <div>
+      <div class="kicker">Sınır Nerede?</div>
+      <h2 class="hero" style="margin-top: 18px;">Değiştirmek mi, <em>bozmak</em> mı?</h2>
+    </div>
+    <div style="margin-top: 60px; display: grid; grid-template-columns: 1fr auto 1fr; gap: 40px; align-items: center;">
+      <div>
+        <div class="eyebrow" style="margin-bottom: 14px;">/ 1656 · Velázquez</div>
+        <div class="plch" style="height: 380px; margin-bottom: 16px;"><img src="assets/gorseller/G08-las-meninas-velazquez.png" alt="Las Meninas — Barok yorum"></div>
+        <p class="body" style="font-size: 21px;">Velázquez'in başyapıtı.</p>
+      </div>
+      <div style="font-family: var(--serif); font-size: 200px; color: var(--accent); line-height: 1;">≠</div>
+      <div>
+        <div class="eyebrow" style="margin-bottom: 14px;">/ 1957 · Picasso</div>
+        <div class="plch" style="height: 380px; margin-bottom: 16px;"><img src="assets/gorseller/G09-las-meninas-picasso.png" alt="Las Meninas — Kübist yorum"></div>
+        <p class="body" style="font-size: 21px;">58 farklı yorumla yeniden çizdi.</p>
+      </div>
+    </div>
+    <p class="lede" style="margin-top: 40px; font-size: 28px; text-align: center; max-width: 1300px; margin-left: auto; margin-right: auto; font-style: italic;">"Bir eseri değiştirmek ile onu mahvetmek arasındaki fark nedir?"</p>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Sözlü tartışma · cevap kotalama yok</div>
+    <div class="seg pg">25<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 26 · İÇERİK İNCELEME (CK3) ========== -->
+<section data-screen-label="26 Icerik Inceleme">
+  <div class="rail top">
+    <div class="seg"><span>Ders 3 · Etkinlik · CK3</span></div>
+    <div class="seg"><span>Bireysel · 8 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 100px; grid-template-columns: 0.9fr 1.1fr; gap: 90px; align-content: center;">
+    <div>
+      <span class="stamp accent">Etkinlik 02</span>
+      <h2 class="hero" style="margin-top: 26px;">Eseri <em>tanı.</em></h2>
+      <p class="lede" style="margin-top: 32px; font-size: 30px;">Kendi getirdiğin (ya da öğretmenin verdiği) eseri 5 soruyla incele.</p>
+      <div style="margin-top: 32px; display: flex; gap: 16px;">
+        <span class="stamp ink">⏱ 8 dk</span>
+        <span class="stamp">CK3</span>
+      </div>
+    </div>
+    <div class="card" style="padding: 36px 40px;">
+      <div class="eyebrow" style="margin-bottom: 22px;">/ 5 Soru</div>
+      <ol class="num" style="gap: 0;">
+        <li><span class="n">01</span><span class="t">Eserde ne var?</span></li>
+        <li><span class="n">02</span><span class="t">Ne anlatıyor?</span></li>
+        <li><span class="n">03</span><span class="t">Hangi eleman baskın?</span></li>
+        <li><span class="n">04</span><span class="t">Hangi ilke en güçlü?</span></li>
+        <li><span class="n">05</span><span class="t">Bu eser sende hangi duyguyu uyandırıyor?</span></li>
+      </ol>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Dolaş, sus, gözle</div>
+    <div class="seg pg">26<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 27 · 3 KURAL (kontrol listesi) ========== -->
+<section data-screen-label="27 3 Kural">
+  <div class="rail top">
+    <div class="seg"><span>Ders 3 · Kurallar</span></div>
+    <div class="seg"><span>2 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 120px; grid-template-rows: auto 1fr;">
+    <div>
+      <div class="kicker">Üç Kural</div>
+      <h2 class="hero" style="margin-top: 18px;">Dönüştürmenin <em>üç kuralı.</em></h2>
+    </div>
+    <div class="three" style="margin-top: 70px; gap: 28px;">
+      <div class="card" style="padding: 36px 38px;">
+        <div class="bn">01</div>
+        <h3 class="mid" style="margin-top: 18px; font-size: 38px;">Bağlamdan kopma.</h3>
+        <p class="body" style="margin-top: 18px;">Özgün mesaj korunmalı. Eserin neyi anlattığını değiştirme.</p>
+      </div>
+      <div class="card" style="padding: 36px 38px;">
+        <div class="bn">02</div>
+        <h3 class="mid" style="margin-top: 18px; font-size: 38px;">Ekle <em style="color: var(--accent); font-style: italic;">veya</em> çıkar.</h3>
+        <p class="body" style="margin-top: 18px;">Tümden yeni değil — dönüştür. Bir şeyi farklılaştır.</p>
+      </div>
+      <div class="card accent" style="padding: 36px 38px;">
+        <div class="bn ink">03</div>
+        <h3 class="mid" style="margin-top: 18px; font-size: 38px; color: var(--ink);">Neden? sorusunu yanıtla.</h3>
+        <p class="body" style="margin-top: 18px; color: var(--ink);">Gerekçen olsun. Değişiklik için değişiklik değil — anlamlı seçim.</p>
+      </div>
+    </div>
+    <p class="body dim" style="margin-top: 36px; font-size: 22px; text-align: center; font-style: italic;">"Bu kurallar kısıtlama değil — özgürlük. Çerçeve verilince yaratıcılık patlar."</p>
+  </div>
+  <div class="rail bot">
+    <div class="seg">3 dakika sonra üretime geçeceğiz</div>
+    <div class="seg pg">27<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 28 · DÖNÜŞTÜRME + AKRAN GERİ DÖNÜT ========== -->
+<section data-screen-label="28 Donusturme">
+  <div class="rail top">
+    <div class="seg"><span>Ders 3 · Etkinlik · CK3</span></div>
+    <div class="seg"><span>Bireysel · 17 + 5 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 100px; grid-template-columns: 1.1fr 0.9fr; gap: 90px; align-content: center;">
+    <div>
+      <span class="stamp accent">Etkinlik 03</span>
+      <h2 class="hero" style="margin-top: 26px;">Yeniden <em>çiz.</em></h2>
+      <p class="lede" style="margin-top: 32px; font-size: 30px;">Eseri kâğıda çiz, en az bir değişiklik yap.</p>
+      <div style="margin-top: 30px; display: grid; gap: 14px;">
+        <p class="body">→ Rengi değiştir</p>
+        <p class="body">→ Eleman ekle veya çıkar</p>
+        <p class="body">→ Büyüt veya küçült</p>
+        <p class="body" style="color: var(--accent);">⚠ Bağlamdan kopma.</p>
+      </div>
+      <div style="margin-top: 32px; display: flex; gap: 16px;">
+        <span class="stamp ink">⏱ 17 dk üretim</span>
+        <span class="stamp teal">+ 5 dk akran</span>
+      </div>
+    </div>
+    <div class="card inv" style="padding: 40px 42px; align-self: center;">
+      <div class="eyebrow" style="color: var(--accent-2); margin-bottom: 18px;">/ Akran Geri Dönüt · Post-it</div>
+      <h3 class="mid" style="font-size: 36px; color: var(--paper); line-height: 1.15;">Sıra arkadaşı <em style="color: var(--accent-2); font-style: italic;">2 cümle yazar.</em></h3>
+      <div style="margin-top: 28px; height: 1px; background: rgba(244,239,230,0.25);"></div>
+      <ul style="list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 14px; font-size: 19px; color: rgba(244,239,230,0.92);">
+        <li>· "Neyi değiştirmiş: ___"</li>
+        <li>· "Bağlamdan kopmuş mu? Evet / Hayır, çünkü ___"</li>
+      </ul>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Yeniden yorumlama ürünü · rubrik</div>
+    <div class="seg pg">28<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 29 · MİKRO YAZMA ========== -->
+<section data-screen-label="29 Mikro Yazma">
+  <div class="rail top">
+    <div class="seg"><span>Ders 3 · Mikro Yazma</span></div>
+    <div class="seg"><span>3 dk</span></div>
+  </div>
+  <div class="pad" style="align-content: center;">
+    <div style="text-align: center; max-width: 1500px; margin: 0 auto;">
+      <div class="kicker" style="margin-bottom: 36px;">Bir Cümle</div>
+      <h2 class="hero" style="font-size: 92px; line-height: 1.15;">"Yeniden yorumlamak demek <em style="color: var(--accent); font-style: italic;">_______________</em>;</h2>
+      <h2 class="hero" style="font-size: 92px; line-height: 1.15; margin-top: 24px;">bunu kopyalamaktan ayıran şey ise <em style="color: var(--accent); font-style: italic;">_______________</em>."</h2>
+      <p class="body dim" style="margin-top: 60px; font-size: 24px;">→ 1 gönüllü okur. Hızlı geç.</p>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Bireysel yazma · sözlü paylaşım</div>
+    <div class="seg pg">29<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 30 · MOLA (3. ders sonu — ÖDEV YOK) ========== -->
+<section data-screen-label="30 Mola Ders 3">
+  <div class="rail top">
+    <div class="seg"><span>3. Ders Kapanışı</span></div>
+    <div class="seg"><span>10 dk teneffüs</span></div>
+  </div>
+  <div class="pad" style="grid-template-columns: 1.1fr 0.9fr; gap: 90px; align-content: center;">
+    <div>
+      <div class="kicker">Bu Derste</div>
+      <h2 class="hero" style="margin-top: 18px;">Bir eseri <em>dönüştürdük.</em></h2>
+      <ol class="num" style="margin-top: 44px; gap: 0;">
+        <li><span class="n">✓</span><span class="t">İçerik incelemesi yaptık (CK3).</span></li>
+        <li><span class="n">✓</span><span class="t">3 kuralı uyguladık — bağlam, ekle/çıkar, neden.</span></li>
+        <li><span class="n">✓</span><span class="t">Akran gözünden geri dönüt aldık.</span></li>
+      </ol>
+    </div>
+    <div class="card inv" style="padding: 56px 48px; align-self: center; text-align: center;">
+      <div class="eyebrow" style="color: var(--accent-2);">▸ Kısa Mola</div>
+      <div style="font-family: var(--serif); font-size: 200px; font-weight: 400; color: var(--paper); line-height: 0.9; margin: 30px 0 18px;">10<span style="font-size: 80px; vertical-align: top; margin-left: 4px; color: var(--accent-2);">dk</span></div>
+      <p class="body" style="font-size: 22px; color: rgba(244,239,230,0.9); margin: 0 0 26px;">Hava alın. Sıradaki — özgün fikir üretmek.</p>
+      <div style="height: 1px; background: rgba(244,239,230,0.25); margin-bottom: 26px;"></div>
+      <div class="eyebrow" style="color: var(--accent-2);">/ Sonra</div>
+      <p class="body" style="font-size: 22px; color: var(--paper); margin: 10px 0 0;">4. Ders — <em style="color: var(--accent-2); font-style: italic;">Analoji Atölyesi.</em></p>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">10 dk sonra 4. ders · ödev yok</div>
+    <div class="seg pg">30<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 31 · DERS 4 BAŞLIK (dark) ========== -->
+<section data-screen-label="31 Ders 04 Baslik" class="dark">
+  <div class="rail top">
+    <div class="seg"><span>2. Hafta · Ders 4/6</span></div>
+    <div class="seg"><span>TT.7.2.3</span></div>
+  </div>
+  <div class="pad" style="align-content: center;">
+    <div>
+      <span class="ders-tag d4">Ders 04</span>
+      <h1 class="display" style="margin-top: 36px; font-size: 170px;">Analoji<br><em>atölyesi.</em></h1>
+      <p class="lede" style="margin-top: 50px; color: rgba(244,239,230,0.78); font-size: 32px; max-width: 1100px;">Bir eseri yorumladık. Peki sıfırdan bir fikir üretmek için nasıl düşünürüz? Analoji tam olarak bu.</p>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">İki dünya arasında köprü</div>
+    <div class="seg pg">31<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 32 · HIZLI KÖPRÜ (10 dk önce) ========== -->
+<section data-screen-label="32 Hizli Kopru">
+  <div class="rail top">
+    <div class="seg"><span>Ders 4 · Köprü</span></div>
+    <div class="seg"><span>1 dk</span></div>
+  </div>
+  <div class="pad" style="align-content: center;">
+    <div style="text-align: center; max-width: 1400px; margin: 0 auto;">
+      <div class="kicker" style="margin-bottom: 30px;">10 Dakika Önce</div>
+      <h2 class="hero" style="font-size: 96px; line-height: 1.1;">Yorumlama bir esere <em>dayanır.</em></h2>
+      <h2 class="hero" style="font-size: 96px; line-height: 1.1; margin-top: 24px;">Analoji ise iki ayrı dünyadan <em>köprü kurar.</em></h2>
+      <p class="lede" style="margin-top: 50px; font-size: 30px; color: var(--muted);">Bu fark, yeni fikrin doğum noktasıdır.</p>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Sözlü köprü · ön ısınma</div>
+    <div class="seg pg">32<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 33 · ISINDIRMA (Bu neye benziyor?) ========== -->
+<section data-screen-label="33 Isindirma">
+  <div class="rail top">
+    <div class="seg"><span>Ders 4 · Isındırma</span></div>
+    <div class="seg"><span>5 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 100px; grid-template-rows: auto 1fr;">
+    <div>
+      <div class="kicker">Isındırma</div>
+      <h2 class="hero" style="margin-top: 18px;">Bu neye <em>benziyor?</em></h2>
+    </div>
+    <div class="two" style="margin-top: 60px; gap: 80px;">
+      <div>
+        <div class="plch" style="height: 360px; margin-bottom: 22px;"><img src="assets/gorseller/G10-agac-dallari.png" alt="Ağaç dalları"></div>
+        <span class="stamp">01 · Ağaç Dalları</span>
+        <p class="body" style="margin-top: 18px; font-size: 22px; color: var(--muted);">Damar · Yıldırım · Yol haritası · Nehir kolu · Akciğer bronşları...</p>
+      </div>
+      <div>
+        <div class="plch" style="height: 360px; margin-bottom: 22px;"><img src="assets/gorseller/G11-spiral-merdiven.png" alt="Spiral merdiven"></div>
+        <span class="stamp">02 · Spiral Merdiven</span>
+        <p class="body" style="margin-top: 18px; font-size: 22px; color: var(--muted);">DNA · Salyangoz kabuğu · Galaksi · Yay · Tornado...</p>
+      </div>
+    </div>
+    <p class="body" style="margin-top: 30px; font-size: 22px; text-align: center; font-style: italic; color: var(--accent);">"Aynı nesne için bu kadar farklı cevap çıkmasının sebebi ne?"</p>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Her görselden en az 5 analoji topla</div>
+    <div class="seg pg">33<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 34 · ANALOJİ NEDİR? ========== -->
+<section data-screen-label="34 Analoji Nedir">
+  <div class="rail top">
+    <div class="seg"><span>Ders 4 · Kavram</span></div>
+    <div class="seg"><span>5 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 100px; grid-template-rows: auto 1fr;">
+    <div>
+      <div class="kicker">Analoji Nedir?</div>
+      <h2 class="hero" style="margin-top: 18px;">İki dünya arasında <em>köprü.</em></h2>
+    </div>
+    <div class="two asym" style="margin-top: 50px; gap: 80px; align-items: start;">
+      <div>
+        <p class="lede" style="font-size: 30px;">Görünüşte farklı iki şey arasında <b>ortak yapı, his veya anlam</b> köprüsü kurmak.</p>
+        <div style="margin-top: 36px; padding: 24px 28px; background: var(--paper-2); border-left: 3px solid var(--accent);">
+          <div class="eyebrow" style="margin-bottom: 12px; color: var(--accent);">/ Örnek · Organ Bağışı Afişi</div>
+          <p class="body" style="margin-bottom: 12px;">Sarı arabanın kapısı → kırmızı araca takılmış.</p>
+          <p class="body" style="font-style: italic; color: var(--ink);">"Parçanı bağışla, başka bir hayata ver."</p>
+        </div>
+        <p class="body" style="margin-top: 26px; font-size: 22px;">Araç kapısı ≠ insan organı.<br>Ama ikisi de <b>"bir vücuttan alınıp başkasına takılan parça."</b></p>
+        <p class="body" style="margin-top: 14px; color: var(--accent); font-style: italic;">→ Bu köprü: ANALOJİ.</p>
+      </div>
+      <div>
+        <div class="plch" style="height: 480px;"><img src="assets/gorseller/G12-organ-bagisi.png" alt="Organ bağışı afişi — analoji örneği"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Kavram + örnek</div>
+    <div class="seg pg">34<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 35 · DÖRTLÜ YANSITMA (CK4) ========== -->
+<section data-screen-label="35 Dortlu Yansitma">
+  <div class="rail top">
+    <div class="seg"><span>Ders 4 · Etkinlik · CK4</span></div>
+    <div class="seg"><span>5 + 20 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 100px; grid-template-rows: auto auto 1fr;">
+    <div>
+      <span class="stamp accent">Etkinlik 04</span>
+      <h2 class="hero" style="margin-top: 22px;">Bir konu, <em>dört yansıma.</em></h2>
+    </div>
+    <div class="meta-strip" style="margin-top: 30px;">
+      <span><b>5 dk</b> konu seçimi</span>
+      <span><b>20 dk</b> CK4 doldurma</span>
+      <span>Konular: su tasarrufu · kitap okuma · sınıfta gürültü · sağlıklı beslenme · trafik · yalnızlık</span>
+    </div>
+    <div class="four" style="margin-top: 50px; gap: 22px;">
+      <div class="card" style="padding: 28px 30px;">
+        <div class="bn">01</div>
+        <h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Sözel</h4>
+        <p class="body" style="font-size: 20px; margin-top: 12px;">Bir cümle slogan.</p>
+        <div style="margin-top: 18px; height: 1px; background: var(--rule-soft);"></div>
+        <p class="body" style="font-size: 18px; margin-top: 14px; color: var(--muted); font-style: italic;">"___"</p>
+      </div>
+      <div class="card" style="padding: 28px 30px;">
+        <div class="bn">02</div>
+        <h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Görsel</h4>
+        <p class="body" style="font-size: 20px; margin-top: 12px;">Eskiz çizimi.</p>
+        <div style="margin-top: 18px; height: 100px; background: var(--paper-2); border: 1px dashed var(--rule-soft);"></div>
+      </div>
+      <div class="card" style="padding: 28px 30px;">
+        <div class="bn">03</div>
+        <h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Soyut</h4>
+        <p class="body" style="font-size: 20px; margin-top: 12px;">Duyguyu temsil eden renk veya doku.</p>
+        <div style="margin-top: 18px; height: 40px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+          <div style="background: var(--accent);"></div>
+          <div style="background: var(--teal);"></div>
+          <div style="background: var(--ink);"></div>
+        </div>
+      </div>
+      <div class="card accent" style="padding: 28px 30px;">
+        <div class="bn ink">04</div>
+        <h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Nesnel</h4>
+        <p class="body" style="font-size: 20px; margin-top: 12px; color: var(--ink);">Somut nesne veya örnek.</p>
+        <div style="margin-top: 18px; height: 1px; background: rgba(30,58,95,0.4);"></div>
+        <p class="body" style="font-size: 18px; margin-top: 14px; color: var(--ink);">→ "___ gibi"</p>
+      </div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Konu + 4 yansıma · CK4 rubriği</div>
+    <div class="seg pg">35<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 36 · GÜÇLÜ ↔ ZORLAMA ANALOJİ ========== -->
+<section data-screen-label="36 Guclu Zorlama">
+  <div class="rail top">
+    <div class="seg"><span>Ders 4 · Değerlendirme</span></div>
+    <div class="seg"><span>Sözlü · paylaşım</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 120px; align-content: center;">
+    <div>
+      <div class="kicker">Paylaşım Süzgeci</div>
+      <h2 class="hero" style="margin-top: 18px;">Güçlü mü, <em>zorlama</em> mı?</h2>
+      <table class="tbl" style="margin-top: 50px; font-size: 24px;">
+        <thead><tr><th style="width: 50%;">Güçlü Analoji</th><th style="width: 50%;">Zorlama Analoji</th></tr></thead>
+        <tbody>
+          <tr><td>İki unsur gerçekten benzer.</td><td>Benzerlik yapay; zorla kurulmuş.</td></tr>
+          <tr><td>Köprü açıklamadan anlaşılıyor.</td><td>Anlatmak gerekiyor.</td></tr>
+          <tr><td>Bir his de uyandırıyor.</td><td>Sadece teknik bir benzerlik.</td></tr>
+        </tbody>
+      </table>
+      <p class="body dim" style="margin-top: 40px; font-style: italic; font-size: 22px; text-align: center;">→ 2 gönüllü analojisini paylaşır. Sınıf süzgeçten geçirir.</p>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Sözlü değerlendirme · 5 dk</div>
+    <div class="seg pg">36<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 37 · 2. HAFTA ÖDEVİ ========== -->
+<section data-screen-label="37 Hafta2 Odev">
+  <div class="rail top">
+    <div class="seg"><span>4. Ders Kapanışı</span></div>
+    <div class="seg"><span>2. Hafta sonu · ödev</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 120px; align-content: center;">
+    <div class="two" style="gap: 90px;">
+      <div>
+        <div class="kicker">Bu Hafta</div>
+        <h2 class="hero" style="margin-top: 18px;">İki dünya, <em>bir köprü.</em></h2>
+        <ol class="num" style="margin-top: 44px; gap: 0;">
+          <li><span class="n">✓</span><span class="t">Bir eseri yeniden yorumladık.</span></li>
+          <li><span class="n">✓</span><span class="t">Analojinin ne olduğunu öğrendik.</span></li>
+          <li><span class="n">✓</span><span class="t">Bir konu için 4 farklı yansıma kurduk.</span></li>
+        </ol>
+        <p class="body dim" style="margin-top: 32px; font-style: italic;">Sıradaki hafta: ellerimiz konuşacak.</p>
+      </div>
+      <div class="card inv homework-box" style="align-self: center;">
+        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 22px;">
+          <div class="h-icon">⌂</div>
+          <span class="eyebrow" style="color: var(--accent-2);">▸ 2. Hafta Ödevi · Bir Sonraki Hafta</span>
+        </div>
+        <h3 class="mid" style="font-size: 38px; color: var(--paper); line-height: 1.15;">Atölyeye <em style="color: var(--accent-2); font-style: italic;">hazırlan.</em></h3>
+        <div style="margin-top: 26px; height: 1px; background: rgba(244,239,230,0.25);"></div>
+        <ul style="list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 16px; font-size: 19px; color: rgba(244,239,230,0.92);">
+          <li><b style="color: var(--paper);">1 · Malzeme:</b> Karton, kumaş parçası, renkli kâğıt, atık malzeme, yün ipi... Evden getir.</li>
+          <li><b style="color: var(--paper);">2 · Ön fikir:</b> Hangi konuyu/problemi tasarlayacağını düşün. Kesin karar değil — ön fikir.</li>
+          <li style="color: var(--accent-2); font-style: italic;">Atölyede makas, silikon tabancası ve maket bıçağı hazır olacak.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Sonraki hafta: taslak + atölye</div>
+    <div class="seg pg">37<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 38 · DERS 5 BAŞLIK (dark) ========== -->
+<section data-screen-label="38 Ders 05 Baslik" class="dark">
+  <div class="rail top">
+    <div class="seg"><span>3. Hafta · Ders 5/6</span></div>
+    <div class="seg"><span>TT.7.2.4.a</span></div>
+  </div>
+  <div class="pad" style="align-content: center;">
+    <div>
+      <span class="ders-tag d5">Ders 05</span>
+      <h1 class="display" style="margin-top: 36px; font-size: 170px;">Taslaktan<br><em>tasarıma.</em></h1>
+      <p class="lede" style="margin-top: 50px; color: rgba(244,239,230,0.78); font-size: 32px; max-width: 1100px;">İki haftada gözlemeyi, yorumlamayı, analoji kurmayı öğrendik. Bu hafta ellerimiz konuşacak.</p>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Eskiz · plan · 3 taslak</div>
+    <div class="seg pg">38<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 39 · MALZEME KONTROLÜ ========== -->
+<section data-screen-label="39 Malzeme Kontrol">
+  <div class="rail top">
+    <div class="seg"><span>Ders 5 · Açılış</span></div>
+    <div class="seg"><span>4 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 120px; grid-template-columns: 1.1fr 0.9fr; gap: 90px; align-content: center;">
+    <div>
+      <div class="kicker">Geçen Haftadan</div>
+      <h2 class="hero" style="margin-top: 18px;">Malzeme <em>kontrolü.</em></h2>
+      <p class="body" style="margin-top: 32px; max-width: 540px;">Getirdiğin malzemeleri sıraya çıkar. Eksik varsa endişelenme — atölyede ortak malzeme de var.</p>
+      <p class="body" style="margin-top: 22px; max-width: 540px; font-style: italic; color: var(--accent);">"İki haftada tasarımı görmeyi öğrendik. Şimdi bu bilgiyle kendi tasarımımızı yapacağız."</p>
+      <p class="body dim" style="margin-top: 28px; font-size: 20px; max-width: 540px;">⚠ İSG kuralları 6. dersin başında verilecek.</p>
+    </div>
+    <div class="card" style="padding: 32px 36px;">
+      <div class="eyebrow" style="margin-bottom: 18px;">/ Atölyede Hazır</div>
+      <div style="display: grid; gap: 14px; font-size: 22px;">
+        <div>✂︎ Makas</div>
+        <div>🔫 Silikon tabancası</div>
+        <div>🔪 Maket bıçağı + kesim altlığı</div>
+        <div>📐 Cetvel</div>
+      </div>
+      <div style="margin-top: 24px; height: 1px; background: var(--rule-soft);"></div>
+      <div class="eyebrow" style="margin-top: 24px; margin-bottom: 14px; color: var(--accent);">/ Sen Getirdin</div>
+      <p class="body" style="font-size: 20px; color: var(--muted);">Karton · kumaş · renkli kâğıt · atık · yün ipi · ne istersen.</p>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">İSG · 6. dersin başında</div>
+    <div class="seg pg">39<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 40 · İLK KALEM DARBESİ ========== -->
+<section data-screen-label="40 Ilk Kalem">
+  <div class="rail top">
+    <div class="seg"><span>Ders 5 · Köprü</span></div>
+    <div class="seg"><span>2 dk</span></div>
+  </div>
+  <div class="pad" style="align-content: center;">
+    <div style="text-align: center; max-width: 1500px; margin: 0 auto;">
+      <div class="kicker" style="margin-bottom: 30px;">Her Tasarımın Doğum Anı</div>
+      <h2 class="hero" style="font-size: 96px;">Bir kâğıt, <em>bir kalem.</em></h2>
+      <div class="two" style="margin-top: 60px; gap: 80px;">
+        <div class="card" style="padding: 36px 38px; text-align: left;">
+          <div class="eyebrow" style="margin-bottom: 14px; color: var(--accent);">/ Carolyn Davidson · 1971</div>
+          <h3 class="mid" style="font-size: 36px;">Nike Swoosh, <em style="color: var(--accent); font-style: italic;">45 dakikada</em> çizildi.</h3>
+        </div>
+        <div class="card" style="padding: 36px 38px; text-align: left;">
+          <div class="eyebrow" style="margin-bottom: 14px; color: var(--accent);">/ Frank Gehry · 1991</div>
+          <h3 class="mid" style="font-size: 36px;">Guggenheim Bilbao'nun ilk taslağı bir <em style="color: var(--accent); font-style: italic;">peçeteye</em> çizildi.</h3>
+        </div>
+      </div>
+      <p class="lede" style="margin-top: 44px; font-size: 30px; font-style: italic; color: var(--muted);">Büyük fikirler sade başlar.</p>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Tasarım hikayesi · 2 dk</div>
+    <div class="seg pg">40<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 41 · PROBLEM SEÇİMİ ========== -->
+<section data-screen-label="41 Problem Secimi">
+  <div class="rail top">
+    <div class="seg"><span>Ders 5 · Etkinlik</span></div>
+    <div class="seg"><span>Bireysel · 7 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 100px; grid-template-rows: auto 1fr;">
+    <div>
+      <span class="stamp accent">Etkinlik 05</span>
+      <h2 class="hero" style="margin-top: 22px;">Problemini <em>seç.</em></h2>
+    </div>
+    <div style="margin-top: 60px; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 80px; align-items: start;">
+      <div>
+        <p class="lede" style="font-size: 36px; line-height: 1.3;">"Ben <em style="color: var(--accent); font-style: italic;">_______________</em><br>için <em style="color: var(--accent); font-style: italic;">_______________</em><br>tasarlayacağım."</p>
+        <p class="body dim" style="margin-top: 32px; font-size: 22px;">2D veya 3D — ikisi de olur. Analoji çalışmandan yola çıkabilirsin.</p>
+      </div>
+      <div>
+        <div class="eyebrow" style="margin-bottom: 18px;">/ Seçenek Havuzu</div>
+        <div class="three" style="gap: 14px;">
+          <div class="card" style="padding: 20px 22px; text-align: center;"><b>Afiş</b></div>
+          <div class="card" style="padding: 20px 22px; text-align: center;"><b>Kitap kapağı</b></div>
+          <div class="card" style="padding: 20px 22px; text-align: center;"><b>Uygulama ikonu</b></div>
+          <div class="card" style="padding: 20px 22px; text-align: center;"><b>Logo</b></div>
+          <div class="card" style="padding: 20px 22px; text-align: center;"><b>Maket</b></div>
+          <div class="card" style="padding: 20px 22px; text-align: center;"><b>Motif uyarlaması</b></div>
+        </div>
+        <p class="body dim" style="margin-top: 26px; font-size: 20px; font-style: italic;">→ Ya da listede olmayan bir şey. Bana söyle.</p>
+      </div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Problem cümlesi · kâğıda yaz</div>
+    <div class="seg pg">41<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 42 · PLANLAMA TABLOSU (CK5) ========== -->
+<section data-screen-label="42 Planlama">
+  <div class="rail top">
+    <div class="seg"><span>Ders 5 · Etkinlik · CK5</span></div>
+    <div class="seg"><span>Bireysel · 9 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 100px; grid-template-rows: auto 1fr;">
+    <div>
+      <span class="stamp accent">Etkinlik 06</span>
+      <h2 class="hero" style="margin-top: 22px;">Tasarım <em>planım.</em></h2>
+    </div>
+    <div style="margin-top: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+      <div class="card" style="padding: 32px 36px;">
+        <div class="eyebrow" style="margin-bottom: 22px; color: var(--accent);">/ Eleman Planı</div>
+        <table class="tbl" style="font-size: 20px;">
+          <thead><tr><th>Kullanacağım Eleman</th><th>Nasıl?</th></tr></thead>
+          <tbody>
+            <tr><td style="height: 50px;">__________</td><td>__________</td></tr>
+            <tr><td style="height: 50px;">__________</td><td>__________</td></tr>
+            <tr><td style="height: 50px;">__________</td><td>__________</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card" style="padding: 32px 36px;">
+        <div class="eyebrow" style="margin-bottom: 22px; color: var(--accent);">/ İlke Planı</div>
+        <table class="tbl" style="font-size: 20px;">
+          <thead><tr><th>Kullanacağım İlke</th><th>Nasıl?</th></tr></thead>
+          <tbody>
+            <tr><td style="height: 50px;">__________</td><td>__________</td></tr>
+            <tr><td style="height: 50px;">__________</td><td>__________</td></tr>
+            <tr><td style="height: 50px;">__________</td><td>__________</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div style="margin-top: 30px; padding: 20px 32px; background: var(--paper-2); border: 1px solid var(--ink);">
+      <div class="eyebrow" style="margin-bottom: 8px;">/ Malzeme Listem</div>
+      <p class="body" style="font-size: 22px; color: var(--muted);">______________________________________________________________________________</p>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">CK5 · süreç ürünü</div>
+    <div class="seg pg">42<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 43 · TASLAK ÇALIŞMASI (16 dk) ========== -->
+<section data-screen-label="43 Taslak">
+  <div class="rail top">
+    <div class="seg"><span>Ders 5 · Etkinlik</span></div>
+    <div class="seg"><span>Bireysel · 16 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 100px; align-content: center;">
+    <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px; align-items: center;">
+      <div>
+        <span class="stamp accent">Etkinlik 07</span>
+        <h2 class="hero" style="margin-top: 22px;">A3'e <em>üç taslak.</em></h2>
+        <p class="lede" style="margin-top: 30px; font-size: 30px;">En az 3 farklı taslak çiz. Her biri farklı bir kompozisyon denesin.</p>
+        <ol class="num" style="margin-top: 30px; gap: 0;">
+          <li><span class="n">→</span><span class="t">Hızlı çiz, silmekten korkma.</span></li>
+          <li><span class="n">→</span><span class="t">Mükemmel olmasın — fikir önemli.</span></li>
+          <li><span class="n">→</span><span class="t">En beğendiğini ⭐ ile işaretle.</span></li>
+        </ol>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
+        <div class="card" style="padding: 22px; height: 240px;"><div class="eyebrow" style="color: var(--accent);">/ 01</div><div style="height: calc(100% - 36px); margin-top: 14px; background: var(--paper-2); border: 1px dashed var(--rule-soft);"></div></div>
+        <div class="card" style="padding: 22px; height: 240px;"><div class="eyebrow" style="color: var(--accent);">/ 02</div><div style="height: calc(100% - 36px); margin-top: 14px; background: var(--paper-2); border: 1px dashed var(--rule-soft);"></div></div>
+        <div class="card accent" style="padding: 22px; height: 240px; grid-column: span 2;"><div class="eyebrow" style="color: var(--ink);">/ 03 · ⭐ favorin</div><div style="height: calc(100% - 36px); margin-top: 14px; background: rgba(30,58,95,0.12); border: 1px dashed var(--ink);"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Süreç ürünü · 3 taslak</div>
+    <div class="seg pg">43<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 44 · MOLA (5. ders sonu — ÖDEV YOK) ========== -->
+<section data-screen-label="44 Mola Ders 5">
+  <div class="rail top">
+    <div class="seg"><span>5. Ders Kapanışı</span></div>
+    <div class="seg"><span>10 dk teneffüs</span></div>
+  </div>
+  <div class="pad" style="grid-template-columns: 1.1fr 0.9fr; gap: 90px; align-content: center;">
+    <div>
+      <div class="kicker">Bu Derste</div>
+      <h2 class="hero" style="margin-top: 18px;">Eskiz <em>tamam.</em></h2>
+      <ol class="num" style="margin-top: 44px; gap: 0;">
+        <li><span class="n">✓</span><span class="t">Problemini cümleye döktün.</span></li>
+        <li><span class="n">✓</span><span class="t">Eleman-ilke planı (CK5) hazır.</span></li>
+        <li><span class="n">✓</span><span class="t">3 taslak ve favorin işaretli.</span></li>
+        <li><span class="n">✓</span><span class="t">Sıra arkadaşından geri dönüt aldın.</span></li>
+      </ol>
+      <p class="body dim" style="margin-top: 32px; font-style: italic;">→ Sıradaki: bu taslağı gerçeğe dönüştürüyoruz.</p>
+    </div>
+    <div class="card inv" style="padding: 56px 48px; align-self: center; text-align: center;">
+      <div class="eyebrow" style="color: var(--accent-2);">▸ Kısa Mola</div>
+      <div style="font-family: var(--serif); font-size: 200px; font-weight: 400; color: var(--paper); line-height: 0.9; margin: 30px 0 18px;">10<span style="font-size: 80px; vertical-align: top; margin-left: 4px; color: var(--accent-2);">dk</span></div>
+      <p class="body" style="font-size: 22px; color: rgba(244,239,230,0.9); margin: 0 0 26px;">Hava alın. Atölye günü, taslaklarını yanında getir.</p>
+      <div style="height: 1px; background: rgba(244,239,230,0.25); margin-bottom: 26px;"></div>
+      <div class="eyebrow" style="color: var(--accent-2);">/ Sonra</div>
+      <p class="body" style="font-size: 22px; color: var(--paper); margin: 10px 0 0;">6. Ders — <em style="color: var(--accent-2); font-style: italic;">Atölye + Galeri.</em></p>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">10 dk sonra 6. ders · ödev yok</div>
+    <div class="seg pg">44<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 45 · DERS 6 BAŞLIK (dark) ========== -->
+<section data-screen-label="45 Ders 06 Baslik" class="dark">
+  <div class="rail top">
+    <div class="seg"><span>3. Hafta · Ders 6/6</span></div>
+    <div class="seg"><span>TT.7.2.4.b</span></div>
+  </div>
+  <div class="pad" style="align-content: center;">
+    <div>
+      <span class="ders-tag d6">Ders 06</span>
+      <h1 class="display" style="margin-top: 36px; font-size: 160px;">Atölye<br>+ <em>Galeri.</em></h1>
+      <p class="lede" style="margin-top: 50px; color: rgba(244,239,230,0.78); font-size: 38px; max-width: 1100px; font-style: italic;">"Bunu ben yaptım."</p>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">İSG · üretim · sergileme · öz değerlendirme</div>
+    <div class="seg pg">45<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 46 · İSG HATIRLATMASI (5 kart) ========== -->
+<section data-screen-label="46 ISG">
+  <div class="rail top">
+    <div class="seg"><span>Ders 6 · İSG</span></div>
+    <div class="seg"><span>5 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 100px; grid-template-rows: auto 1fr;">
+    <div>
+      <div class="kicker" style="color: var(--accent);">⚠ Güvenli Atölye</div>
+      <h2 class="hero" style="margin-top: 18px;">Önce <em>güvenlik.</em></h2>
+    </div>
+    <div class="five" style="margin-top: 60px;">
+      <div class="card" style="padding: 24px 26px;"><div class="bn">01</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">🔫 Silikon</h4><p class="body" style="font-size: 18px; margin-top: 8px;">Ucu çok sıcak. Düz zemine bırak. Fişi çek, bekle.</p></div>
+      <div class="card" style="padding: 24px 26px;"><div class="bn">02</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">🔪 Maket Bıçağı</h4><p class="body" style="font-size: 18px; margin-top: 8px;">Kendinizden DIŞA kesin. Kesim altlığı kullan.</p></div>
+      <div class="card" style="padding: 24px 26px;"><div class="bn">03</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">✂︎ Makas</h4><p class="body" style="font-size: 18px; margin-top: 8px;">Keskin ucu kendinize doğru tutmayın.</p></div>
+      <div class="card" style="padding: 24px 26px;"><div class="bn">04</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">📄 Sıralar</h4><p class="body" style="font-size: 18px; margin-top: 8px;">Koruyucu kâğıtla örtülü. Yapıştırma sıraya değil kâğıda.</p></div>
+      <div class="card accent" style="padding: 24px 26px;"><div class="bn ink">05</div><h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">👋 Kural</h4><p class="body" style="font-size: 18px; margin-top: 8px; color: var(--ink);">Tıkanırsan dur, sor. Risk alma.</p></div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Atölye yönetimi · 5 dk</div>
+    <div class="seg pg">46<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 47 · ÜRETİM (22 dk) ========== -->
+<section data-screen-label="47 Uretim">
+  <div class="rail top">
+    <div class="seg"><span>Ders 6 · Üretim</span></div>
+    <div class="seg"><span>Bireysel · 22 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 100px; align-content: center;">
+    <div class="two asym" style="gap: 100px; align-items: center;">
+      <div>
+        <span class="stamp accent">Etkinlik 08</span>
+        <h2 class="hero" style="margin-top: 22px; font-size: 120px;">Yapıyoruz.</h2>
+        <p class="lede" style="margin-top: 36px; font-size: 32px;">Taslağını ürüne dönüştür.</p>
+        <p class="body" style="margin-top: 24px; max-width: 580px;">Bu derste rolüm değişir: yönlendirici değil, <b>yardımcı</b>. Tıkanırsan taslağına bak — oradan başla.</p>
+      </div>
+      <div class="card" style="padding: 36px 38px;">
+        <div class="eyebrow" style="margin-bottom: 20px; color: var(--accent);">/ Teknikler</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 22px;">
+          <div>✂︎ Kesme</div>
+          <div>✏︎ Çizim</div>
+          <div>🎨 Boyama</div>
+          <div>📐 Katlama</div>
+          <div>🔗 Birleştirme</div>
+          <div>🧷 Yapıştırma</div>
+        </div>
+        <div style="margin-top: 26px; height: 1px; background: var(--rule-soft);"></div>
+        <p class="body dim" style="font-size: 19px; margin-top: 22px; font-style: italic;">3D çalışıyorsan: silikon ve maket bıçağını öğretmen denetiminde kullan.</p>
+      </div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Ana performans · özgün ürün</div>
+    <div class="seg pg">47<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 48 · SON RÖTUŞ + TANITIM KARTI ========== -->
+<section data-screen-label="48 Son Rotus">
+  <div class="rail top">
+    <div class="seg"><span>Ders 6 · Bitiriş</span></div>
+    <div class="seg"><span>5 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 100px; grid-template-columns: 0.9fr 1.1fr; gap: 90px; align-content: center;">
+    <div>
+      <div class="kicker">Son Dokunuşlar</div>
+      <h2 class="hero" style="margin-top: 18px;">Kimliğini <em>kart.</em></h2>
+      <p class="body" style="margin-top: 32px; max-width: 480px;">Son ekleme veya rötuşları yap. Sonra <b>tanıtım kartını</b> doldur — galeri için.</p>
+    </div>
+    <div class="card" style="padding: 40px 44px;">
+      <div class="eyebrow" style="margin-bottom: 24px;">/ Tanıtım Kartı</div>
+      <table class="tbl" style="font-size: 22px;">
+        <tbody>
+          <tr><td style="width: 38%; padding: 22px 16px;"><b>Tasarımcı</b></td><td style="padding: 22px 16px; color: var(--muted);">__________</td></tr>
+          <tr><td style="padding: 22px 16px;"><b>Problem</b></td><td style="padding: 22px 16px; color: var(--muted);">__________</td></tr>
+          <tr><td style="padding: 22px 16px;"><b>Eleman / İlke</b></td><td style="padding: 22px 16px; color: var(--muted);">__________</td></tr>
+          <tr><td style="padding: 22px 16px;"><b>Bir cümlede</b></td><td style="padding: 22px 16px; color: var(--muted);">__________</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Galeri için hazırlık</div>
+    <div class="seg pg">48<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 49 · HIZLI GALERİ ========== -->
+<section data-screen-label="49 Galeri">
+  <div class="rail top">
+    <div class="seg"><span>Ders 6 · Galeri</span></div>
+    <div class="seg"><span>Sınıf · 5 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 100px; grid-template-rows: auto 1fr;">
+    <div>
+      <div class="kicker">Sınıf Tasarım Galerisi</div>
+      <h2 class="hero" style="margin-top: 18px;">Galeri <em>yürüyüşü.</em></h2>
+    </div>
+    <div class="three" style="margin-top: 60px; gap: 32px;">
+      <div class="card" style="padding: 32px 34px;">
+        <div class="bn">01</div>
+        <h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Yerleştirme</h4>
+        <p class="body" style="font-size: 20px; margin-top: 12px;">2D işler duvara, 3D işler sıraya. Tanıtım kartı yanında.</p>
+      </div>
+      <div class="card" style="padding: 32px 34px;">
+        <div class="bn">02</div>
+        <h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">İnceleme</h4>
+        <p class="body" style="font-size: 20px; margin-top: 12px;">Galeri yürüyüşü. <b>2 ürünü</b> incele, sahibine soru sor.</p>
+      </div>
+      <div class="card accent" style="padding: 32px 34px;">
+        <div class="bn ink">03</div>
+        <h4 style="margin-top: 14px; opacity: 1; color: var(--ink);">Post-it</h4>
+        <p class="body" style="font-size: 20px; margin-top: 12px; color: var(--ink); font-style: italic;">"Bu tasarımın en güçlü yanı: ___"</p>
+      </div>
+    </div>
+    <p class="body dim" style="margin-top: 36px; text-align: center; font-style: italic; font-size: 22px;">Yıkıcı geri dönüt değil — fark eden gözlem. Akran post-it'leri sahiplerinde kalır.</p>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Akran değerlendirme</div>
+    <div class="seg pg">49<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 50 · ÖZ DEĞERLENDİRME (CK6) ========== -->
+<section data-screen-label="50 Oz Degerlendirme">
+  <div class="rail top">
+    <div class="seg"><span>Ders 6 · Öz Değerlendirme · CK6</span></div>
+    <div class="seg"><span>Bireysel · 3 dk</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 100px; grid-template-columns: 0.9fr 1.1fr; gap: 90px; align-content: center;">
+    <div>
+      <span class="stamp">CK6 · Bireysel</span>
+      <h2 class="hero" style="margin-top: 22px;">Kendine <em>dön.</em></h2>
+      <p class="body dim" style="margin-top: 30px; max-width: 480px; font-style: italic;">Formu toplamayın — bu öğrencinin kendisine ait. Sınıfta bitmezse eve götür.</p>
+    </div>
+    <div class="card" style="padding: 36px 40px;">
+      <div class="eyebrow" style="margin-bottom: 24px;">/ Dört Soru</div>
+      <ol class="num" style="gap: 0;">
+        <li><span class="n">01</span><span class="t">Bu ünitede en iyi yaptığım şey: <span style="color: var(--muted);">___________</span></span></li>
+        <li><span class="n">02</span><span class="t">En çok zorlandığım an: <span style="color: var(--muted);">___________</span></span></li>
+        <li><span class="n">03</span><span class="t">Bir daha yapacak olsaydım <span style="color: var(--muted);">___</span> 'ı farklı yapardım.</span></li>
+        <li><span class="n">04</span><span class="t">Bir tasarım ilkesi seçsem: <span style="color: var(--muted);">___________</span></span></li>
+      </ol>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Üst bilişsel farkındalık</div>
+    <div class="seg pg">50<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 51 · FİNAL ÖZET (Nereden nereye) ========== -->
+<section data-screen-label="51 Final Ozet">
+  <div class="rail top">
+    <div class="seg"><span>Ünite Sonu</span></div>
+    <div class="seg"><span>Geriye Bakış</span></div>
+  </div>
+  <div class="pad" style="padding: 130px 120px; align-content: center;">
+    <div class="two asym-r" style="gap: 100px; align-items: start;">
+      <div>
+        <div class="kicker">3 Haftada · 6 Derste</div>
+        <h2 class="hero" style="margin-top: 18px;">Nereden <em>nereye</em><br>geldik?</h2>
+        <div style="margin-top: 36px; padding: 22px 26px; background: var(--paper-2); border-left: 3px solid var(--accent);">
+          <div class="eyebrow" style="margin-bottom: 10px; color: var(--accent);">/ Başladığımız soru</div>
+          <p class="body" style="font-style: italic;">"Bir tasarım ürününün bizi çekmesini sağlayan gizli kurallar var mı?"</p>
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow" style="margin-bottom: 18px;">/ Vardığımız yer</div>
+        <ol class="num" style="gap: 0;">
+          <li><span class="n">✓</span><span class="t"><b>9 elemanı</b> gözlemledik.</span></li>
+          <li><span class="n">✓</span><span class="t"><b>8 ilkeyi</b> karşılaştırdık.</span></li>
+          <li><span class="n">✓</span><span class="t"><b>Geleneksel Türk sanatını</b> tasarım diliyle okuduk.</span></li>
+          <li><span class="n">✓</span><span class="t"><b>Bir eseri</b> yeniden yorumladık.</span></li>
+          <li><span class="n">✓</span><span class="t"><b>Analoji kurarak</b> özgün fikir ürettik.</span></li>
+          <li><span class="n">✓</span><span class="t"><b>Tasarladık. Yaptık. Sergiledik.</b></span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Tebrikler</div>
+    <div class="seg pg">51<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+<!-- ========== 52 · SONRAKİ ÜNİTE (accent-bg) ========== -->
+<section data-screen-label="52 Sonraki Unite" class="accent-bg">
+  <div class="rail top">
+    <div class="seg"><span>Sonraki Adım</span></div>
+    <div class="seg"><span>3. Ünite</span></div>
+  </div>
+  <div class="pad center-q" style="align-content: center;">
+    <div>
+      <div class="kicker" style="margin-bottom: 30px;">▸ 3. Ünite · Yakında</div>
+      <h2 class="hero" style="font-size: 68px; color: var(--ink); opacity: 0.7;">Tasarım Odaklı Süreç</h2>
+      <h1 class="display" style="font-size: 130px; margin-top: 30px;">Güzel bir tasarım<br><em>yeterli</em><br>midir?</h1>
+      <p class="lede" style="margin-top: 50px; color: var(--ink); font-size: 30px; max-width: 1100px; margin-left: auto; margin-right: auto;">Estetik kadar kullanışlı, sürdürülebilir ve insan ölçeğine uygun olmak da gerekmez mi? Peki bunu nasıl planlarız?</p>
+    </div>
+  </div>
+  <div class="rail bot">
+    <div class="seg">Görüşmek üzere</div>
+    <div class="seg pg">52<span class="pg-tot"></span></div>
+  </div>
+</section>
+
+</deck-stage>
+
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#F4EFE6"/>
+  <rect x="0" y="0" width="400" height="6" fill="#0D9488"/>
+  <rect x="67" y="0" width="66" height="6" fill="#F59E0B"/>
+  <rect x="133" y="0" width="66" height="6" fill="#5B21B6"/>
+  <rect x="199" y="0" width="66" height="6" fill="#059669"/>
+  <rect x="265" y="0" width="66" height="6" fill="#1D4ED8"/>
+  <rect x="331" y="0" width="69" height="6" fill="#D97706"/>
+  <text x="200" y="160" font-family="Georgia, serif" font-size="46" font-style="italic" text-anchor="middle" fill="#1E3A5F">Temel Tasarım</text>
+  <text x="200" y="200" font-family="monospace" font-size="14" letter-spacing="3" text-anchor="middle" fill="#6A5F4F">2. ÜNİTE · 7. SINIF</text>
+</svg>
+</template>
+
+</body>
+</html>

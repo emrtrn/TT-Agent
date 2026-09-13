@@ -1,0 +1,61 @@
+/* ============================================================
+   ÜNİTE PALETİ — Üniteye Özgü Renk Tanımları
+   ------------------------------------------------------------
+   Her ünite kendi UNITE-PALET.css dosyasını taşır.
+   TASARIM-SISTEMI.css burada tanımlı --paper / --ink / --accent
+   değişkenlerini miras alır; renk kodları BURADA değişir,
+   görsel sistem (tipografi, layout, .rail/.card/.plch) aynı kalır.
+   ------------------------------------------------------------
+   AKTİF: 2. ÜNİTE — TEMEL TASARIM
+   Pedagojik ton: sıcak, geleneksel, el-emeği, atölye
+   Baskın aksan: Amber (Türk sanatları + ilkeler)
+   İkincil aksan: Teal (elemanlar)
+   ============================================================ */
+
+:root {
+  /* —— Zemin & metin (her ünite ortak ailede kalır, ton kayar) —— */
+  --paper:    #F4EFE6;   /* kırık beyaz / tebeşir — ana zemin */
+  --paper-2:  #EBE3D5;   /* ikincil zemin (kart altı) */
+  --ink:      #1E3A5F;   /* koyu lacivert — ana metin + dark zemin */
+  --ink-2:    #2A4A75;   /* ikincil lacivert */
+  --rule:     #2F4E78;   /* çizgi rengi (lacivert tonu) */
+  --rule-soft:#D8CEBC;   /* ince/yumuşak çizgi (kâğıt tonunda) */
+  --muted:    #6A5F4F;   /* dim metin (sıcak gri) */
+
+  /* —— Ünite 2 baskın aksanı: AMBER —— */
+  /* Türk sanatları + ilkeler haftasından geliyor; ünitenin sıcak kalbi.
+     Bu, .accent / kicker / stamp.accent / accent-bg slayt rengidir. */
+  --accent:   #F59E0B;   /* amber — ana aksan */
+  --accent-2: #FBBF24;   /* açık amber (dark zemin üstü okunaklılık) */
+
+  /* —— Ünite 2 ikincil aksanı: TEAL —— */
+  /* 1. dersin (elemanlar) rengi; etiket ve ikincil vurgu için. */
+  --teal:     #0D9488;   /* teal — ikincil aksan */
+
+  /* —— Ders-içi nüans renkleri (sadece bölüm başlığı şeritleri
+     ve kicker tonlamalarında; ana paletten ayrı tutulur) —— */
+  --ders-1:   #0D9488;   /* Ders 1 — Elemanlar / teal */
+  --ders-2:   #F59E0B;   /* Ders 2 — İlkeler + Türk Sanatları / amber */
+  --ders-3:   #5B21B6;   /* Ders 3 — Yeniden Yorumlama / koyu mor */
+  --ders-4:   #059669;   /* Ders 4 — Analoji / zümrüt */
+  --ders-5:   #1D4ED8;   /* Ders 5 — Taslak / lacivert açık */
+  --ders-6:   #D97706;   /* Ders 6 — Atölye + Galeri / altın */
+
+  --ok:       #3C6E47;   /* onay yeşili (sistem genelinde sabit) */
+}
+
+/* ============================================================
+   PALET DEĞİŞTİRME REHBERİ (yeni ünite için)
+   ============================================================
+   1. Bu dosyayı yeni ünitenin klasörüne kopyala.
+   2. --accent ve --accent-2 değerlerini ünitenin baskın temasına göre
+      değiştir (örn. 3. ünite "Tasarım Odaklı Süreç" için kireç yeşili).
+   3. --teal'i ikincil aksan olarak başka bir hue'a kaydırabilirsin
+      ya da aynı bırak.
+   4. --paper / --ink ailesine DOKUNMA — bu, ünite-ler-arası süreklilik
+      omurgasıdır. Sadece sıcak/soğuk doğrultusunda ±2-3 luminance
+      kayması yapılabilir, asla saturasyon eklenmez.
+   5. --ders-1...--ders-6 ünite içi ders sayısına göre değişir;
+      kullanılmayanlar silinir. Bu nüanslar yalnızca bölüm başlığı
+      şeritlerinde ve kicker'larda görünür — ana paleti ezmez.
+   ============================================================ */
