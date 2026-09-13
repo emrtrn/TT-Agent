@@ -56,7 +56,7 @@ Bu ilk taslakta her slayt için öğrenme aşaması, pedagojik amaç, materyal, 
 | 16 — Geleceğe Dair Tahminin | 2 | TT.8.1.1 | Materyaller | Geleceğe Dair Tahminin ile materyaller aşamasını öğrenci için görünür kılmak. | Ödev yönergesi | Yok | Yok | Slaytta kal | Slaytta kal | İçerik doğrulandı; entegrasyon bekliyor |
 | 17 — Bu Hafta: İhtiyacı Yakala | 3 | TT.8.1.2 | Öğren | Bu Hafta: İhtiyacı Yakala ile öğren aşamasını öğrenci için görünür kılmak. | Yok | Yok | Yok | Slaytta kal | Slaytta kal | İçerik doğrulandı; entegrasyon bekliyor |
 | 18 — Kısa Bir Süreç Alıştırması | 3 | TT.8.1.2 | Öğren | Kısa Bir Süreç Alıştırması ile öğren aşamasını öğrenci için görünür kılmak. | Yok | Yok | Yok | Slaytta kal | Slaytta kal | İçerik doğrulandı; entegrasyon bekliyor |
-| 19 — İnovasyon Atölyesi: Aşamaları Gör | 3 | TT.8.1.2 | Uygula | İnovasyon Atölyesi: Aşamaları Gör ile uygula aşamasını öğrenci için görünür kılmak. | Yerel İnovasyon Atölyesi MVP | Uygulama | TASLAK — yerel MVP; katalog kimliği yok | Öğretmenin önceden açması | Öğretmen kapatır, Slayt 20’ye döner | İlk taslak; kaynak üretimi bekliyor |
+| 19 — İnovasyon Atölyesi: Aşamaları Gör | 3 | TT.8.1.2 | Uygula | İnovasyon Atölyesi: Aşamaları Gör ile uygula aşamasını öğrenci için görünür kılmak. | İnovasyon Atölyesi: İhtiyaçtan Taslağa | Rehberli tasarım atölyesi | Hub 8-01/inovasyon-atolyesi — /araclar/inovasyon-atolyesi/index.html | Sunumda açılmaz; öğrenci evde isteğe bağlı açar | Araçtan çıktı alır; sınıf akışı Slayt 20’den kâğıtla sürer | Kaynak üretildi ve katalogda yayımlandı; sınıf görsel kabulü açık |
 | 20 — Alıştırmadan Ne Aldık? | 3 | TT.8.1.2 | Pekiştir | Alıştırmadan Ne Aldık? ile pekiştir aşamasını öğrenci için görünür kılmak. | Yok | Yok | Yok | Slaytta kal | Slaytta kal | İçerik doğrulandı; entegrasyon bekliyor |
 | 21 — İhtiyaç Avı Başlıyor | 3 | TT.8.1.2 | Materyaller | İhtiyaç Avı Başlıyor ile materyaller aşamasını öğrenci için görünür kılmak. | Çalışma kâğıdı 1 | Belge | TASLAK — katalog kimliği belirlenecek | Slaytta kal | Slaytta kal | İlk taslak; kaynak üretimi bekliyor |
 | 22 — Kartopu ile Fikri Büyüt | 3 | TT.8.1.2 | Uygula | Kartopu ile Fikri Büyüt ile uygula aşamasını öğrenci için görünür kılmak. | İhtiyaç Avı kâğıdı | Belge | TASLAK — katalog kimliği belirlenecek | Slaytta kal | Slaytta kal | İlk taslak; kaynak üretimi bekliyor |
@@ -155,22 +155,24 @@ Bu ilk taslakta her slayt için öğrenme aşaması, pedagojik amaç, materyal, 
 | Problem ve eskiz ipucu kartları | 3–5 | 21–39 | İhtiyaç anında 5 dakikalık destek; Bireysel Kâğıt 2–3 yanında | Belge üretildi; gerçek katalog kimliği yok |
 | Seçmeli zenginleştirme | 2, 5, 7–8 veya ünite sonu | 12–15, 34–39, 50–62 | En fazla bir kısa derinleştirme seçeneği; isteğe bağlı süreç dosyası eki | Belge üretildi; gerçek katalog kimliği yok |
 
-### Yerel İnovasyon Atölyesi MVP kullanım sınırı
+### İnovasyon Atölyesi kullanım sınırı ve kanıt eşitliği
 
-- Yalnızca Slayt 19’da, 3. ders içinde kullanılır; öğretmen uygulamayı dersten önce açar.
-- Süre 10–12 dakikadır; öğrenci ürünü teslim edilmez, notlandırılmaz ve resmî öğrenme kanıtı sayılmaz.
-- Öğrenciler uygulamayı kapattıktan sonra Slayt 20’de kısa çözümleme yapar ve Slayt 21’deki kâğıt tabanlı “İhtiyaç Avı”na geçer.
-- Kaynak kimliği `TASLAK — yerel MVP; katalog kimliği yok` olarak kalır; bu uygulama ünitenin temel kaynağı değildir.
+- Slayt 19 atölyeyi sınıfta açtırmaz; uygulama yalnız evde isteğe bağlı tamamlanan bir alternatif kanıt yoludur.
+- Ünite içindeki asıl sınıf kanıtı kâğıt tabanlı “İhtiyaç Avı” ve bağlı çalışma kâğıtlarıdır; bilgisayara erişim not almak için zorunlu değildir.
+- Evdeki **tam atölye**, öğrencinin öğretmen kâğıtları yerine seçebileceği alternatif kanıt yoludur. Öğrenci yazdırdığı veya PDF olarak kaydettiği özeti getirir; aynı kazanım ve rubrikle değerlendirilir.
+- Araç sunucuya öğrenci verisi göndermez; çalışma yalnız tarayıcı oturumunda saklanır. Çıktı alma ve öğrenci adı ekleme sorumluluğu öğrencidedir.
+- Kaynak kimliği Hub kataloğunda inovasyon-atolyesidir; uygulama oyun, BDT veya 3B deneyim değil, Uygula · Rehberli tasarım atölyesi sınıfındadır.
 
 ## Karar günlüğü
 
 | Tarih | Karar | Gerekçe |
+| 13.09.2026 | Öğretmen ve öğrenci materyalleri DOCX/PDF düzenleme tamamlanana kadar Hub kataloğuna eklenmeyecek; sunum bunları ETKİNLİK 01… ve Form (yakında) etiketleriyle referans gösterecek. | Basılı materyal üretimi sunumun pedagojik akışını veya görsel HTML üretimini bekletmemeli; gerçek olmayan bağlantı oluşturulmamalı. |
 |---|---|---|
 | 13.09.2026 | Sunum Markdown iki aşamada hazırlanacak. | Sunum hem ders anlatımını hem de portal içi kaynak geçişlerini yöneten omurgadır. |
 | 13.09.2026 | Kesin kaynak kimlikleri, ilgili kaynak katalogda oluşturulmadan yazılmayacak. | Kırık veya hayalî bağlantıları önlemek. |
 | 13.09.2026 | Uzun videolar sunum içi bağlantı yerine ayrı Öğren kaynağı olarak değerlendirilecek. | Ders akışını kesmeden isteğe bağlı derinleşme sağlamak. |
 | 13.09.2026 | Her oturum sonunda hazırlık planı ve entegrasyon haritası güncellenecek. | Başka oturumların kaldığı yerden güvenle devam edebilmesi. |
-| 13.09.2026 | Yerel İnovasyon Atölyesi MVP, 3. derste kâğıt etkinliğinden önce 10–12 dakikalık notsuz ön alıştırma olarak kullanılacak. | Öğrencinin inovasyon aşamalarını deneyimleyerek tanıması; kâğıt çalışmasının yerini veya değerlendirme kanıtını almaması. |
+| 13.09.2026 | İnovasyon Atölyesi Hub’a Uygula · Rehberli tasarım atölyesi olarak eklendi. Sınıfta açılmaz; evdeki altı aşamalı çıktı, öğretmen kâğıtlarına alternatif kanıt olarak aynı rubrikle değerlendirilebilir. | Okuldaki bilgisayar erişimini not için ön koşul yapmadan, erişimi olan öğrenciye kâğıt yoluna denk bir dijital çalışma seçeneği sağlamak. |
 | 13.09.2026 | İlk HTML üretimi, ClaudeDesign ortak sistemiyle; slayt türü, görsel yerleşim ve süre/öğretmen eylemi profili kullanılarak yapılacak. | 64 slaytlık pedagojik taslağın görsel HTML üretiminde kaybolmaması ve yeni bir sistemin gereksiz yere çoğalmaması. |
 | 13.09.2026 | Erken aşamada yalnızca sunum omurgası hazırlanacak; bağlı dokümanlar, etkinlikler ve gerçek katalog kimlikleri tamamlanmadan nihai sunum Markdown'ı veya HTML üretilmeyecek. | Gerçek çalışma kâğıdı ve Pekiştir/Uygula içeriği belirlenmeden kurulacak bağlantıların varsayımsal kalmasını önlemek. |
 | 13.09.2026 | Bireysel çalışma kâğıtları sekiz ayrı dağıtılabilir öğrenci kopyası olarak üretildi; ortak kartopu/istasyon/galeri ürünleri grup belgesine, 5N1K çözümlemesi ayrı araca bırakıldı. | 7-01 referans doküman standardındaki hedef kitle, kullanım anı ve fiziksel dağıtım ayrımını korumak. |

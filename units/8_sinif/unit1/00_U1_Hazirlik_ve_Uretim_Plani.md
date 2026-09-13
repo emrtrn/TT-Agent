@@ -122,7 +122,7 @@ Bu dağılım resmî bir saat eşlemesi değil, ders planı hazırlanırken değ
 
 Öğretmen hazırlık rehberi, ders planı ve ders/slayt düzeyindeki entegrasyon omurgası tamamlandı. İlk iki dersi kapsayan 16 slaytlık görsel HTML örneği `C:\Users\emret\Documents\maarif-design-hub\public\materyaller\8-01\sunum\index.html` olarak üretildi ve 1920 × 1080 görünümde kontrol edildi; bu çıktı yalnızca tasarım ve sahne prototipidir, nihai bağlantılı sunum değildir.
 
-Sıradaki tek iş: Pekiştir/Uygula içeriklerinin sayısını, türünü ve ders/slayt yerleşimini netleştirmek. Öğretmen yansıtma ve kapanış belgesi kullanıcı kararıyla bu Ünite 1 kapsamından çıkarıldı. Destekleme paketi, ihtiyaç anında seçilen dört kısa araçla; zenginleştirme paketi de öğrencinin en fazla birini seçtiği dört derinleştirme seçeneğiyle tamamlandı. Tüm bağlı dokümanlar ve etkinlikler tamamlanmadan 3–8. derslerin HTML'i veya nihai 64 slaytlık sunum üretilmeyecek. Bağlı kaynaklar tamamlanınca `TASLAK` kimlikleri gerçek katalog kimlikleriyle güncellenecek.
+Pekiştir paketi Hub’da üç kısa yerel etkinlikle üretildi. Uygula aşamasındaki inovasyon-atolyesi, evde kâğıt yoluna alternatif kanıt üreten tam atölye olarak Hub’a eklendi; sınıf akışında açılmaz. Öğretmen yansıtma ve kapanış belgesi kullanıcı kararıyla bu Ünite 1 kapsamından çıkarıldı. Öğretmen ve öğrenci dokümanları DOCX/PDF düzenleme aşamasında olduğundan, şimdilik Hub kataloğuna dahil edilmeyecek. Bu durum sunumu engellemez: sunumda Ön Değerlendirme, Çalışma Kâğıdı ve değerlendirme kanıtları gerçek olmayan bağlantı yerine görünür ETKİNLİK 01… / Form (yakında) referanslarıyla gösterilir. 64 slaytlık HTML sunumu, numaralı görsel yer tutucularla başlatıldı; gerçek görseller daha sonra eklenecek.
 
 ## 10. Oturum devri
 
@@ -131,12 +131,12 @@ Bu bölüm her çalışma oturumunun sonunda güncellenir. Başka bir oturum iş
 | Alan | Güncel durum |
 |---|---|
 | Son güncelleme | 13.09.2026 |
-| Tamamlanan | Resmî kaynak kaydı, Ünite 1 hazırlık planı, etkileşimli sunum ortak iş akışı, ders ve slayt düzeyindeki Ünite 1 entegrasyon omurgası, `U1_MD_Ogretmen_Hazirlik.md`, `U1_MD_01_Ders_Plani.md`, `U1_MD_02_On_Degerlendirme.md`, `U1_MD_Kavram_Kartlari.md`, `U1_MD_03A_Bireysel_Calisma_Kagitlari.md`, `U1_MD_03B_Grup_Calisma_Kagitlari.md`, `U1_MD_03C_5N1K_Kavram_Tablosu.md`, `U1_MD_04_Degerlendirme.md`, `U1_MD_05_Destekleme.md`, `U1_MD_06_Zenginlestirme.md`, `U1_MD_HTML_Sunum_Uretim_Brifi.md` içindeki nihai HTML kapısı ve ilk iki dersin 16 slaytlık görsel HTML prototipi |
-| Aktif iş | Tüm bağlı materyalleri üretme; tam sunum ve HTML bu işin ardından başlayacak |
-| Sıradaki tek iş | Pekiştir/Uygula içeriklerinin sayısını, türünü ve ders/slayt yerleşimini netleştirmek |
-| Sonraki iş | Onaylanan Pekiştir/Uygula etkinliklerini üretmek; ardından gerçek kaynak kimliklerini işlemek |
-| Açık karar | Portal içi açılış, kapanış ve sunuma dönüş davranışları; TASLAK kaynakların gerçek katalog kimlikleri |
-| Engeller | Gerçek kaynak katalog kimlikleri ve portal davranışları henüz doğrulanmadı; bu nedenle nihai HTML üretim kapısı kapalı. |
+| Tamamlanan | Resmî kaynak kaydı, Ünite 1 hazırlık planı, etkileşimli sunum ortak iş akışı, ders ve slayt düzeyindeki Ünite 1 entegrasyon omurgası, bağlı öğretmen/öğrenci materyali Markdown kaynakları, Hub’daki üç Pekiştir etkinliği ve inovasyon-atolyesi, 64 slaytlık 8-01 HTML sunumu, ETKİNLİK 01…12 ve bekleyen form referansları, numaralı görsel yer tutucular |
+| Aktif iş | 64 slaytlık sunumun tarayıcı/akıllı tahta görsel kabulü; daha sonra kullanıcı tarafından üretilecek görseller için yer tutucuların korunması |
+| Sıradaki tek iş | 8-01 sunumunu akıllı tahta görünümünde öğretmenle görsel olarak gözden geçirmek |
+| Sonraki iş | Hazır olduğunda DOCX/PDF materyallerini Hub kataloğuna eklemek ve ilgili ETKİNLİK/form etiketlerini gerçek kaynak bağlantılarıyla değiştirmek |
+| Açık karar | Görsel üretim sırası; portal içi açılış, kapanış ve sunuma dönüş davranışları |
+| Engeller | Dokümanların yayımlanması bekleniyor; fakat bu durum sunumun hazırlanmasına engel değildir. |
 
 ### Oturum kapatma kontrolü
 

@@ -1,0 +1,36 @@
+{
+  "document": {
+    "font": "Aptos",
+    "bodyFontSizePt": 10.2,
+    "titleFontSizePt": 19,
+    "majorHeadingFontSizePt": 14.5,
+    "subHeadingFontSizePt": 12,
+    "tableFontSizePt": 8.2
+  },
+  "page": {
+    "widthCm": 21.0,
+    "heightCm": 29.7,
+    "topMarginCm": 1.8,
+    "bottomMarginCm": 1.8,
+    "leftMarginCm": 2.0,
+    "rightMarginCm": 2.0,
+    "headerDistanceCm": 0.8,
+    "footerDistanceCm": 0.8
+  },
+  "colors": {
+    "primary": "C2410C",
+    "secondary": "9A3412",
+    "accent": "EA580C",
+    "veryPale": "FFF7ED",
+    "tableStripe": "FFF8F3",
+    "grid": "D1D5DB",
+    "text": "1F2937",
+    "muted": "6B7280",
+    "headerRule": "FED7AA",
+    "white": "FFFFFF"
+  },
+  "identity": {
+    "header": "8. Sınıf Teknoloji ve Tasarım",
+    "footer": "Türkiye Yüzyılı Maarif Modeli"
+  }
+}
