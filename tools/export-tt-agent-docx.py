@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import html
 import json
 import re
 import sys
@@ -14,6 +15,7 @@ from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement, parse_xml
 from docx.oxml.ns import nsdecls, qn
+from docx.opc.constants import RELATIONSHIP_TYPE as RT
 from docx.shared import Cm, Pt, RGBColor
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -24,6 +26,13 @@ BREAK = re.compile(r"^\s*<!--\s*(?:PAGEBREAK|PDF_PAGE_BREAK)\s*-->\s*$", re.I)
 DIVIDER = re.compile(r"^\|?\s*:?-{3,}:?\s*(?:\|\s*:?-{3,}:?\s*)+\|?$")
 WRITE_LINE = re.compile(r"^(?:\\_){3,}\s*$")
 WRITE_FIELD = re.compile(r"(?:\\_){3,}")
+INLINE = re.compile(
+    r"(?P<break><br\s*/?>)|"
+    r"(?P<field>(?:\\_){3,})|"
+    r"(?P<bold>\*\*(?P<bold_text>.+?)\*\*)|"
+    r"(?P<link>\[(?P<link_text>[^\]]+)\]\((?P<link_url>[^)]+)\))",
+    re.I,
+)
 
 
 def sha(path: Path) -> str:
@@ -88,13 +97,49 @@ class DocxRenderer:
         run.font.color.rgb = RGBColor.from_string(self.colors[color])
         run.bold = bold
 
+    def add_hyperlink(self, paragraph, text: str, url: str, size: float | None = None, bold: bool = False) -> None:
+        relationship_id = paragraph.part.relate_to(url, RT.HYPERLINK, is_external=True)
+        hyperlink = OxmlElement("w:hyperlink")
+        hyperlink.set(qn("r:id"), relationship_id)
+        run, properties, font = OxmlElement("w:r"), OxmlElement("w:rPr"), OxmlElement("w:rFonts")
+        font.set(qn("w:ascii"), self.theme["document"]["font"])
+        font.set(qn("w:hAnsi"), self.theme["document"]["font"])
+        font.set(qn("w:eastAsia"), self.theme["document"]["font"])
+        properties.append(font)
+        font_size = OxmlElement("w:sz")
+        font_size.set(qn("w:val"), str(round((size or self.theme["document"]["bodyFontSizePt"]) * 2)))
+        properties.append(font_size)
+        color = OxmlElement("w:color")
+        color.set(qn("w:val"), "0563C1")
+        properties.append(color)
+        underline = OxmlElement("w:u")
+        underline.set(qn("w:val"), "single")
+        properties.append(underline)
+        if bold:
+            properties.append(OxmlElement("w:b"))
+        run.append(properties)
+        value = OxmlElement("w:t")
+        value.text = text
+        run.append(value)
+        hyperlink.append(run)
+        paragraph._p.append(hyperlink)
+
     def add_text(self, paragraph, text: str, size: float | None = None, bold: bool = False, color: str = "text") -> None:
+        text = html.unescape(text)
         cursor = 0
-        for match in WRITE_FIELD.finditer(text):
+        for match in INLINE.finditer(text):
             if match.start() > cursor:
                 self.add_run(paragraph, text[cursor:match.start()], size, bold, color)
-            self.add_run(paragraph, "\u00A0" * match.group().count("\\_"), size, bold, color)
-            paragraph.runs[-1].font.underline = True
+            if match.group("break"):
+                self.add_run(paragraph, "", size, bold, color)
+                paragraph.runs[-1].add_break()
+            elif match.group("field"):
+                self.add_run(paragraph, "\u00A0" * match.group("field").count("\\_"), size, bold, color)
+                paragraph.runs[-1].font.underline = True
+            elif match.group("bold"):
+                self.add_text(paragraph, match.group("bold_text"), size, True, color)
+            elif match.group("link"):
+                self.add_hyperlink(paragraph, match.group("link_text"), match.group("link_url"), size, bold)
             cursor = match.end()
         if cursor < len(text):
             self.add_run(paragraph, text[cursor:], size, bold, color)
@@ -178,8 +223,13 @@ class DocxRenderer:
                 first_heading = False
                 index += 1
             elif item := re.match(r"^\s*([-+*]|\d+[.)])\s+(.+)$", line):
-                p = self.doc.add_paragraph(style="List Number" if item.group(1)[0].isdigit() else "List Bullet")
-                self.add_text(p, re.sub(r"^\[[xX ]\]\s*", "", item.group(2)))
+                checkbox = re.match(r"^\[([xX ])\]\s*(.*)$", item.group(2))
+                if checkbox:
+                    p = self.doc.add_paragraph()
+                    self.add_text(p, ("■ " if checkbox.group(1).lower() == "x" else "□ ") + checkbox.group(2))
+                else:
+                    p = self.doc.add_paragraph(style="List Number" if item.group(1)[0].isdigit() else "List Bullet")
+                    self.add_text(p, item.group(2))
                 index += 1
             elif stripped.startswith(">"):
                 p = self.doc.add_paragraph()
@@ -221,6 +271,10 @@ def validate(source: Path, output: Path, markdown: str, before: str) -> dict:
     expected = {char for char in markdown if char in "ÇçĞğİıÖöŞşÜü"}
     if not expected.issubset(set(exported_text(doc))):
         raise RuntimeError(f"Türkçe karakter doğrulaması başarısız: {output}")
+    rendered = exported_text(doc)
+    for raw in ("**", "<br", "&nbsp;"):
+        if raw in markdown and raw in rendered:
+            raise RuntimeError(f"Satır içi Markdown/HTML işleme doğrulaması başarısız: {output}")
     return {"source": source, "output": output, "tables": markdown_tables(markdown), "breaks": markdown_breaks(markdown)}
 
 

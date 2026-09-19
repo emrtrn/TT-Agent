@@ -58,4 +58,14 @@ Bu rehberin ikinci bölümü, her materyal türü için şu soruların cevabın�
 ## Resmî kaynak
 
 - [Teknoloji ve Tasarım Dersi Öğretim Programı — 8. Sınıf](https://tymm.meb.gov.tr/ogretim-programlari/teknoloji-tasarim-dersi/9)
+
+## 8. sınıf ünite referans kaynakları
+
 - [8. Sınıf 1. Ünite: İnovatif Düşüncenin Geliştirilmesi, Fikirlerin Korunması ve Etik](https://tymm.meb.gov.tr/teknoloji-tasarim-dersi/unite/1446)
+- [8. Sınıf 2. Ünite: Tanıtım ve Pazarlama](https://tymm.meb.gov.tr/teknoloji-tasarim-dersi/unite/1447)
+- [8. Sınıf 3. Ünite: Görsel İletişim Tasarımı](https://tymm.meb.gov.tr/teknoloji-tasarim-dersi/unite/1448)
+- [8. Sınıf 4. Ünite: Ürün Geliştirme](https://tymm.meb.gov.tr/teknoloji-tasarim-dersi/unite/1449)
+- [8. Sınıf 5. Ünite: Mühendislik ve Tasarım](https://tymm.meb.gov.tr/teknoloji-tasarim-dersi/unite/1450)
+- [8. Sınıf 6. Ünite: Ulaşım Teknolojileri](https://tymm.meb.gov.tr/teknoloji-tasarim-dersi/unite/1451)
+- [8. Sınıf 7. Ünite: Özgün Ürünümü Tasarlıyorum](https://tymm.meb.gov.tr/teknoloji-tasarim-dersi/unite/1452)
+- [8. Sınıf 8. Ünite: Bunu Ben Yaptım](https://tymm.meb.gov.tr/teknoloji-tasarim-dersi/unite/1453)
